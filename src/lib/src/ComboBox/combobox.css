@@ -1,0 +1,123 @@
+:root {
+    --comboBox-height: 20px;
+}
+
+.combobox-container {
+    column-gap: 0px;
+}
+
+.combobox-text {
+    margin-right: 5px;
+}
+
+.combobox-item, .combobox-input, .combobox-value {
+    color: black;
+    font-size: 13px;
+}
+
+.combobox-text:hover {
+    cursor: default;
+}
+
+.combobox-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: max-content;
+}
+
+.combobox-selector {
+    display: flex;
+    align-items: center;
+    border: 1px solid #959595;
+    border-radius: 3px;
+    transition: 0.3s background, 0.2s border-color, 0.2s box-shadow;
+    position: relative;
+}
+
+.combobox-selector:hover {
+    border-color: var(--componentHoverColor);
+}
+
+.focused {
+    border-color: var(--componentHoverColor);
+    box-shadow: 0px 0px 3px 1px var(--componentFocusShadowColor);
+}
+
+.combobox-value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: 0.2s color;
+    width: 100%;
+    align-content: center;
+    padding: 0 0 0 4px;
+}
+
+.combobox-input {
+    background: none;
+    position: absolute;
+    border: none;
+    cursor: pointer;
+    padding: 0 0 0 4px;
+}
+
+.combobox-input:focus {
+    outline: none;
+}
+
+.combobox-icon {
+    height: var(--comboBox-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px 0 4px;
+}
+
+.combobox-icon img {
+    width: 12px;
+    user-select: none;
+}
+
+.combobox-items-container {
+    position: absolute;
+    background: white;
+    padding: 5px 0px;
+    margin: 0;
+    overflow: auto;
+    border-radius: 2px;
+    box-shadow: 0px 5px 15px 0px #00000024;
+    z-index: 100;
+    transition: max-height 0.2s;
+}
+
+.combobox-item {
+    padding: 2px 5px;
+    cursor: pointer;
+    /*font-weight: bold;*/
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.combobox-item:hover {
+    background: #cfcfcf;
+}
+
+.combobox-clearitem {
+    z-index: 100;
+    position: absolute;
+    height: var(--comboBox-height);
+    right: 0;
+    align-items: center;
+    width: 18px;
+    height: 100%;
+}
+
+.combobox-clearitem img {
+    width: 15px;
+    display: block;
+    height: 100%;
+    cursor: pointer;
+    user-select: none;
+}

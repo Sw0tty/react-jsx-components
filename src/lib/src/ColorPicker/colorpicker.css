@@ -1,0 +1,25 @@
+.colorpicker-container {
+    height: 21px;
+}
+
+.colorpicker {
+    display: flex;
+    height: 100%;
+    border: 1px solid var(--componentBorderColor);
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s border-color;
+}
+
+.colorpicker:hover {
+    border-color: var(--componentHoverColor);
+}
+
+.colorpicker::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.colorpicker::-webkit-color-swatch {
+    border: 0;
+}

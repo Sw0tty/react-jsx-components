@@ -1,0 +1,87 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+html,
+body {
+	height: 100%;
+	overflow: hidden;
+}
+
+body {
+	display: flex;
+	margin: 0;
+}
+
+:root {
+	font-family: system-ui;
+	line-height: 1.5;
+	font-weight: 400;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	--componentBaseHeight: 20px;
+	--componentBaseFontFamily: Helvetica, sans-serif;
+	--componentBaseFontColor: black;
+	--componentBaseFontSize: 13px;
+	--componentHoverColor: #5eaac5;
+	--componentFocusColor: #7ea7b5;
+	--componentFocusShadowColor: #c8e8f3;
+	--componentBorderColor: #959595;
+	--componentErrorColor: #e13329;
+	--componentWarningColor: #ffab1d;
+	--iconRedColor: #FF2400;
+	--iconGreenColor: #00ff00;
+	--backgroundBooksGrayLight: #f3f3f3;
+	--datagridRowSelectedColor: #ffe7b1;
+	--datagridCellSelectedColor: #ffd575;
+}
+
+#root {
+	margin: 0;
+	display: flex;
+	place-items: center;
+	min-width: 320px;
+	min-height: 100vh;
+	width: 100%;
+}
+
+#body-block {
+	flex: 1 0 0%;
+	height: 100%;
+	transition: all .3s ease;
+	display: flex;
+	flex-direction: column;
+}
+
+#content-block {
+	background: white;
+	flex: 1 0 0%;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+#body-block-content {
+	background: white;
+	flex: 1 0 0%;
+	overflow: auto;
+}
+
+#body-block-footer {
+	height: 60px;
+    background: #efefef;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.footer-info {
+	display: flex;
+	column-gap: 10px;
+	font-family: Helvetica, sans-serif;
+	font-size: 15px;
+	color: #959595;
+	user-select: none;
+	white-space: nowrap;
+}

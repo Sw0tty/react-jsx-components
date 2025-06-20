@@ -1,0 +1,154 @@
+:root {
+    --main-color: #B12C28;
+    --second-color: #F5A8A5;
+    --third-color: #E5E5E5;
+    --fourth-color: #fdfdfd;
+    --menu-icon-block-width: 45px;
+}
+
+#menu {
+    height: 100%;
+    transition: all .3s ease;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+}
+
+#menu-block {
+    background: var(--main-color);
+    height: 100%;
+    transition: all .3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 999;
+    box-shadow: 0px 0px 10px 2px rgb(0 0 0 / 70%);
+    user-select: none;
+}
+
+.menu-logo-block {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid var(--second-color);
+    width: 100%;
+    height: 70px;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: system-ui;
+}
+
+.menu-logo-text {
+    color: white;
+    font-size: 20px;
+}
+
+.menu-items-block {
+    height: calc(100% - 70px - 35px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.menu-item {
+    display: flex;
+    background: var(--main-color);
+    align-items: center;
+    width: 100%;
+    height: 45px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--second-color);
+}
+
+.menu-item:hover {
+    color: white;
+}
+
+.menu-item:not(hover) {
+    background: none;
+}
+
+.menu-sub-items-container {
+    background: var(--main-color);
+    overflow: hidden;
+    display: block;
+    transition: all .3s ease;
+}
+
+.menu-shrink-button {
+    height: 45px;
+    color: #F5A8A5;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.menu-shrink-button:hover {
+    color: white;
+}
+
+.menu-shrink-button:not(hover) {
+    color: var(--second-color);
+}
+
+.menu-item-text {
+    transition: all .3s ease;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    font-family: system-ui;
+    width: calc(100% - 60px);
+}
+
+.menu-item-selected-caption {
+    color: white;
+}
+
+.menu-item-icon-block, .menu-item-icon-block-daughter {
+    width: var(--menu-icon-block-width);
+}
+
+.menu-item-icon-block {
+    display: flex;
+    justify-content: center;
+    transition: all .3s ease;
+    align-items: center;
+}
+
+.menu-item-icon-block img {
+    width: 25px;
+    mask-size: 25px;
+    height: 25px;
+    display: block;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    transition: background-color .3s ease;
+    background-color: var(--second-color);
+}
+
+.menu-item:hover img {
+    background-color: white;
+}
+
+.menu-shrink-button:hover img {
+    background-color: white;
+}
+
+.menu-item-icon-block-daughter {
+    box-sizing: border-box;
+    height: 100%;
+    border-left: 5px solid var(--second-color);
+}
+
+.menu-items-block::-webkit-scrollbar {
+    background: var(--main-color);
+    width: 5px;
+}
+
+.menu-items-block::-webkit-scrollbar-thumb {
+    background: var(--second-color);
+    border-radius: 20px;
+}

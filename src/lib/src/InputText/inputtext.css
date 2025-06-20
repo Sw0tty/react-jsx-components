@@ -1,0 +1,101 @@
+:root {
+    --textBox-height: 20px;
+}
+
+.textbox-full, .textbox-full .textbox-inputcontainer, .textbox-full .textbox-inputbox, .textbox-full input {
+    width: 100%;
+}
+
+.textbox-inputcontainer {
+    display: flex;
+}
+
+.textbox-inputbox {
+    display: flex;
+    border: 1px solid var(--componentBorderColor);
+    border-radius: 3px;
+    overflow: hidden;
+    transition: 0.3s background, 0.3s border-color, 0.3s box-shadow;
+}
+
+.textbox-inputbox-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+}
+
+.textbox-inputbox-icon img {
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    display: block;
+    user-select: none;
+    mask-size: 80%;
+    width: 18px;
+    height: 18px;
+    background-color: var(--componentBorderColor);
+}
+
+.textbox-inputbox:focus-within {
+    outline: none;
+    border-color: var(--componentFocusColor);
+    box-shadow: 0px 0px 3px 1px var(--componentFocusShadowColor);
+}
+
+.textbox-inputbox:hover {
+    border-color: var(--componentHoverColor);
+}
+
+.textbox-input, .textbox-caption {
+    font-size: 13px;
+}
+
+.textbox-caption:hover {
+    cursor: default;
+}
+
+.textbox-container {
+    display: flex;
+    align-items: center;
+}
+
+.textbox-input {
+    padding: 0 0 0 4px;
+    color: black;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 21px;
+    border: 0;
+    border-radius: 2px;
+    transition: 0.3s background, 0.3s border-color, 0.3s box-shadow;
+}
+
+.textbox-input::-webkit-outer-spin-button,
+.textbox-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.textbox-input::-ms-reveal,
+.textbox-input::-ms-clear {
+    display: none;
+}
+
+.textbox-input:focus {
+    outline: none;
+}
+
+.component-baseformat-text {
+	font-size: 13px;
+	color: black;
+	font-family: Helvetica, sans-serif;
+	white-space: nowrap;
+}
+
+.component-baseformat-container {
+    display: flex;
+	width: max-content;
+	column-gap: 5px;
+	align-items: center;
+}

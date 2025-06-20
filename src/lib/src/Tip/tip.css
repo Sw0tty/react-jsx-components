@@ -1,0 +1,63 @@
+.tip-container {
+	display: flex;
+	width: max-content;
+}
+
+.tip-iconbox {
+	position: relative;
+	user-select: none;
+}
+
+.tip-icon {
+	position: relative;
+	user-select: none;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+}
+
+.tip-icon1 img {
+	width: 19px;
+	transition: 0.3s background;
+	position: relative;
+	top: -5px;
+}
+
+.tip-icon img {
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	mask-position: center;
+	display: block;
+	user-select: none;
+	mask-size: 100%;
+	width: 20px;
+	height: 20px;
+	background-color: white;
+	cursor: pointer;
+	background: black;
+	position: relative;
+	top: -5px;
+}
+
+.tip-icon img:hover {
+	cursor: pointer;
+}
+
+.tip-caption-block {
+	position: absolute;
+	background: #6b6b6b;
+	width: 110px;
+	max-width: 110px;
+	font-family: system-ui;
+	color: #ffffff;
+	font-size: 11px;
+	opacity: 0.95;
+	bottom: 20px;
+	left: 15px;
+	padding: 5px;
+	border-radius: 2px;
+	transition: 0.3s opacity;
+	z-index: 300;
+    -webkit-filter: none;
+}

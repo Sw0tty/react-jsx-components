@@ -1,0 +1,74 @@
+:root {
+    --multiSelect-height: 20px;
+}
+
+.multiselect-item-text, .multiselect-text {
+    color: black;
+    font-size: 13px;
+}
+
+.multiselect-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.multiselect-text {
+    width: 100%;
+    border-bottom: 1px solid var(--componentBorderColor);
+    margin-bottom: 3px;
+    white-space: nowrap;
+}
+
+.multiselect-items-container {
+    border: 1px solid var(--componentBorderColor);
+    border-color: var(--componentBorderColor);
+    border-radius: 3px;
+    transition: 0.2s border-color;
+}
+
+.multiselect-items-container:hover {
+    cursor: pointer;
+}
+
+.multiselect-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border-bottom: 1px solid var(--componentBorderColor);
+    height: var(--multiSelect-height);
+    transition: 0.2s background;
+}
+
+.multiselect-item:hover {
+    background: #e7e7e7;
+}
+
+.multiselect-item:last-child {
+    border-bottom: none;
+}
+
+.multiselect-item-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.multiselect-text:hover {
+    cursor: default;
+}
+
+.multiselect-item-icon img {
+    width: 20px;
+    transition: 0.2s opacity;
+}
+
+.multiselect-item-icon {
+    user-select: none;
+    height: var(--multiSelect-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px 0 4px;
+}

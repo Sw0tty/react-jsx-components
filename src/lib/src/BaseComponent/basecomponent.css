@@ -1,0 +1,21 @@
+.basecomponent-error-container {
+	display: flex;
+	width: max-content;
+	border: 1px solid red;
+	border-radius: 3px;
+	padding: 3px 5px;
+	background: #ffefef;
+}
+
+.basecomponent-error-container span {
+	font-size: 13px;
+	font-family: Helvetica, sans-serif;
+	white-space: nowrap;
+	color: red;
+}
+
+.basecomponent-required-sign {
+	color: red;
+	margin-right: 2px;
+	user-select: none;
+}
