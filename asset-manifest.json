@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/react-jsx-components/static/css/main.49c2a3d7.css",
+    "main.js": "/react-jsx-components/static/js/main.eab67cf0.js",
+    "static/media/ShrinkArrow.svg": "/react-jsx-components/static/media/ShrinkArrow.77aaddbcc3d6e87c2eeba7f79276203e.svg",
+    "index.html": "/react-jsx-components/index.html",
+    "main.49c2a3d7.css.map": "/react-jsx-components/static/css/main.49c2a3d7.css.map",
+    "main.eab67cf0.js.map": "/react-jsx-components/static/js/main.eab67cf0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.49c2a3d7.css",
+    "static/js/main.eab67cf0.js"
+  ]
+}
