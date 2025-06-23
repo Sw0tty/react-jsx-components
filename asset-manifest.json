@@ -1,14 +1,16 @@
 {
   "files": {
-    "main.css": "/react-jsx-components/static/css/main.49c2a3d7.css",
-    "main.js": "/react-jsx-components/static/js/main.eab67cf0.js",
+    "main.css": "/react-jsx-components/static/css/main.6999da97.css",
+    "main.js": "/react-jsx-components/static/js/main.cc36bcd2.js",
     "static/media/ShrinkArrow.svg": "/react-jsx-components/static/media/ShrinkArrow.77aaddbcc3d6e87c2eeba7f79276203e.svg",
+    "static/media/Question.svg": "/react-jsx-components/static/media/Question.bd2d74362906a7ec668e1f9eeeb691b1.svg",
+    "static/media/Check.svg": "/react-jsx-components/static/media/Check.103738e3831e948f698f270d46bc3139.svg",
     "index.html": "/react-jsx-components/index.html",
-    "main.49c2a3d7.css.map": "/react-jsx-components/static/css/main.49c2a3d7.css.map",
-    "main.eab67cf0.js.map": "/react-jsx-components/static/js/main.eab67cf0.js.map"
+    "main.6999da97.css.map": "/react-jsx-components/static/css/main.6999da97.css.map",
+    "main.cc36bcd2.js.map": "/react-jsx-components/static/js/main.cc36bcd2.js.map"
   },
   "entrypoints": [
-    "static/css/main.49c2a3d7.css",
-    "static/js/main.eab67cf0.js"
+    "static/css/main.6999da97.css",
+    "static/js/main.cc36bcd2.js"
   ]
 }
