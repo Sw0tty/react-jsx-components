@@ -19,3 +19,13 @@
 	margin-right: 2px;
 	user-select: none;
 }
+
+.enable {
+	background: white;
+}
+
+.disabled {
+	pointer-events: none;
+	background: #e7e7e7;
+}
+

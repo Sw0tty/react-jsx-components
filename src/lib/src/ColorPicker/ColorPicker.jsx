@@ -15,10 +15,12 @@ class ColorPicker extends BaseComponent {
             value
         });
 
-        this.props?.onReturnData ? setTimeout(() => {
-            const { func, params } = this.props.onReturnData;
-            func(value, params ?? undefined);
-        }, 0) : null;
+        if (this.props?.onReturnData) {
+            setTimeout(() => {
+                const { func, params } = this.props.onReturnData;
+                func(value, params ?? undefined);
+            }, 0)
+        }
     }
     componentDidUpdate() {
         this.updateValueState({ stateKey: "value", newValue: this.props?.value, lastStateValue: this.state.value});
@@ -26,8 +28,8 @@ class ColorPicker extends BaseComponent {
     renderComponent() {
         return (
             <div className="component-baseformat-container colorpicker-container" style={this.props?.style}>
-                {this.props?.caption ? <span className="component-baseformat-text colorpicker-caption">{`${this.props.caption} :`}</span> : null}
-                <input type="color" className={`colorpicker ${this.props.disabled ? ' disabled' : ' enable'}${this.props?.invalidData ? ' invalid' : ''}`} value={this.state.value} onChange={(event) => { this.setComponentData(event.target.value) }} />
+                {this.props?.caption ? <span className="component-baseformat-text colorpicker-caption">{this.props.caption}</span> : null}
+                <input type="color" className={`colorpicker${this.props.disabled ? ' disabled' : ' enable'}${this.props?.invalidData ? ' invalid' : ''}`} value={this.state.value} onChange={(event) => { this.setComponentData(event.target.value) }} />
             </div>
         );
     }

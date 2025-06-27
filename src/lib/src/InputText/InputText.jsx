@@ -18,6 +18,7 @@ import './inputtext.css';
 class InputText extends BaseComponent {
     constructor(props) {
         super();
+        this.requiredProps = ['width', 'disabled', 'required', 'maxLength'];
         this.state = {
             value: props.value ?? '',
             minYear: 1700,
@@ -31,21 +32,23 @@ class InputText extends BaseComponent {
         }
         this.defaultSize = 13;
         this.heightIncrement = 6;
-        this.maxLength = props?.inputType == "yearOnly" ? 4 : props?.maxLength;
+        this.maxLength = props?.inputType === "yearOnly" ? 4 : props?.maxLength;
     }
     setComponentData(value) {
-        const maxLength = this.props?.inputType == "yearOnly" ? 4 : this.props?.maxLength
+        const maxLength = this.props?.inputType === "yearOnly" ? 4 : this.props?.maxLength
 
         if (value.length <= maxLength) {
             this.setState({
-                value: this.props?.inputType == "yearOnly" || this.props?.inputType == "number" ? this.returnNumber(value.trim()) : value
+                value: this.props?.inputType === "yearOnly" || this.props?.inputType === "number" ? this.returnNumber(value.trim()) : value
             });
         }
 
-        this.props?.onReturnData ? setTimeout(() => {
-            const { func, params } = this.props.onReturnData;
-            func(this.props?.inputType == "yearOnly" || this.props?.inputType == "number" ? this.shortDateToDateFormat() : this.state.value, params ?? undefined);
-        }, 0) : null;
+        if (this.props?.onReturnData) {
+            setTimeout(() => {
+                const { func, params } = this.props.onReturnData;
+                func(this.props?.inputType === "yearOnly" || this.props?.inputType === "number" ? this.shortDateToDateFormat() : this.state.value, params ?? undefined);
+            }, 0)
+        }
     }
     showHelp(event) {
         this.setState((prevState) => ({
@@ -91,65 +94,64 @@ class InputText extends BaseComponent {
         return value;
     }
     shortDateToDateFormat() {
-        return this.state?.value?.length == 4 ? `${this.state?.value}-01-01` : this.state?.value;
+        return this.state?.value?.length === 4 ? `${this.state?.value}-01-01` : this.state?.value;
     }
     returnShortDate() {
         return this.props.value?.includes('-') ? this.props.value?.slice(0, this.props.value.indexOf('-')) : this.props.value;
     }
     testShortDate = () => {
-        const newValue = this.state?.value?.length == 4 ? `${this.state?.value}` : '';
+        const newValue = this.state?.value?.length === 4 ? `${this.state?.value}` : '';
  
         this.setState({
             value: newValue
         });
-        this.props?.onReturnData ? setTimeout(() => {
-            const { func, params } = this.props.onReturnData;
-            func(this.props?.inputType == "yearOnly" ? this.shortDateToDateFormat() : this.state.value, params ?? undefined);
-        }, 0) : null;
+
+        if (this.props?.onReturnData) {
+            setTimeout(() => {
+                const { func, params } = this.props.onReturnData;
+                func(this.props?.inputType === "yearOnly" ? this.shortDateToDateFormat() : this.state.value, params ?? undefined);
+            }, 0)
+        }
     }
     componentDidUpdate() {
-        if (this.props.disabled != this.state.lastState) {
+        if (this.props.disabled !== this.state.lastState) {
             this.setState({
                 value: this.props.value,
                 lastState: this.props.disabled
             });
         }
 
-        if (this.props.inputType != this.state.lastType) {
+        if (this.props.inputType !== this.state.lastType) {
             this.setState({
                 value: '',
                 lastType: this.props.inputType
             });
         }
     }
-    render() {
+    renderComponent() {
         const inputStyle = {
             width: `${this.props.width}px`,
         }
         return (
-            <>
-                {this.checkRequiredProps(['width', 'disabled', 'required', 'maxLength']) ??
-                    <div className={`${this.props?.removeBaseCSS ? '' : 'component-baseformat-container '}textbox-container${this.props?.fullWidth ? ' textbox-full' : ''}`} style={this.props?.style?.container}>
+            <div className={`${this.props?.removeBaseCSS ? '' : 'component-baseformat-container '}textbox-container${this.props?.fullWidth ? ' textbox-full' : ''}`} style={this.props?.style?.container}>
+                {
+                    this.props.required || this.props?.caption ?
+                        <span className="component-baseformat-text textbox-caption" style={{ fontSize: inputStyle.fontSize }}>{this.props.required ? this.getRequiredSign() : null}{this.props?.caption ? this.props?.caption : null}</span>
+                    : null
+                }
+                <div className="textbox-inputcontainer">
+                    <div className={`textbox-inputbox${this.props.disabled ? " disabled" : " enable"}${this.props?.invalid ? ' invalid' : ''}`} style={{ flexDirection: this.props?.inputIconReverse ? "row-reverse" : "" }}>
+                        <input placeholder={this.props?.placeholder} onBlur={() => { if (this.props?.inputType === "yearOnly") { this.testShortDate() } }} spellCheck="true" value={this.props?.inputType === "yearOnly" ? this.returnShortDate() : this.state.value} type={this.props.inputType === "date" ? "date" : this.props.inputType === "password" ? "password" : "text"} className={`textbox-input${this.props.disabled ? " disabled" : " enable"}`} title={this.state.lastType === "password" ? '' : this.state.value} style={this.props?.style?.input ?? inputStyle} onChange={(event) => this.setComponentData(event.target.value)} />
                         {
-                            this.props.required || this.props?.caption ?
-                                <span className="component-baseformat-text textbox-caption" style={{ fontSize: inputStyle.fontSize }}>{this.props.required ? this.getRequiredSign() : null}{this.props?.caption ? `${this.props?.caption} :` : null}</span>
+                            this.props.inputIconPath ?
+                                <div className="textbox-inputbox-icon">
+                                    <img alt="" style={{ WebkitMaskImage: `url(${this.props.inputIconPath}.svg)`, maskImage: `url(${this.props.inputIconPath}.svg)` }} />
+                                </div>
                             : null
                         }
-                        <div className="textbox-inputcontainer">
-                            <div className={`textbox-inputbox${this.props.disabled ? " disabled" : " enable"}${this.props?.invalidData ? ' invalid' : ''}`} style={{ flexDirection: this.props?.inputIcon?.alignLeft ? "row-reverse" : "" }}>
-                                <input placeholder={this.props?.placeholder} onBlur={() => { this.props?.inputType == "yearOnly" ? this.testShortDate() : null }} spellCheck="true" value={this.props?.inputType == "yearOnly" ? this.returnShortDate() : this.state.value} type={this.props.inputType == "date" ? "date" : this.props.inputType == "password" ? "password" : "text"} className={`textbox-input${this.props.disabled ? " disabled" : " enable"}`} title={this.state.lastType == "password" ? '' : this.state.value} style={this.props?.style?.input ?? inputStyle} onChange={(event) => this.setComponentData(event.target.value)} />
-                                {
-                                    this.props.inputIcon?.icon ?
-                                        <div className="textbox-inputbox-icon">
-                                            <img style={{ WebkitMaskImage: `url(/src/assets/${this.props?.inputIcon?.icon}.svg)`, maskImage: `url(/src/assets/${this.props?.inputIcon?.icon}.svg)` }} />
-                                        </div>
-                                    : null
-                                }
-                            </div>
-                        </div>
                     </div>
-                }
-            </>
+                </div>
+            </div>
         );
     }
 }

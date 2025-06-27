@@ -1,25 +1,35 @@
-.loading-background {
+.loading-container {
     display: flex;
-    position: absolute;
-    z-index: 9999;
-    width: 100%;
-    height: 100%;
-    background: #00000024;
     justify-content: center;
     align-items: center;
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
+    position: relative;
 }
 
-.loading-container img {
+.loading-background-2 {
+    display: flex;
+    position: absolute;
+    z-index: 9998;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-icon-container {
+    position: absolute;
+    display: flex;
+    z-index: 9999;
+}
+
+.loading-icon-container img {
     width: 60px;
-    animation-name: rotation;
+    animation-name: iconRotation;
     animation-duration: 2s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
 
-@keyframes rotation {
+@keyframes iconRotation {
     0% {
         transform: rotate(0deg);
     }

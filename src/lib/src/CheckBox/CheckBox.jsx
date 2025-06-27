@@ -1,4 +1,5 @@
 import BaseComponent from '../BaseComponent/BaseComponent.jsx';
+import Check from './Check.svg';
 import './checkbox.css';
 
 
@@ -15,23 +16,35 @@ class CheckBox extends BaseComponent {
         super();
         this.requiredProps = ['disabled'];
         this.state = {
-            data: props.value ?? false,
+            value: props?.value ?? false,
         }
     }
-    setComponentData() {
-        const { func, params } = this.props.onReturnData;
-        func(!this.props.value, params ?? undefined);
-        this.props.onBindingData ? this.props.onBindingData(this.props.bindingParamName) : null;
+    setComponentData(value) {
+        this.setState({
+            value: !value
+        });
+
+        if (this.props?.onReturnData) {
+            setTimeout(() => {
+                const { func, params } = this.props.onReturnData;
+                func(!value, params ?? undefined);
+            }, 0)
+        }
+    
+        if (this.props?.onBindingData) {
+            this.props.onBindingData(this.props.bindingParamName)
+        }
+
         //this.props.onBindingData ? this.props.onBindingData.func(this.props.onBindingData?.params) : null;
     }
     renderComponent() {
         return (
             <div className="checkbox-container">
                 <>
-                    {this.props?.caption ? <span className="checkbox-caption">{this.props?.caption} :</span> : null}
-                    <div className={`checkbox-box${this.props.disabled ? " disabled" : ''}`} style={{ width: this.props?.size ? `${this.props.size}px` : null, height: this.props?.size ? `${this.props.size}px` : null }} onClick={() => this.setComponentData()}>
+                    {this.props?.caption ? <span className="checkbox-caption">{this.props?.caption}</span> : null}
+                    <div className={`checkbox-box${this.props.disabled ? " disabled" : ''}`} style={{ width: this.props?.size ? `${this.props.size}px` : null, height: this.props?.size ? `${this.props.size}px` : null }} onClick={() => this.setComponentData(this.state.value)}>
                         <div className={`checkbox-box-filler${this.props?.value ? " checked" : ''}`}>
-                            {this.props?.icon && this.props?.value ? <img style={{ WebkitMaskImage: `url(/src/assets/${this.props?.icon}.svg)`, maskImage: `url(/src/assets/${this.props?.icon}.svg)` }} /> : null}
+                            {this.props?.icon && this.props?.value ? <img style={{ WebkitMaskImage: `url(${Check})` ?? `url(/src/assets/${this.props?.icon}.svg)`, maskImage: `url(/src/assets/${this.props?.icon}.svg)` }} /> : null}
                         </div>
                     </div>
                 </>

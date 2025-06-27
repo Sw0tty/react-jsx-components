@@ -8,6 +8,7 @@
     font-size: 13px;
     margin-right: 5px;
     white-space: nowrap;
+    font-family: Helvetica, sans-serif;
 }
 
 .checkbox-caption:hover {

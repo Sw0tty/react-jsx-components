@@ -1,0 +1,72 @@
+.playground-component-props-container {
+    border: 1px solid #efefef;
+    border-radius: 5px;
+    border-width: 2px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.playground-main-title {
+    border-bottom: 1px solid;
+    margin: 0 50px;
+}
+
+.playground-play-block-title, .playground-main-title {
+    text-align: center;
+    font-family: Helvetica, sans-serif;
+    color: #959595;
+}
+
+.playground-play-block {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+#playground-docprops, #playground-docprops td {
+    border-collapse: collapse;
+}
+
+#playground-docprops tbody td:first-child {
+    width: 150px;
+    border-left: 0;
+}
+
+#playground-docprops tbody td:nth-child(2) {
+    justify-items: center;
+    width: 100px;
+}
+
+#playground-docprops tbody td:nth-child(3) {
+    width: 150px;
+    text-align: center;
+}
+
+#playground-docprops td {
+   border: 2px solid rgb(204, 204, 204);
+   padding: 2px 5px;
+}
+
+#playground-docprops {
+    width: 100%;
+    font-size: 14px;
+}
+
+#playground-docprops tr:first-child > td:first-child {
+    border-left: 0;
+}
+
+#playground-docprops tr:first-child > td:last-child {
+    border-right: 0;
+}
+
+#playground-docprops tbody td:last-child {
+    border-right: 0;
+}
+
+#playground-docprops tr:first-child > td {
+    border-top: 0;
+    color: black;
+    text-align: center;
+}
+

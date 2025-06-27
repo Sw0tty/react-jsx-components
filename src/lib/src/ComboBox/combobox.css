@@ -121,3 +121,8 @@
     cursor: pointer;
     user-select: none;
 }
+
+.combobox-listwrapper {
+    transition: opacity 0.2s ease-in-out, height 0.2s ease-in-out;
+    z-index: 100;
+}

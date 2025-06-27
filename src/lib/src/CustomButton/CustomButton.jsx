@@ -15,20 +15,22 @@ class CustomButton extends BaseComponent {
     constructor() {
         super();
         this.requiredProps = ['caption'];
+        this.baseHoverColor = "#5eaac5";
+        this.buttonStyles = ['hollow', 'fill'];
     }
     renderComponent() {
-        const baseHoverColor = "#5eaac5";
-
         return (
-            <div style={{ ...this.props?.style, '--customButtonHoverColor': this.props?.hoverColor ?? baseHoverColor }} onClick={(event) => this.props?.onClickAction?.func({ event: event, ...this.props?.onClickAction?.params })} className={`button-default ${this.props?.disabled ? "disabled" : ""} ${this.props.type == "acceptFill" ? "accept-fill" : this.props.type == "acceptHollow" ? "accept-hollow" : this.props.type == "rejectHollow" ? "reject-hollow" : ""}`}>
-                {this.props?.icon ? <div className="custombutton-icon">
-                    {
-                        this.props?.isImage ?
-                            <img src={`/src/assets/${this.props.icon}.svg`} /> :
-                            <img className="custombutton-icon-imgicon" style={{ WebkitMaskImage: `url(/src/assets/${this.props.icon}.svg)`, maskImage: `url(/src/assets/${this.props.icon}.svg)` }} />
-                    }
-                </div> : null}
-                {this.props.caption}
+            <div className={`custombutton-container`}>
+                <div style={{ ...this.props?.style, '--customButtonHoverColor': this.props?.hoverColor ?? this.baseHoverColor, flexDirection: this.props?.reverse ? "row-reverse" : null }} onClick={(event) => this.props?.onClickAction?.func({ event: event, ...this.props?.onClickAction?.params })} className={`button-default ${this.buttonStyles.includes(this.props.type) ? this.props.type : ''}`}>
+                    {this.props?.iconPath ? <div className="custombutton-icon">
+                        {
+                            this.props?.isImage ?
+                                <img src={this.props.iconPath} /> :
+                                <img className="custombutton-icon-imgicon" style={{ WebkitMaskImage: `url(${this.props.iconPath}.svg)`, maskImage: `url(${this.props.iconPath}.svg)` }} />
+                        }
+                    </div> : null}
+                    {this.props.caption}
+                </div>
             </div>
         );
     }

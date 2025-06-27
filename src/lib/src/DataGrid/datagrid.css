@@ -1,0 +1,429 @@
+#datagrid-element-block {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden; /*experemental*/
+}
+
+.datagrid-toolbar {
+	display: flex;
+	box-shadow: 2px 2px 8px rgb(0 0 0 / 50%); /*experemental*/
+}
+
+.datagrid-toolbar-tools {
+	display: flex;
+	flex-wrap: wrap;
+	flex: 1 0 0%;
+	gap: 3px;
+}
+
+.datagrid-container {
+	width: 100%;
+	overflow: auto;
+	flex: 1 0 0%;
+}
+
+.datagrid-elements-container {
+	display: flex;
+	width: max-content;
+}
+
+#datagrid {
+	border-collapse: collapse;
+}
+
+#datagrid td, #datagrid tbody tr {
+	border: 1px solid #959595;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+
+#datagrid tbody td:first-child,
+#datagrid tbody tr,
+#datagrid thead th,
+#datagrid thead tr {
+	border-left: none;
+}
+
+#datagrid tbody tr:first-child, #datagrid tbody tr:first-child td {
+	border-top: none;
+}
+
+#datagrid thead tr {
+	box-shadow: 2px 2px 8px rgb(0 0 0 / 50%);
+}
+
+.datagrid-cell {
+	padding: 1px 5px;
+	display: flex;
+	margin-left: 5px;
+	/*column-gap: 5px;*/
+}
+
+.datagrid-cell span {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+#datagrid tbody td:not(.datagrid-numcolumn) {
+	max-width: 0px;
+	background: white;
+}
+#datagrid tbody td {
+	color: black;
+	overflow: hidden;
+}
+
+#datagrid td, #datagrid thead th {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+#datagrid thead th {
+	background: #d7d7d7;
+}
+
+#datagrid thead {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	background: white;
+	z-index: 10;
+}
+
+#datagrid {
+	table-layout: fixed;
+	cursor: default;
+}
+
+.datagrid-checkbox-wrapper {
+	display: flex;
+	margin-right: 3px;
+}
+
+.datagrid-numcolumn {
+	width: 50px;
+	text-align: right;
+	resize: none;
+	background: #d7d7d7;
+	color: black;
+	position: sticky;
+	left: 0px;
+	height: 0px;
+	z-index: 9;
+}
+
+.datagrid-numcolumn > div {
+	border-right: 1px solid #959595;
+	border-bottom: 1px solid #959595;
+	padding-right: 5px;
+	height: 100%;
+	width: 50px;
+}
+
+tr > th.datagrid-numcolumn {
+	z-index: 100;
+}
+
+.datagrid-header-container {
+	min-width: 50px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.datagrid-header-left-handlers {
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+}
+
+.datagrid-header-right-handlers {
+	display: flex;
+	align-items: center;
+}
+
+.datagrid-header-title {
+	font-weight: normal;
+	font-size: 14px;
+	color: black;
+	padding-left: 5px;
+}
+
+.datagrid-resizer img,
+.datagrid-sorter img,
+.datagrid-filter img,
+.datagrid-parent-shrink img,
+.datagrid-item-icon img,
+.datagrid-cell .datagrid-cell-img {
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	mask-position: center;
+	display: block;
+	user-select: none;
+}
+
+.datagrid-resizer img {
+	mask-size: 60%;
+	width: 7px;
+	height: 24px;
+	background-color: #757575;
+	cursor: e-resize;
+	-webkit-mask-image: url(/src/assets/Resizer.svg);
+	mask-image: url(/src/assets/Resizer.svg);
+}
+
+.datagrid-sorter {
+	align-items: center;
+}
+
+.datagrid-sorter img {
+	mask-size: 90%;
+	width: 16px;
+	height: 14px;
+	background-color: black;
+	cursor: pointer;
+	-webkit-mask-image: url(/src/assets/Sorter.svg);
+	mask-image: url(/src/assets/Sorter.svg);
+}
+
+.datagrid-filter {
+	background: white;
+	border: 1px solid black;
+	border-radius: 3px;
+	margin: 1px;
+	transition: 0.3s border-color, 0.3s background;
+	position: relative;
+}
+
+.datagrid-filter-active {
+	background: #b7e2f3;
+}
+
+.datagrid-filter > img:first-child {
+	mask-size: 70%;
+	width: 20px;
+	height: 20px;
+	background-color: black;
+	transition: 0.3s background-color;
+	cursor: pointer;
+	-webkit-mask-image: url(/src/assets/Filter.svg);
+	mask-image: url(/src/assets/Filter.svg);
+}
+
+.datagrid-filter:hover:not(:has(.datagrid-filter-form-container:hover)) {
+	border-color: var(--componentHoverColor);
+}
+
+.datagrid-filter:hover:not(:has(.datagrid-filter-form-container:hover)) > img:first-child {
+	background-color: var(--componentHoverColor);
+}
+
+.datagrid-parent-shrink, .datagrid-item-icon {
+	display: flex;
+	align-items: center;
+}
+
+.datagrid-item-icon {
+	padding-right: 5px;
+}
+
+.datagrid-parent-shrink img {
+	background-color: black;
+	transition: 0.1s transform;
+	cursor: pointer;
+	mask-size: 100%;
+	width: 15px;
+	height: 15px;
+	-webkit-mask-image: url(/src/assets/ArrowDown.svg);
+	mask-image: url(/src/assets/ArrowDown.svg);
+}
+
+.datagrid-parent-shrink-plug {
+	width: 15px;
+	min-width: 15px;
+}
+
+.datagrid-item-icon img {
+	mask-size: 100%;
+	width: 20px;
+	height: 20px;
+}
+
+.datagrid-filter-form-container {
+	font-weight: normal;
+	background: white;
+	position: absolute;
+	z-index: 100;
+	border: 1px solid #959595;
+	border-radius: 3px;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 1px 1px 10px #a1a1a1;
+	padding: 5px;
+	transition: 0.3s all;
+}
+
+.datagrid-filter-form-triugl {
+	width: 0;
+	height: 0;
+	border-left: 13px solid transparent;
+	border-right: 13px solid transparent;
+	border-bottom: 10px solid #ffffff;
+	position: absolute;
+	top: -8px;
+	border-radius: 5px;
+}
+
+.datagrid-filter-form-header {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+}
+
+.datagrid-filter-form-header-title {
+	border-bottom: 1px solid;
+	margin: 0 10px;
+	font-weight: bold;
+	font-family: system-ui;
+	font-size: 16px;
+	color: black;
+	user-select: none;
+}
+
+.datagrid-filter-form-actions {
+	display: flex;
+}
+
+.datagrid-filter-form-data {
+	width: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	flex: 1 0 0%;
+}
+
+.datagrid-filter-form-data-item {
+	display: flex;
+	white-space: nowrap;
+	font-size: 13px;
+	align-items: center;
+	font-family: system-ui;
+	color: black;
+	padding: 1px 5px;
+	border-top: 1px solid;
+	user-select: none;
+}
+
+.datagrid-filter-form-buttons {
+	display: flex;
+	justify-content: end;
+}
+
+.datagrid-filter-form-data-item span {
+	padding-left: 5px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.datagrid-cell .datagrid-cell-img {
+	mask-size: 75%;
+	width: 20px;
+	height: 20px;
+	background-color: black;
+}
+
+.datagrid-nondata-container {
+	place-self: anchor-center;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+}
+
+.datagrid-nondata-icon {
+	background-color: black;
+	mask-size: 100%;
+	width: 80px;
+	height: 80px;
+	-webkit-mask-image: url(/src/assets/EmptyBox.svg);
+	mask-image: url(/src/assets/EmptyBox.svg);
+}
+
+.datagrid-nondata-caption {
+	cursor: default;
+	user-select: none;
+	font-size: 20px;
+}
+
+.datagridtool-error-container {
+	display: flex;
+	width: max-content;
+	border: 1px solid red;
+	border-radius: 3px;
+	padding: 2px 4px;
+	background: #ffefef;
+	color: red;
+	font-size: 11px;
+}
+
+.datagridtool-button {
+	align-items: center;
+	border: 1px solid var(--componentBorderColor);
+	padding: 1px 6px 1px 6px;
+	background: white;
+	min-width: 50px;
+	height: 20px;
+	display: flex;
+	column-gap: 5px;
+	transition: 0.3s border-color, 0.3s background;
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: 3px;
+    user-select: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.datagridtool-button:hover {
+	border-color: var(--datagridtoolHoverColor);
+	color: var(--datagridtoolHoverColor);
+}
+
+.datagridtool-button-caption {
+	font-size: 14px;
+	color: black;
+	transition: 0.3s color;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.datagridtool-button:hover .datagridtool-button-caption {
+	color: var(--datagridtoolHoverColor);
+}
+
+.datagridtool-button-icon .datagridtool-button-imgicon {
+	-webkit-mask-size: 100%;
+	mask-size: 100%;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	mask-position: center;
+	height: 24px;
+	background-color: black;
+	transition: 0.3s background-color;
+}
+
+.datagridtool-button:hover .datagridtool-button-imgicon {
+	background-color: var(--datagridtoolHoverColor);
+}
+
+.datagridtool-button-icon img {
+	width: 14px;
+	display: block;
+}
