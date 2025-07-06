@@ -65,7 +65,7 @@ class Splitter extends BaseComponent {
                             <div className="splitter-vertical-first" style={{ width: this.state.mainBlockWidth, ...this.props?.style?.firstBlock }}>
                                 {this.props?.firstBlockContent}
                             </div>
-                            {this.props?.removeResizeBlock ? null : <div className="splitter-vertical-resizer" style={{ cursor: this.props?.addResize ? null : "default" }} onMouseDown={(event) => { if (this.props?.addResize) { this.resizeBlock(event) } }}></div>}
+                            {this.props?.removeResizeBlock ? null : <div className={`splitter-vertical-resizer${this.props?.addResize ? ' splitter-verticalresize-active' : ''}`} onMouseDown={(event) => { if (this.props?.addResize) { this.resizeBlock(event) } }}></div>}
                             <div className="splitter-vertical-second" style={{ ...this.props?.style?.secondBlock }}>
                                 {this.props?.secondBlockContent}
                             </div>
@@ -75,7 +75,7 @@ class Splitter extends BaseComponent {
                             <div className="splitter-horizontal-first" style={{ height: this.state.mainBlockWidth, ...this.props?.style?.firstBlock }}>
                                 {this.props?.firstBlockContent}
                                 </div>
-                                {this.props?.removeResizeBlock ? null : <div className="splitter-horizontal-resizer" style={{ cursor: this.props?.addResize ? null : "default" }} onMouseDown={(event) => { if (this.props?.addResize) { this.resizeBlock(event) } }}></div>}
+                                {this.props?.removeResizeBlock ? null : <div className={`splitter-horizontal-resizer${this.props?.addResize ? ' splitter-horizontalresize-active' : ''}`} onMouseDown={(event) => { if (this.props?.addResize) { this.resizeBlock(event) } }}></div>}
                             <div className="splitter-horizontal-second" style={{ ...this.props?.style?.secondBlock }}>
                                 {this.props?.secondBlockContent}
                             </div>

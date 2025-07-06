@@ -2,6 +2,7 @@ import BaseMethods from "../demoComponents/BaseMethods.jsx";
 import Playground from '../demoComponents/Playground.jsx';
 import Splitter from "../lib/src/Splitter/Splitter.jsx";
 import Switcher from "../lib/src/Switcher/Switcher.jsx";
+import ComboBox from "../lib/src/ComboBox/ComboBox.jsx";
 
 
 class SplitterPage extends BaseMethods {
@@ -16,11 +17,12 @@ class SplitterPage extends BaseMethods {
     }
     render() {
         return(<Playground title="Splitter"
-                pComponent={<div style={{ width: "100%", height: "200px" }}><Splitter reverse={this.state.reverse} removeResizeBlock={this.state.removeResizeBlock} addResize={this.state.addResize} splitRule="vertical" firstBlockContent={<div>First block</div>} secondBlockContent={<div>Second block</div>} /></div>}
+                pComponent={<div style={{ width: "100%", height: "200px" }}><Splitter reverse={this.state.reverse} removeResizeBlock={this.state.removeResizeBlock} addResize={this.state.addResize} splitRule={this.state.splitRule} firstBlockContent={<div>First block</div>} secondBlockContent={<div>Second block</div>} /></div>}
                 componentProps={<>
-                    <Switcher caption="AddResize :" disabled={false} inOnState={this.state.addResize} onReturnData={{ func: this.setData, params: { propName: "addResize" } }} />
-                    <Switcher caption="RemoveResizeBlock :" disabled={false} inOnState={this.state.removeResizeBlock} onReturnData={{ func: this.setData, params: { propName: "removeResizeBlock" } }} />
-                    <Switcher caption="Reverse :" disabled={false} inOnState={this.state.reverse} onReturnData={{ func: this.setData, params: { propName: "reverse" } }} />
+                    <ComboBox selectedItem="vertical" required={true} disabled={false} caption="Split rule" width={200} valueKey="keyCap" captionKey="keyCap" items={[{ keyCap: "vertical" }, { keyCap: "horizontal" }]} onReturnData={{ func: this.setData, params: { propName: "splitRule" } }} />
+                    <Switcher caption="AddResize :" disabled={false} value={this.state.addResize} onReturnData={{ func: this.setData, params: { propName: "addResize" } }} />
+                    <Switcher caption="RemoveResizeBlock :" disabled={false} value={this.state.removeResizeBlock} onReturnData={{ func: this.setData, params: { propName: "removeResizeBlock" } }} />
+                    <Switcher caption="Reverse :" disabled={false} value={this.state.reverse} onReturnData={{ func: this.setData, params: { propName: "reverse" } }} />
                 </>}
                 componentDocumentation={[
                     {name: "splitRule", required: true, dataType: "string", description: "Accepts the const value like: vertical OR horizontal."},

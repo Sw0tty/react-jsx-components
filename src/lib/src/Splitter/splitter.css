@@ -1,7 +1,3 @@
-.splitter-container {
-
-}
-
 .splitter-vertical {
 	display: flex;
 	width: 100%;
@@ -43,18 +39,27 @@
 }
 
 .splitter-vertical-resizer, .splitter-horizontal-resizer {
-	width: 3px;
 	background: #bbbbbb;
 }
 
 .splitter-vertical-resizer {
-	cursor: e-resize;
+	min-width: 3px;
+	max-width: 3px;
 }
 
 .splitter-horizontal-resizer {
+	max-height: 3px;
+	min-height: 3px;
+}
+
+.splitter-verticalresize-active {
+	cursor: e-resize;
+}
+
+.splitter-horizontalresize-active {
 	cursor: n-resize;
 }
 
-.splitter-vertical-resizer:hover, .splitter-horizontal-resizer:hover {
+.splitter-verticalresize-active:hover, .splitter-horizontalresize-active:hover {
 	background: #939393;
 }

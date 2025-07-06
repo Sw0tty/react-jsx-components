@@ -1,0 +1,60 @@
+.stepslist-container {
+	min-width: 200px;
+}
+
+.stepslist-step-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.stepslist-step-header {
+	display: flex;
+	align-items: center;
+	column-gap: 10px;
+}
+
+.stepslist-step-num {
+  	border: 2px solid black;
+	border-radius: 100%;
+	min-width: 35px;
+	max-width: 35px;
+	min-height: 35px;
+	max-height: 35px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	user-select: none;
+}
+
+.stepslist-step-title {
+	font-weight: bold;
+	font-size: 18px;
+	font-family: Helvetica, sans-serif;
+}
+
+.stepslist-step-body {
+	display: flex;
+	column-gap: 10px;
+}
+
+.stepslist-step-body-description {
+	font-size: 13px;
+	font-family: Helvetica, sans-serif;
+	padding-bottom: 20px;
+}
+
+.stepslist-step-body-line-container {
+	min-width: 39px;
+	max-width: 39px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.stepslist-step-body-line {
+	border-right: 1px solid #cecece;
+	height: 100%;
+}

@@ -61,6 +61,9 @@ class App extends Component {
 						{
 							id: undefined, name: "DataGrid", icon: "Table", to: ROOT_PATH + "/DataGrid"
 						},
+						{
+							id: undefined, name: "StepsList", icon: "StepsList", to: ROOT_PATH + "/StepsList"
+						},
 					]
 				} />
 				<div id="body-block">

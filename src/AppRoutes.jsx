@@ -16,6 +16,7 @@ import ComboBoxPage from './pages/ComboBoxPage.jsx';
 import ContextMenuPage from './pages/ContextMenuPage.jsx';
 import GalleryPage from './pages/GalleryPage.jsx';
 import DataGridPage from './pages/DataGridPage.jsx';
+import StepsListPage from './pages/StepsListPage.jsx';
 import { ROOT_PATH } from './AppConts.js';
 
 
@@ -40,6 +41,7 @@ function AppRoutes() {
             <Route path={`${ROOT_PATH}/ContextMenu`} element={<ContextMenuPage />} />
             <Route path={`${ROOT_PATH}/Gallery`} element={<GalleryPage />} />
             <Route path={`${ROOT_PATH}/DataGrid`} element={<DataGridPage />} />
+            <Route path={`${ROOT_PATH}/StepsList`} element={<StepsListPage />} />
         </Routes>
     );
 }
