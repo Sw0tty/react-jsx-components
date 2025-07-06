@@ -1,5 +1,16 @@
 .colorpicker-container {
     height: 21px;
+    display: flex;
+    width: max-content;
+    column-gap: 5px;
+    align-items: center;
+}
+
+.colorpicker-caption {
+    font-size: 13px;
+    color: black;
+    font-family: Helvetica, sans-serif;
+    white-space: nowrap;
 }
 
 .colorpicker {

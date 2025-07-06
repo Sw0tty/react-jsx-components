@@ -1,0 +1,49 @@
+.propdetails-description {
+  	border-bottom: 1px solid #a1a1a1;
+    border-left: 1px solid #a1a1a1;
+    margin-left: 50px;
+    border-radius: 0 0 0 5px;
+    padding: 5px;
+    font-size: 13px;
+    color: black;
+	box-shadow: -3px 3px 6px #d5d5d5;
+}
+
+.propdetails-keyname {
+	border-bottom: 1px solid #a1a1a1;
+    font-size: 20px;
+    padding: 2px 0 2px 10px;
+    color: black;
+    font-family: Helvetica, sans-serif;
+	background: white;
+    position: relative;
+    z-index: 100;
+}
+
+.propdetails-container {
+	margin: 10px;
+}
+
+.propdetails-propname {
+	display: flex;
+    border-bottom: 1px solid #a1a1a1;
+    width: 70%;
+    margin-left: 50px;
+    position: relative;
+}
+
+.propdetails-title {
+	text-shadow: 4px 3px 3px #cdcdcd;
+	left: -30px;
+    font-size: 26px;
+    font-weight: bold;
+    position: relative;
+    color: black;
+    font-family: Helvetica, sans-serif;
+}
+
+.propdetails-params-container {
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+}

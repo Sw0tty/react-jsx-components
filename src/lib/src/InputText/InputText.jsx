@@ -24,11 +24,6 @@ class InputText extends BaseComponent {
             minYear: 1700,
             lastState: props.disabled,
             lastType: props.inputType,
-            helpParams: {
-                helpBlockPos: null,
-                blockDisplay: "none",
-                blockOpacity: 0
-            },
         }
         this.defaultSize = 13;
         this.heightIncrement = 6;
@@ -49,41 +44,6 @@ class InputText extends BaseComponent {
                 func(this.props?.inputType === "yearOnly" || this.props?.inputType === "number" ? this.shortDateToDateFormat() : this.state.value, params ?? undefined);
             }, 0)
         }
-    }
-    showHelp(event) {
-        this.setState((prevState) => ({
-            helpParams: {
-                ...prevState.helpParams,
-                helpBlockPos: event.target.getBoundingClientRect(),
-                blockDisplay: "block"
-            }
-        }));
-        setTimeout(() => {
-            this.setState((prevState) => ({
-                helpParams: {
-                    ...prevState.helpParams,
-                    blockOpacity: 1
-                }
-            }));
-        }, 0);
-    }
-    hideHelp(event) {
-        this.setState((prevState) => ({
-            helpParams: {
-                ...prevState.helpParams,
-                helpBlockPos: event.target.getBoundingClientRect(),
-                blockOpacity: 0
-                
-            }
-        }));
-        setTimeout(() => {
-            this.setState((prevState) => ({
-                helpParams: {
-                    ...prevState.helpParams,
-                    blockDisplay: "none"
-                }
-            }));
-        }, 300);
     }
     returnNumber(value) {
         for (let letter of value.split('')) {

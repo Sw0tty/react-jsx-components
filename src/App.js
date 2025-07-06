@@ -55,20 +55,26 @@ class App extends Component {
 						{
 							id: undefined, name: "ContextMenu", icon: "ContextMenu", to: ROOT_PATH + "/ContextMenu"
 						},
+						{
+							id: undefined, name: "Gallery", icon: "Gallery", to: ROOT_PATH + "/Gallery"
+						},
+						{
+							id: undefined, name: "DataGrid", icon: "Table", to: ROOT_PATH + "/DataGrid"
+						},
 					]
 				} />
 				<div id="body-block">
 					<div id="body-block-content">
-						<StrictMode>
-							<AppRoutes />
-						</StrictMode>
-					</div>
-					<div id="body-block-footer">
-						<div className="footer-info">
-							<div>Version: 1.0.0</div>
-							<div>Copyright © Sw0tty, 2025</div>
+							<StrictMode>
+								<AppRoutes />
+							</StrictMode>
 						</div>
-					</div>
+						<div id="body-block-footer">
+							<div className="footer-info">
+								<div>Version: 1.0.0</div>
+								<div>Copyright © Sw0tty, 2025</div>
+							</div>
+						</div>
 				</div>
 			</>
 		);

@@ -14,7 +14,7 @@ import './custombutton.css';
 class CustomButton extends BaseComponent {
     constructor() {
         super();
-        this.requiredProps = ['caption'];
+        this.requiredProps = ['caption', 'type'];
         this.baseHoverColor = "#5eaac5";
         this.buttonStyles = ['hollow', 'fill'];
     }

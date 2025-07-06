@@ -1,0 +1,321 @@
+.dgcheckbox-container {
+    display: flex;
+    align-items: center;
+}
+
+.dgcheckbox-caption {
+    color: black;
+    font-size: 13px;
+    margin-right: 5px;
+    white-space: nowrap;
+    font-family: Helvetica, sans-serif;
+}
+
+.dgcheckbox-caption:hover {
+    cursor: default;
+}
+
+.dgcheckbox-block input {
+    cursor: pointer;
+    width: 0;
+    height: 0;
+}
+
+.dgcheckbox-box {
+    width: 15px;
+    height: 15px;
+    border: 1px solid #959595;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: 0.3s background, 0.3s border-color, 0.1s box-shadow ease-out;
+    background: white;
+}
+
+.dgcheckbox-box:hover {
+    background: #f7f9ff;
+    border-color: #5eaac5;
+}
+
+.dgcheckbox-box:active {
+    box-shadow: 0px 0px 5px 1px #c8e8f3;
+}
+
+.dgcheckbox-box-filler {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+}
+
+.dgcheckbox-checked {
+    background: #66d775;
+}
+
+.dgcheckbox-box-filler img {
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    display: block;
+    user-select: none;
+    mask-size: 100%;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    cursor: pointer;
+}
+
+.dgtool-error-container {
+	display: flex;
+	width: max-content;
+	border: 1px solid red;
+	border-radius: 3px;
+	padding: 2px 4px;
+	background: #ffefef;
+	color: red;
+	font-size: 11px;
+}
+
+.dgtool-button {
+	align-items: center;
+	border: 1px solid #959595;
+	padding: 1px 6px 1px 6px;
+	background: white;
+	min-width: 50px;
+	height: 20px;
+	display: flex;
+	column-gap: 5px;
+	transition: 0.3s border-color, 0.3s background;
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: 3px;
+    user-select: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.dgtool-button:hover {
+	border-color: var(--dgtoolHoverColor);
+	color: var(--dgtoolHoverColor);
+}
+
+.dgtool-button-caption {
+	font-size: 14px;
+	color: black;
+	transition: 0.3s color;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.dgtool-button:hover .dgtool-button-caption {
+	color: var(--dgtoolHoverColor);
+}
+
+.dgtool-button-icon .dgtool-button-imgicon {
+	-webkit-mask-size: 100%;
+	mask-size: 100%;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	mask-position: center;
+	height: 24px;
+	background-color: black;
+	transition: 0.3s background-color;
+}
+
+.dgtool-button:hover .dgtool-button-imgicon {
+	background-color: var(--dgtoolHoverColor);
+}
+
+.dgtool-button-icon img {
+	width: 14px;
+	display: block;
+}
+
+.dgcontextmenu-container {
+	position: fixed;
+	background: white;
+	border-radius: 2px;
+	border: 1px solid gray;
+	width: 160px;
+	padding: 2px 3px;
+	box-shadow: 0px 0px 14px #cdcdcd;
+	transition: height 0.3s ease, opacity 0.3s ease;
+	height: max-content;
+	z-index: 200;
+}
+
+.dgcontextmenu-separator {
+	background: gray;
+	height: 1px;
+}
+
+.dgcontextmenu-element {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	user-select: none;
+	transition: 0.3s color, 0.3s background;
+	cursor: pointer;
+	color: black;
+	margin: 3px 0;
+	padding: 2px 0px;
+	border-radius: 4px;
+	text-decoration: none;
+}
+
+.dgcontextmenu-element-caption {
+	font-size: 12px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: Helvetica, sans-serif;
+}
+
+.dgcontextmenu-element:hover {
+	color: var(--dgcontextMenuHoverColor);
+	background: #f3f3f3;
+}
+
+.dgcontextmenu-element:hover img {
+	background-color: var(--dgcontextMenuHoverColor);
+}
+
+.dgcontextmenu-element-icon img {
+	display: block;
+	mask-size: 100%;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	mask-position: center;
+	width: 13px;
+	height: 13px;
+	background-color: black;
+	transition: 0.3s background-color;
+	margin-right: 5px;
+	margin: 0 5px;
+}
+
+.dgcontextmenuwrapper-container {
+    transition: opacity 0.1s ease-in-out;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root {
+    --textBox-height: 20px;
+}
+
+.dgsearchtool-full, .dgsearchtool-full .dgsearchtool-inputcontainer, .dgsearchtool-full .dgsearchtool-inputbox, .dgsearchtool-full input {
+    width: 100%;
+}
+
+.dgsearchtool-inputcontainer {
+    display: flex;
+}
+
+.dgsearchtool-inputbox {
+    display: flex;
+    border: 1px solid #959595;
+    border-radius: 3px;
+    overflow: hidden;
+    transition: 0.3s background, 0.3s border-color, 0.3s box-shadow;
+}
+
+.dgsearchtool-inputbox-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+}
+
+.dgsearchtool-inputbox-icon img {
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    display: block;
+    user-select: none;
+    mask-size: 80%;
+    width: 18px;
+    height: 18px;
+    background-color: #959595;
+}
+
+.dgsearchtool-inputbox:focus-within {
+    outline: none;
+    border-color: var(--componentFocusColor);
+    box-shadow: 0px 0px 3px 1px var(--componentFocusShadowColor);
+}
+
+.dgsearchtool-inputbox:hover {
+    border-color: var(--componentHoverColor);
+}
+
+.dgsearchtool-input, .dgsearchtool-caption {
+    font-size: 13px;
+}
+
+.dgsearchtool-caption:hover {
+    cursor: default;
+}
+
+.dgsearchtool-container {
+    display: flex;
+    align-items: center;
+}
+
+.dgsearchtool-input {
+    padding: 0 0 0 4px;
+    color: black;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 21px;
+    border: 0;
+    border-radius: 2px;
+    transition: 0.3s background, 0.3s border-color, 0.3s box-shadow;
+}
+
+.dgsearchtool-input::-webkit-outer-spin-button,
+.dgsearchtool-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.dgsearchtool-input::-ms-reveal,
+.dgsearchtool-input::-ms-clear {
+    display: none;
+}
+
+.dgsearchtool-input:focus {
+    outline: none;
+}
+
+.component-baseformat-text {
+	font-size: 13px;
+	color: black;
+	font-family: Helvetica, sans-serif;
+	white-space: nowrap;
+}
+
+.component-baseformat-container {
+  display: flex;
+	width: max-content;
+	column-gap: 5px;
+	align-items: center;
+}

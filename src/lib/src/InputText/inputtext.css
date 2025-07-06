@@ -12,7 +12,7 @@
 
 .textbox-inputbox {
     display: flex;
-    border: 1px solid var(--componentBorderColor);
+    border: 1px solid #959595;
     border-radius: 3px;
     overflow: hidden;
     transition: 0.3s background, 0.3s border-color, 0.3s box-shadow;
@@ -35,7 +35,7 @@
     mask-size: 80%;
     width: 18px;
     height: 18px;
-    background-color: var(--componentBorderColor);
+    background-color: #959595;
 }
 
 .textbox-inputbox:focus-within {

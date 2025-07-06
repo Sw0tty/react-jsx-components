@@ -1,13 +1,14 @@
 #datagrid-element-block {
 	width: 100%;
+	min-height: 100px;
 	display: flex;
 	flex-direction: column;
-	overflow: hidden; /*experemental*/
+	overflow: hidden;
 }
 
 .datagrid-toolbar {
 	display: flex;
-	box-shadow: 2px 2px 8px rgb(0 0 0 / 50%); /*experemental*/
+	box-shadow: 2px 2px 8px rgb(0 0 0 / 50%);
 }
 
 .datagrid-toolbar-tools {
@@ -53,18 +54,24 @@
 	box-shadow: 2px 2px 8px rgb(0 0 0 / 50%);
 }
 
+#datagrid tbody td:first-child .datagrid-cell {
+	margin-left: 5px;
+}
+
 .datagrid-cell {
 	padding: 1px 5px;
-	display: flex;
-	margin-left: 5px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	/* display: flex; */
+	/* margin-left: 5px; */
 	/*column-gap: 5px;*/
 }
 
-.datagrid-cell span {
+/* .datagrid-cell span {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-}
+} */
 
 #datagrid tbody td:not(.datagrid-numcolumn) {
 	max-width: 0px;
@@ -171,8 +178,8 @@ tr > th.datagrid-numcolumn {
 	height: 24px;
 	background-color: #757575;
 	cursor: e-resize;
-	-webkit-mask-image: url(/src/assets/Resizer.svg);
-	mask-image: url(/src/assets/Resizer.svg);
+	-webkit-mask-image: url(./Resizer.svg);
+	mask-image: url(./Resizer.svg);
 }
 
 .datagrid-sorter {
@@ -185,8 +192,8 @@ tr > th.datagrid-numcolumn {
 	height: 14px;
 	background-color: black;
 	cursor: pointer;
-	-webkit-mask-image: url(/src/assets/Sorter.svg);
-	mask-image: url(/src/assets/Sorter.svg);
+	-webkit-mask-image: url(./Sorter.svg);
+	mask-image: url(./Sorter.svg);
 }
 
 .datagrid-filter {
@@ -209,8 +216,8 @@ tr > th.datagrid-numcolumn {
 	background-color: black;
 	transition: 0.3s background-color;
 	cursor: pointer;
-	-webkit-mask-image: url(/src/assets/Filter.svg);
-	mask-image: url(/src/assets/Filter.svg);
+	-webkit-mask-image: url(./Filter.svg);
+	mask-image: url(./Filter.svg);
 }
 
 .datagrid-filter:hover:not(:has(.datagrid-filter-form-container:hover)) {
@@ -237,8 +244,8 @@ tr > th.datagrid-numcolumn {
 	mask-size: 100%;
 	width: 15px;
 	height: 15px;
-	-webkit-mask-image: url(/src/assets/ArrowDown.svg);
-	mask-image: url(/src/assets/ArrowDown.svg);
+	-webkit-mask-image: url(./ArrowDown.svg);
+	mask-image: url(./ArrowDown.svg);
 }
 
 .datagrid-parent-shrink-plug {
@@ -350,8 +357,8 @@ tr > th.datagrid-numcolumn {
 	mask-size: 100%;
 	width: 80px;
 	height: 80px;
-	-webkit-mask-image: url(/src/assets/EmptyBox.svg);
-	mask-image: url(/src/assets/EmptyBox.svg);
+	-webkit-mask-image: url(./EmptyBox.svg);
+	mask-image: url(./EmptyBox.svg);
 }
 
 .datagrid-nondata-caption {
@@ -360,70 +367,3 @@ tr > th.datagrid-numcolumn {
 	font-size: 20px;
 }
 
-.datagridtool-error-container {
-	display: flex;
-	width: max-content;
-	border: 1px solid red;
-	border-radius: 3px;
-	padding: 2px 4px;
-	background: #ffefef;
-	color: red;
-	font-size: 11px;
-}
-
-.datagridtool-button {
-	align-items: center;
-	border: 1px solid var(--componentBorderColor);
-	padding: 1px 6px 1px 6px;
-	background: white;
-	min-width: 50px;
-	height: 20px;
-	display: flex;
-	column-gap: 5px;
-	transition: 0.3s border-color, 0.3s background;
-    color: black;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    border-radius: 3px;
-    user-select: none;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.datagridtool-button:hover {
-	border-color: var(--datagridtoolHoverColor);
-	color: var(--datagridtoolHoverColor);
-}
-
-.datagridtool-button-caption {
-	font-size: 14px;
-	color: black;
-	transition: 0.3s color;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.datagridtool-button:hover .datagridtool-button-caption {
-	color: var(--datagridtoolHoverColor);
-}
-
-.datagridtool-button-icon .datagridtool-button-imgicon {
-	-webkit-mask-size: 100%;
-	mask-size: 100%;
-	-webkit-mask-repeat: no-repeat;
-	mask-repeat: no-repeat;
-	-webkit-mask-position: center;
-	mask-position: center;
-	height: 24px;
-	background-color: black;
-	transition: 0.3s background-color;
-}
-
-.datagridtool-button:hover .datagridtool-button-imgicon {
-	background-color: var(--datagridtoolHoverColor);
-}
-
-.datagridtool-button-icon img {
-	width: 14px;
-	display: block;
-}

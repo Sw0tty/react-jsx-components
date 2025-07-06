@@ -22,8 +22,9 @@ class SwitcherPage extends BaseMethods {
                 componentDocumentation={[
                     {name: "caption", required: false, dataType: "string", description: "Caption by left side of component."},
                     {name: "disabled", required: true, dataType: "bool", description: "Deactivate actions for user."},
-                    {name: "onReturnData", required: false, dataType: "Object", description: "Default component value."},
+                    {name: "onReturnData", required: false, dataType: "Object", description: "Object type of: { func: callbackFunc, params: { } }"},
                 ]}
+                example='<Switcher disabled={false} caption="Add style :" onReturnData={{ func: this.setCustomStyle, params: { sType: "custom", another: 2 } }} />'
             />);
     }
 }

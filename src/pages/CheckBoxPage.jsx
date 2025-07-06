@@ -15,7 +15,7 @@ class CheckBoxPage extends BaseMethods {
     }
     render() {
         return(<Playground title="CheckBox"
-                pComponent={<CheckBox disabled={this.state.disabled} caption={this.state.caption} />}
+                pComponent={<CheckBox value={true} disabled={this.state.disabled} caption={this.state.caption} />}
                 componentProps={<>
                     <InputText caption="Caption :" value={this.state.caption} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
                     <Switcher caption="Disabled :" disabled={false} onReturnData={{ func: this.setData, params: { propName: "disabled" } }} />
@@ -24,8 +24,9 @@ class CheckBoxPage extends BaseMethods {
                     {name: "caption", required: false, dataType: "string", description: "Caption by left side of component."},
                     {name: "value", required: false, dataType: "bool", description: "Default component value."},
                     {name: "disabled", required: true, dataType: "bool", description: "Component availability state."},
-                    {name: "onReturnData", required: false, dataType: "Object", description: "Object type of: { func: callbackFunc, params: { } }"},
+                    {name: "onReturnData", required: false, dataType: "Object", description: "Object type of: { func: callbackFunc, params: { } } The callback function in the first argument returns the state values of the component. And seconds Object of passed params."},
                 ]}
+                example='<CheckBox disabled={false} value={false} caption="Is required:" onReturnData={{ func: this.setData, params: { type: "ttype" } }} />'
             />);
     }
 }

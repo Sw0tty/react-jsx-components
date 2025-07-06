@@ -23,12 +23,12 @@ class ColorPicker extends BaseComponent {
         }
     }
     componentDidUpdate() {
-        this.updateValueState({ stateKey: "value", newValue: this.props?.value, lastStateValue: this.state.value});
+        //this.updateValueState({ stateKey: "value", newValue: this.props?.value, lastStateValue: this.state.value});
     }
     renderComponent() {
         return (
-            <div className="component-baseformat-container colorpicker-container" style={this.props?.style}>
-                {this.props?.caption ? <span className="component-baseformat-text colorpicker-caption">{this.props.caption}</span> : null}
+            <div className="colorpicker-container" style={this.props?.style}>
+                {this.props?.caption ? <span className="colorpicker-caption">{this.props.caption}</span> : null}
                 <input type="color" className={`colorpicker${this.props.disabled ? ' disabled' : ' enable'}${this.props?.invalidData ? ' invalid' : ''}`} value={this.state.value} onChange={(event) => { this.setComponentData(event.target.value) }} />
             </div>
         );

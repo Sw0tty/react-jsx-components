@@ -1,12 +1,13 @@
 import { Component, createRef } from 'react';
-import { Link } from 'react-router-dom';
-import ContextMenu from '@Components/ContextMenu.jsx';
-import CheckBox from '@Components/CheckBox.jsx';
-import Loading from "@Components/Loading.jsx";
-import CustomButton from '@Components/CustomButton.jsx';
-import InputText from '@Components/InputText.jsx';
+import BaseComponent from '../BaseComponent/BaseComponent.jsx';
+import CheckCircle from './CheckCircle.svg';
+import CrossCircle from './CrossCircle.svg';
+
+
+
+import { DGCheckBox, DGSearchTool, DGTool, DGContextMenu, DGButton } from './DGComponents.jsx';
+
 import './datagrid.css';
-import * as ren from '@Js/dataRenders.js';
 
 
 // --- Props info ---
@@ -56,9 +57,10 @@ import * as ren from '@Js/dataRenders.js';
 //                            { caption: "Refresh data", color: "green", icon: "Refresh", func: function() }
 //                          ]
 // styles          ?  (CSS Dictionary)      - style for datagrid container
-class DataGrid extends Component {
+class DataGrid extends BaseComponent {
     constructor(props) {
         super();
+        this.requiredProps = ['fields'];
         let convertedData = this.convertDataForGrid({ data: props?.data, idKey: props?.idKey, parentIdKey: props?.parentIdKey, iconsParams: props?.iconsParams });
         this.wrapperRef = createRef();
         this.state = {
@@ -270,11 +272,13 @@ class DataGrid extends Component {
     toDefaultFormat(data, dataType) {
         switch (dataType) {
             case "date":
-                return ren.toDateFormat(new Date(data));
+
+
+                return new DataRender().toDateFormat(new Date(data));
             case "datetime":
-                return ren.toDateTimeFormat(new Date(data));
+                return new DataRender().toDateTimeFormat(new Date(data));
             case "bool":
-                return (<img className="datagrid-cell-img" style={{ WebkitMaskImage: `url(/src/assets/${data ? 'CheckCircle' : 'CrossCircle'}.svg)`, maskImage: `url(/src/assets/${data ? 'CheckCircle' : 'CrossCircle'}.svg)` }} />);
+                return (<img className="datagrid-cell-img" style={{ WebkitMaskImage: `url(${data ? CheckCircle : CrossCircle})`, maskImage: `url(${data ? CheckCircle : CrossCircle})` }} />);
             default:
                 return data;
         }
@@ -549,7 +553,7 @@ class DataGrid extends Component {
                 if ("str" in ruleParams) {
                     newPath += ruleParams.str;
                 } else if ("fromSelected" in ruleParams) {
-                    newPath += ren.selectFromDictionary({ data: selectedData, chainKeys: ruleParams.fromSelected.split('.') });
+                    newPath += new DataRender().selectFromDictionary({ data: selectedData, chainKeys: ruleParams.fromSelected.split('.') });
                 }
             }
         }
@@ -576,7 +580,10 @@ class DataGrid extends Component {
             })
         });
     }
-    render() {
+    setSearchStr = (value) => {
+        //console.log(value);
+    }
+    renderComponent() {
         try {
             return (
                 <div id="datagrid-element-block" style={this.props?.styles}>
@@ -584,12 +591,12 @@ class DataGrid extends Component {
                         this.props?.toolbar ? 
                             <div className="datagrid-toolbar">
                                 <div className="datagrid-toolbar-tools">
-                                    {this.props?.tools ? this.props.tools.map((tool, idx) => { return (<DataGridTool key={idx} disabled={this.state.isLoading} caption={tool.caption} icon={tool.icon} isImage={tool?.isImage} hoverColor={tool?.color} onClickAction={{ action: (typeof tool?.func) === "function" ? { func: tool.func, params: { _dataGridData: this.returnCurrentDataState(), ...tool?.funcParams } } : undefined, redirect: tool?.redirect ? { path: tool?.redirect?.path } : undefined }} />); }) : null}
+                                    {this.props?.tools ? this.props.tools.map((tool, idx) => { return (<DGTool key={idx} disabled={this.state.isLoading} caption={tool.caption} icon={tool.icon} isImage={tool?.isImage} hoverColor={tool?.color} onClickAction={{ action: (typeof tool?.func) === "function" ? { func: tool.func, params: { _dataGridData: this.returnCurrentDataState(), ...tool?.funcParams } } : undefined, redirect: tool?.redirect ? { path: tool?.redirect?.path } : undefined }} />); }) : null}
                                 </div>
                                 {
                                     this.props?.searchTool ?
                                         <div className="datagrid-toolbar-search">
-                                            <InputText width="" fullWidth={true} removeBaseCSS={true} maxLength={1000} disabled={false} required={false} placeholder="Поиск" inputIcon={{ icon: "Loupe" }} onReturnData={{ func: this.setSearchStr }} />
+                                            <DGSearchTool width="" fullWidth={true} removeBaseCSS={true} disabled={false} required={false} placeholder={this.props?.searchToolPlaceholder ?? 'Search'} inputIcon={{ icon: "Loupe" }} onReturnData={{ func: this.setSearchStr }} />
                                         </div>
                                     : null
                                 }
@@ -597,9 +604,9 @@ class DataGrid extends Component {
                         : null
                     }
                     <div className="datagrid-container">
-                        {this.state.isLoading ? <Loading size={60} speed="1s" icon="Loading_3" blurStrong={3} /> : null}
+                        {/* {this.state.isLoading ? <Loading size={60} speed="1s" icon="Loading_3" blurStrong={3} /> : null} */}
                         <div className="datagrid-elements-container">
-                            {this.props?.contextMenu && this ? <ContextMenu onHide={this.hideContext} hidden={this.state.contextHidden} contextPos={this.state.contextPos} contextActions={this.updateContextMenu({ thisClass: this, contextParams: this.props?.contextMenu, selectedData: this.state?.selectedData })} /> : null}
+                            {this.props?.contextMenu && this ? <DGContextMenu onHide={this.hideContext} hidden={this.state.contextHidden} contextPos={this.state.contextPos} contextActions={this.updateContextMenu({ thisClass: this, contextParams: this.props?.contextMenu, selectedData: this.state?.selectedData })} /> : null}
                             <table id="datagrid">
                                 <thead>
                                     <tr>
@@ -608,7 +615,7 @@ class DataGrid extends Component {
                                             return (<th key={idx} className="datagrid-header">
                                                 <div className="datagrid-header-container" style={{ width: field?.width ? `${field?.width}px` : null }}>
                                                     <div className="datagrid-header-left-handlers">
-                                                        <div className="datagrid-header-title">{field.columnName}</div>
+                                                        <div className="datagrid-header-title" title={field?.columnName ?? ''}>{field.columnName}</div>
                                                         <div className="datagrid-header-handlers">
                                                             <div className="datagrid-thead-buttons">
                                                                 {field.sorting ?
@@ -624,7 +631,7 @@ class DataGrid extends Component {
                                                                 <div className={`datagrid-filter${this.state.filters[field.key]?.queueNum > 0 ? " datagrid-filter-active" : ""}`} onClick={(event) => { this.switchFilterForm({ target: event.target, position: event.target.getBoundingClientRect(), columnKey: field.key }) }}>
                                                                     <img />
                                                                 </div>
-                                                                <GridFilter parentTarget={this.state.filters[field.key]?.parentTarget} hidden={this.state.filters[field.key]?.hidden ?? true} onHide={this.closeFilterForm} data={this.state?.filters[field.key]?.data} columnKey={field.key} onReturnData={this.addFiltersHandler} />
+                                                                <DGFilter parentTarget={this.state.filters[field.key]?.parentTarget} hidden={this.state.filters[field.key]?.hidden ?? true} onHide={this.closeFilterForm} data={this.state?.filters[field.key]?.data} columnKey={field.key} onReturnData={this.addFiltersHandler} />
                                                             </div>
                                                             : null}
                                                         <div className="datagrid-resizer" onMouseDown={(event) => this.resizeColumn(event)}><img /></div>
@@ -642,11 +649,11 @@ class DataGrid extends Component {
                                                 {this.props.fields.map((field, fIdx) => {
                                                     return (<td key={fIdx} style={{ background: rowData.rowId == this.state.selected?.row && fIdx == this.state.selected?.cell ? 'var(--datagridCellSelectedColor)' : rowData.rowId == this.state.selected?.row ? 'var(--datagridRowSelectedColor)' : 'white', }} onClick={() => { this.setState({ selected: { row: rowData.rowId, cell: fIdx, currentData: rowData.data[field?.key], rowData: rowData.data } }) }} onDoubleClick={(event) => { this.props?.onDoubleClick?.func({ event: event, data: rowData.data, params: { ...this.props?.onDoubleClick?.params } }) }} onContextMenu={this.props?.contextMenu ? (event) => { this.setState({ selected: { row: rowData.rowId, cell: fIdx }, selectedData: rowData.data }); this.showContext(event); } : null}>
                                                         <div className="datagrid-cell" style={{ paddingLeft: fIdx == 0 ? `${rowData.level * 20}px` : '', ...field?.style }}>
-                                                            {fIdx == 0 && this.props?.checkBoxes ? <div className="datagrid-checkbox-wrapper"><CheckBox icon="Check" value={rowData.checked} disabled={false} onReturnData={{ func: this.checkRow, params: { id: rowData.rowId } }} /></div> : null}
+                                                            {fIdx == 0 && this.props?.checkBoxes ? <div className="datagrid-checkbox-wrapper"><DGCheckBox value={rowData.checked} disabled={false} onReturnData={{ func: this.checkRow, params: { id: rowData.rowId } }} /></div> : null}
                                                             {rowData.isParent && fIdx == 0 ? <div className="datagrid-parent-shrink" onClick={() => this.shrinkChilds({ parentId: rowData.data[this.props.idKey], idKey: this.props.idKey, parentIdKey: this.props.parentIdKey, gridData: this.state.data })}><img style={{ transform: `rotate(${rowData.childsHidden ? -90 : 0}deg)` }} /></div> : null}
                                                             {this.props?.parentIdKey && !rowData.isParent && fIdx == 0 ? <div className="datagrid-parent-shrink-plug"></div> : null}
                                                             {rowData.icon && fIdx == 0 ? <div className="datagrid-item-icon"><img src={`/src/assets/${rowData.icon}.svg`} /></div> : null}
-                                                            <span>{field?.render && (typeof field?.render === "function") ? field?.render(rowData.data) ?? '' : this.toDefaultFormat(rowData.data[field?.key], field?.dataType)}</span>
+                                                            {field?.render && (typeof field?.render === "function") ? field?.render(rowData.data) ?? '' : this.toDefaultFormat(rowData.data[field?.key], field?.dataType)}
                                                         </div>
                                                     </td>)
                                                 })}
@@ -674,7 +681,7 @@ class DataGrid extends Component {
 }
 
 
-class GridFilter extends Component {
+class DGFilter extends Component {
     constructor(props) {
         super();
         this.state = {
@@ -777,17 +784,17 @@ class GridFilter extends Component {
                 <div className="datagrid-filter-form-header">
                     <div className="datagrid-filter-form-header-title">Фильтр столбца</div>
                     <div className="datagrid-filter-form-actions">
-                        <CustomButton icon="CheckSquare" caption="Отметить все" type="acceptHollow" onClickAction={{ func: this.checkAllHandler, params: { data: this.state.data } }} style={{ height: "20px", padding: "0px 8px", fontSize: "12px" }} />
-                        <CustomButton icon="UncheckSquare" caption="Снять все отметки" type="acceptHollow" onClickAction={{ func: this.uncheckAllHandler, params: { data: this.state.data } }} style={{ height: "20px", padding: "0px 8px", fontSize: "12px" }} />
+                        <DGButton icon="CheckSquare" caption="Отметить все" type="acceptHollow" onClickAction={{ func: this.checkAllHandler, params: { data: this.state.data } }} style={{ height: "20px", padding: "0px 8px", fontSize: "12px" }} />
+                        <DGButton icon="UncheckSquare" caption="Снять все отметки" type="acceptHollow" onClickAction={{ func: this.uncheckAllHandler, params: { data: this.state.data } }} style={{ height: "20px", padding: "0px 8px", fontSize: "12px" }} />
                     </div>
                 </div>
                 <div className="datagrid-filter-form-data">
                     {this.state?.data?.map((item, idx) => {
-                        return (<div className="datagrid-filter-form-data-item" key={idx}><CheckBox icon="Check" value={item.checked} disabled={false} onReturnData={{ func: this.checkFiltersHandler, params: { id: item.id } }} /><span title={item.value}>{item.value}</span></div>);
+                        return (<div className="datagrid-filter-form-data-item" key={idx}><DGCheckBox value={item.checked} disabled={false} onReturnData={{ func: this.checkFiltersHandler, params: { id: item.id } }} /><span title={item.value}>{item.value}</span></div>);
                     })}
                 </div>
                 <div className="datagrid-filter-form-buttons">
-                    <CustomButton caption="Ок" type="acceptHollow" onClickAction={{ func: this.props.onReturnData, params: { filters: this.state.data, columnKey: this.props.columnKey } }} style={{ height: "20px", padding: "2px 10px", fontSize: "13px" }} />
+                    <DGButton caption="Ок" type="acceptHollow" onClickAction={{ func: this.props.onReturnData, params: { filters: this.state.data, columnKey: this.props.columnKey } }} style={{ height: "20px", padding: "2px 10px", fontSize: "13px" }} />
                 </div>
             </div>
         )
@@ -795,38 +802,15 @@ class GridFilter extends Component {
 }
 
 
-class DataGridTool extends Component {
-    checkRequiredProps = (requiredParams) => {
-        for (let param of requiredParams) {
-            if (!(param in this.props)) {
-                return <div className="datagridtool-error-container"><span>{`ERROR! Field '${param}' is required`}</span></div>;
-            }
-        }
-    }
-    render() {
-        const baseHoverColor = "#5eaac5";
 
-        return (
-            this.checkRequiredProps(['disabled', 'caption']) ??
-            <Link style={{ '--datagridtoolHoverColor': this.props?.hoverColor ?? baseHoverColor }} onClick={(event) => this.props?.onClickAction?.action ? this.props.onClickAction.action?.func({ event: event, ...this.props.onClickAction.action?.params }) : null} to={this.props?.onClickAction?.redirect ? `/${this.props?.onClickAction?.redirect?.path}` : window.location.href} className={`datagridtool-button${this.props.disabled ? " disabled" : ''}`} >
-                {
-                    this.props?.icon ?
-                        <div className="datagridtool-button-icon">
-                            {
-                                this.props?.isImage ?
-                                    <img src={`/src/assets/${this.props.icon}.svg`} /> :
-                                    <img className="datagridtool-button-imgicon" style={{ WebkitMaskImage: `url(/src/assets/${this.props.icon}.svg)`, maskImage: `url(/src/assets/${this.props.icon}.svg)` }} />
-                            }
-                        </div>
-                    : null
-                }
-                <div className="datagridtool-button-caption" style={this.props?.styles?.hoverColor ? { '--hover-color': this.props?.styles?.hoverColor } : null}>
-                    {this.props.caption}
-                </div>
-            </Link>
-        );
-    }
-}
+
+
+
+
+
+
+
+
 
 
 class NonData extends Component {
@@ -837,6 +821,25 @@ class NonData extends Component {
                 <div className="datagrid-nondata-caption">Ничего не найдено</div>
             </div>
         );
+    }
+}
+
+
+class DataRender {
+    toDateFormat(jsDate) {
+        return `${jsDate.getDate() < 10 ? '0' : ''}${jsDate.getDate()}.${(jsDate.getMonth() + 1) < 10 ? '0' : ''}${jsDate.getMonth() + 1}.${jsDate.getFullYear()}`;
+    }
+    toDateTimeFormat(jsDateTime) {
+        return `${jsDateTime.getDate() < 10 ? '0' : ''}${jsDateTime.getDate()}.${(jsDateTime.getMonth() + 1) < 10 ? '0' : ''}${jsDateTime.getMonth() + 1}.${jsDateTime.getFullYear()} ${jsDateTime.getHours()}:${jsDateTime.getMinutes() < 10 ? `0${jsDateTime.getMinutes()}` : jsDateTime.getMinutes() }`;
+    }
+    selectFromDictionary(params) {
+        const { data, chainKeys } = params;
+        const executedData = chainKeys[0] in data ? data[chainKeys[0]] : undefined;
+        const newChainKeys = chainKeys.length > 1 ? chainKeys.slice(1, chainKeys.length) : [];
+
+        if (executedData == undefined || newChainKeys.length == 0)
+            return executedData;
+        return this.selectFromDictionary({ data: executedData, chainKeys: newChainKeys });
     }
 }
 

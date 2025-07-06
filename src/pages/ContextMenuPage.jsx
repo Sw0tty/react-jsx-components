@@ -15,7 +15,7 @@ class ContextMenuPage extends BaseMethods {
         }
     }
     render() {
-        return(<Playground title={<div style={{ display: "flex", justifyContent: "center" }}><div>ContextMenu</div><div><span style={{ fontSize: "12px", padding: "0 5px", position: "absolute", borderRadius: "5px", fontWeight: "bolder", color: "white", background: "gray"  }}>BETA</span></div></div>}
+        return(<Playground title={<div style={{ display: "flex", justifyContent: "center", position: "relative" }}><div>ContextMenu</div><div><span style={{ fontSize: "12px", padding: "0 5px", position: "absolute", borderRadius: "5px", fontWeight: "bolder", color: "white", background: "gray"  }}>BETA</span></div></div>}
                 pComponent={<ContextMenu contextActions={[ [
                         {
                             caption: "Редактировать", icon: "Edit"

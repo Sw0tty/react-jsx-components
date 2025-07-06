@@ -17,7 +17,7 @@ class CustomButtonPage extends BaseMethods {
     }
     render() {
         return(<Playground title="CustomButton"
-                pComponent={<CustomButton disabled={true} caption={this.state.caption} type="hollow" hoverColor={this.state.hoverColor} isImage={true} iconPath="./icons/Excel.svg" reverse={this.state.reverse} />}
+                pComponent={<CustomButton disabled={true} caption={this.state.caption} type="fill" hoverColor={this.state.hoverColor} isImage={true} iconPath="./icons/Excel.svg" reverse={this.state.reverse} />}
                 componentProps={<>
                     <InputText caption="Caption :" value={this.state.caption} width={200} disabled={false} required={true} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
                     <ColorPicker caption="HoverColor :" disabled={false} onReturnData={{ func: this.setData, params: { propName: "hoverColor" } }} />

@@ -39,6 +39,16 @@ class Playground extends Component {
                             }
                         </div>
                     </div>
+                    {
+                        this.props?.example ?
+                            <div>
+                                <h3 className="playground-play-block-title">Example In The Code</h3>
+                                <Container boxStyles={{ margin: "10px", padding: "15px", width: "auto" }}>
+                                    <div style={{ fontFamily: "monospace" }}>{this.props.example}</div>
+                                </Container>
+                            </div>
+                        : null
+                    }
                     <div>
                         <h3 className="playground-play-block-title">Props Documentation</h3>
                         <Container boxStyles={{ margin: "10px", padding: "15px", width: "auto" }}>

@@ -1,0 +1,59 @@
+.gallery-container {
+  	overflow: auto;
+}
+
+.gallery-items-container {
+    background: white;
+    /*    height: 600px;
+    width: 900px;*/
+    overflow: auto;
+    display: flex;
+    gap: 15px 15px;
+    padding: 10px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.gallery-item {
+    width: 100px;
+    height: 100px;
+    background: white;
+    border: 1px solid var(--componentBorderColor);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+}
+
+.gallery-item-icon {
+    height: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-item-icon img {
+    width: 90%;
+    height: 90%;
+}
+
+.gallery-item-caption {
+    height: 25%;
+    color: black;
+    font-size: 12px;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    width: 85%;
+}
+
+.gallery-item:hover {
+    box-shadow: 0px 0px 3px 3px var(--componentFocusShadowColor);
+    border-color: var(--componentHoverColor);
+    transform: scale(1.02);
+}

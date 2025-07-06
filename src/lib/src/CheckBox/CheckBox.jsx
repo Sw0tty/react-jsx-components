@@ -43,8 +43,8 @@ class CheckBox extends BaseComponent {
                 <>
                     {this.props?.caption ? <span className="checkbox-caption">{this.props?.caption}</span> : null}
                     <div className={`checkbox-box${this.props.disabled ? " disabled" : ''}`} style={{ width: this.props?.size ? `${this.props.size}px` : null, height: this.props?.size ? `${this.props.size}px` : null }} onClick={() => this.setComponentData(this.state.value)}>
-                        <div className={`checkbox-box-filler${this.props?.value ? " checked" : ''}`}>
-                            {this.props?.icon && this.props?.value ? <img style={{ WebkitMaskImage: `url(${Check})` ?? `url(/src/assets/${this.props?.icon}.svg)`, maskImage: `url(/src/assets/${this.props?.icon}.svg)` }} /> : null}
+                        <div className={`checkbox-box-filler${this.state.value ? " checked" : ''}`}>
+                            {this.state.value ? <img style={{ WebkitMaskImage: this.props?.iconPath ? `url(${this.props.iconPath}.svg)` : `url(${Check})`, maskImage: this.props?.iconPath ? `url(${this.props.iconPath}.svg)` : `url(${Check})` }} /> : null}
                         </div>
                     </div>
                 </>
