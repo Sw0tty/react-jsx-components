@@ -1,11 +1,11 @@
 import BaseMethods from "../demoComponents/BaseMethods.jsx";
-import InputText from '../lib/src/InputText/InputText.jsx';
+import TextBox from '../lib/src/TextBox/TextBox.jsx';
 import Playground from "../demoComponents/Playground";
 import CheckBox from '../lib/src/CheckBox/CheckBox.jsx';
 import Switcher from "../lib/src/Switcher/Switcher.jsx";
 
 
-class InputTextPage extends BaseMethods {
+class TextBoxPage extends BaseMethods {
     constructor() {
         super();
         this.state = {
@@ -23,13 +23,13 @@ class InputTextPage extends BaseMethods {
     }
     render() {
         return (
-            <Playground title="InputText"
+            <Playground title="TextBox"
                 pComponent={
-                    <InputText invalid={this.state.invalid} inputIconPath="./icons/Warning" inputIconReverse={this.state.inputIconReverse} required={this.state.required} caption={this.state.caption} width={200} maxLength={255} placeholder={this.state.placeholder} invalidData={false} onReturnData={{ func: this.setData, params: { settledParamName: "address" } }} disabled={this.state.disabled} />
+                    <TextBox invalid={this.state.invalid} inputIconPath="./icons/Warning" inputIconReverse={this.state.inputIconReverse} required={this.state.required} caption={this.state.caption} width={200} maxLength={255} placeholder={this.state.placeholder} invalidData={false} onReturnData={{ func: this.setData, params: { settledParamName: "address" } }} disabled={this.state.disabled} />
                 }
                 componentProps={<>
-                    <InputText required={false} caption="Caption :" value={this.state.caption} width={200} maxLength={255} invalidData={false} onReturnData={{ func: this.setData, params: { propName: "caption" } }} disabled={false} />
-                    <InputText required={false} caption="Placeholder :" value={this.state.placeholder} width={200} maxLength={255} invalidData={false} onReturnData={{ func: this.setData, params: { propName: "placeholder" } }} disabled={false} />
+                    <TextBox required={false} caption="Caption :" value={this.state.caption} width={200} maxLength={255} invalidData={false} onReturnData={{ func: this.setData, params: { propName: "caption" } }} disabled={false} />
+                    <TextBox required={false} caption="Placeholder :" value={this.state.placeholder} width={200} maxLength={255} invalidData={false} onReturnData={{ func: this.setData, params: { propName: "placeholder" } }} disabled={false} />
                     <Switcher caption="Disabled :" disabled={false} onReturnData={{ func: this.setData, params: { propName: "disabled" } }} />
                     <Switcher caption="Required :" disabled={false} value={this.state.required} onReturnData={{ func: this.setData, params: { propName: "required" } }} />
                     <Switcher caption="Invalid :" disabled={false} value={this.state.invalid} onReturnData={{ func: this.setData, params: { propName: "invalid" } }} />
@@ -52,4 +52,4 @@ class InputTextPage extends BaseMethods {
     }
 }
 
-export default InputTextPage;
+export default TextBoxPage;

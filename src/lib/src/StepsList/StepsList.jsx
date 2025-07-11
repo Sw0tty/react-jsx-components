@@ -16,7 +16,7 @@ class StepsList extends BaseComponent {
                 {this.props.steps.map((step, idx) => {
                     return (
                         <div key={idx} className="stepslist-step-container">
-                            <div className="stepslist-step-header">
+                            <div className="stepslist-step-header" style={{ flexDirection: this.props?.reverse ? "row-reverse" : null }}>
                                 <div className="stepslist-step-num" style={{ color: this.props?.stepsColor ?? this.baseColor, borderColor: this.props?.stepsColor ?? this.baseColor }}>
                                     {!this.props?.stayNum && idx + 1 === STEPS_COUNT ? "✔" : idx + 1}
                                 </div>
@@ -24,7 +24,7 @@ class StepsList extends BaseComponent {
                             </div>
                             {
                                 idx + 1 === STEPS_COUNT && !step?.description ? null :
-                                    <div className="stepslist-step-body">
+                                    <div className="stepslist-step-body" style={{ flexDirection: this.props?.reverse ? "row-reverse" : null }}>
                                         <div className="stepslist-step-body-line-container">
                                             {idx + 1 === STEPS_COUNT ? null : <div className="stepslist-step-body-line"></div>}
                                         </div>

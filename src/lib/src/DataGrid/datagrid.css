@@ -67,11 +67,11 @@
 	/*column-gap: 5px;*/
 }
 
-/* .datagrid-cell span {
+.datagrid-cell span {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-} */
+}
 
 #datagrid tbody td:not(.datagrid-numcolumn) {
 	max-width: 0px;
@@ -187,10 +187,9 @@ tr > th.datagrid-numcolumn {
 }
 
 .datagrid-sorter img {
-	mask-size: 90%;
-	width: 16px;
-	height: 14px;
-	background-color: black;
+	mask-size: 80%;
+	width: 14px;
+	height: 12px;
 	cursor: pointer;
 	-webkit-mask-image: url(./Sorter.svg);
 	mask-image: url(./Sorter.svg);

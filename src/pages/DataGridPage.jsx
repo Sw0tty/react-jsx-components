@@ -13,6 +13,22 @@ class DataGridPage extends BaseMethods {
         super();
         this.state = {
             data: [{ id: 1, caption: "Apple", price: 1.25, quant: 100, lastOrder: '2025-02-06 12:07:31' }, { id: 2, caption: "Banana", price: 0.89, quant: 23, lastOrder: '2025-02-06 05:25:19' }, { id: 3, caption: "Grapes", price: 2.49, quant: 64, lastOrder: '2025-02-06 05:27:56' }, { id: 4, caption: "Kiwi", price: 3.50, quant: 0, lastOrder: '2025-02-03 15:45:40' }, { id: 5, caption: "Lemon", price: 1.75, quant: 87, lastOrder: '2025-02-06 05:25:19' }, { id: 6, caption: "Peach", price: 2.99, quant: 2, lastOrder: '2025-02-06 05:25:19' }, { id: 7, caption: "Orange", price: 1.49, quant: 55, lastOrder: '2025-02-06 05:25:19' }],
+            carsData: [
+                { id: 1, parentId: null, mark: "Nissan", colorName: null, colorValue: null, price: null, prodDate: null },
+                { id: 2, parentId: 1, mark: "Skyline", colorName: "Silver Moon", colorValue: "#C0C0C0", price: 35000, prodDate: 2019 },
+                { id: 3, parentId: 1, mark: "GT-R", colorName: "Midnight Black", colorValue: "#000000", price: 95000, prodDate: 2020 },
+                { id: 4, parentId: 1, mark: "X-Trail", colorName: "Safety Orange", colorValue: "#FF6700", price: 28000, prodDate: 2021 },
+                { id: 5, parentId: 1, mark: "Qashqai", colorName: "Cherry Red", colorValue: "#CC0000", price: 25000, prodDate: 2022 },
+                { id: 6, parentId: null, mark: "Ford", colorName: null, colorValue: null, price: null, prodDate: null },
+                { id: 7, parentId: 6, mark: "Mustang", colorName: "Royal Blue", colorValue: "#4169E1", price: 32000, prodDate: 2020 },
+                { id: 8, parentId: 6, mark: "Focus", colorName: "Storm Grey", colorValue: "#808080", price: 20000, prodDate: 2021 },
+                { id: 9, parentId: 6, mark: "Explorer", colorName: "Desert Beige", colorValue: "#F5F5DC", price: 38000, prodDate: 2022 },
+                { id: 10, parentId: 6, mark: "Transit", colorName: "Snow White", colorValue: "#FFFFFF", price: 30000, prodDate: 2023 },
+                { id: 11, parentId: null, mark: "Audi", colorName: null, colorValue: null, price: null, prodDate: null },
+                { id: 12, parentId: 11, mark: "A4", colorName: "Jet Black", colorValue: "#000000", price: 42000, prodDate: 2021 },
+                { id: 13, parentId: 11, mark: "Q7", colorName: "Platinum Silver", colorValue: "#C0C0C0", price: 65000, prodDate: 2022 },
+                { id: 14, parentId: 11, mark: "R8", colorName: "Ruby Red", colorValue: "#DC143C", price: 150000, prodDate: 2023 }
+            ],
             contextMenu: [[{ caption: "Edit" }, { caption: "Edit" }], [{ caption: "Delete", color: "red" }]], // func is priority on redirect
             tools: [{ caption: "Download" }, { caption: "Set default", color: "red" }],
             hoverColor: null,
@@ -22,7 +38,10 @@ class DataGridPage extends BaseMethods {
     render() {
         return(<>
             <Playground title={<div style={{ display: "flex", justifyContent: "center", position: "relative" }}><div>DataGrid</div><div><span style={{ fontSize: "12px", padding: "0 5px", position: "absolute", borderRadius: "5px", fontWeight: "bolder", color: "white", background: "gray"  }}>BETA</span></div></div>}
-                pComponent={<DataGrid toolbar={true} searchTool={true} checkBoxes={false} tools={this.state.tools} contextMenu={this.state.contextMenu} fields={[{ key: "caption", columnName: "Name", width: 120, sorting: true }, { key: "price", columnName: "Price", dataType: "number", sorting: true, render: (rowData) => { return `$ ${rowData.price}` }, style: { textAlign: "right"} }, { key: "quant", columnName: "Quantity in stock" }, { key: "inStock", columnName: "In stock", style: { display: "flex", justifyContent: "center" }, render: (rowData) => { return rowData.quant == 0 ? SOLD_OUT : IN_STOCK } }, { key: "lastOrder", columnName: "Last order", width: 150, dataType: "datetime" }]} data={this.state.data} />}
+                pComponent={<DataGrid toolbar={true} searchTool={true} checkBoxes={false} tools={this.state.tools} contextMenu={this.state.contextMenu} fields={[{ key: "caption", columnName: "Name", width: 120, sorting: true, filter: true }, { key: "price", columnName: "Price", dataType: "number", sorting: true, render: (rowData) => { return `$ ${rowData.price}` }, style: { textAlign: "right"} }, { key: "quant", columnName: "Quantity in stock" }, { key: "inStock", columnName: "In stock", style: { display: "flex", justifyContent: "center" }, render: (rowData) => { return rowData.quant === 0 ? SOLD_OUT : IN_STOCK } }, { key: "lastOrder", columnName: "Last order", width: 150, dataType: "datetime" }]} data={this.state.data} />}
+            />
+            <Playground
+                pComponent={<DataGrid idKey="id" parentIdKey="parentId" toolbar={true} searchTool={true} checkBoxes={false} tools={this.state.tools} fields={[{ key: "mark", columnName: "Mark / model", width: 120, sorting: true }, { key: "price", columnName: "Price", dataType: "number", sorting: true, render: (rowData) => { return `$ ${rowData.price}` }, style: { textAlign: "right"} }, { key: "color", width: 150, columnName: "Color", render: (rowData) => { return rowData?.parentId ? <div style={{ display: "flex", columnGap: "5px", alignItems: "center" }}><div style={{ minWidth: "15px", height: "15px", borderRadius: "3px", background: rowData.colorValue, boxShadow: "0px 0px 0px 1px #d9d9d9" }}></div><span>{rowData.colorName}</span></div> : null  } }]} data={this.state.carsData} />}
                 componentDocumentation={[
                     {name: "fields", required: true, dataType: "ArrayOfObjects", description: "This is complex prop with all rules to getting, render and working with passed data. Each object is the column of table and have next params: key, columnName, dataType, width, sorting, filter, render, style. Detailed information on the prop is described below."},
                     {name: "data", required: false, dataType: "ArrayOfObjects", description: "A array of data to process according to the rules described in 'fields' prop. Without data be render empty block."},

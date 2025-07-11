@@ -11,11 +11,11 @@ class Playground extends Component {
 
         return (
             <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", rowGap: "40px" }}>
-                <h1 className="playground-main-title">{this.props.title}</h1>
+                {this.props?.title ? <h1 className="playground-main-title">{this.props.title}</h1> : null}
                 <div style={{ display: "flex", flexDirection: "column", rowGap: "80px" }}>
                     <div style={{ display: "flex" }}>
                         <div style={{ width: "50%" }} className="playground-play-block">
-                            <h3 className="playground-play-block-title">Component Props</h3>
+                            <h3 className="playground-play-block-title">Props Interaction</h3>
                             <Container boxStyles={{ margin: "10px", width: "auto", flex: "1 0 0%" }} bodyStyles={{ display: "flex", flexDirection: "column", rowGap: "5px" }}>
                                 {this.props?.componentProps}
                             </Container>
@@ -49,39 +49,44 @@ class Playground extends Component {
                             </div>
                         : null
                     }
-                    <div>
-                        <h3 className="playground-play-block-title">Props Documentation</h3>
-                        <Container boxStyles={{ margin: "10px", padding: "15px", width: "auto" }}>
-                            <table id="playground-docprops">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            Name
-                                        </td>
-                                        <td>
-                                            Required
-                                        </td>
-                                        <td>
-                                            DataType
-                                        </td>
-                                        <td>
-                                            Description
-                                        </td>
-                                    </tr>
-                                    {this.props?.componentDocumentation?.map((propData, idx) => {
-                                        return (
-                                            <tr key={idx}>
-                                                <td>{propData.name}</td>
-                                                <td>{propData.required ? requiredIcon : optionalIcon}</td>
-                                                <td>{propData.dataType}</td>
-                                                <td>{propData.description}</td>
+                    {
+                        this.props?.componentDocumentation ?
+                            <div>
+                                <h3 className="playground-play-block-title">Props Documentation</h3>
+                                <Container boxStyles={{ margin: "10px", padding: "15px", width: "auto" }}>
+                                    <table id="playground-docprops">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Name
+                                                </td>
+                                                <td>
+                                                    Required
+                                                </td>
+                                                <td>
+                                                    DataType
+                                                </td>
+                                                <td>
+                                                    Description
+                                                </td>
                                             </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
-                        </Container>
-                    </div>
+                                            {this.props?.componentDocumentation?.map((propData, idx) => {
+                                                return (
+                                                    <tr key={idx}>
+                                                        <td>{propData.name}</td>
+                                                        <td>{propData.required ? requiredIcon : optionalIcon}</td>
+                                                        <td>{propData.dataType}</td>
+                                                        <td>{propData.description}</td>
+                                                    </tr>
+                                                );
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </Container>
+                            </div>
+                        : null
+                    }
+                    
                 </div>
             </div>
         );

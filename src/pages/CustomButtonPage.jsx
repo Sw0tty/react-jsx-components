@@ -3,7 +3,7 @@ import Playground from '../demoComponents/Playground.jsx';
 import CustomButton from "../lib/src/CustomButton/CustomButton.jsx";
 import ColorPicker from "../lib/src/ColorPicker/ColorPicker.jsx";
 import Switcher from "../lib/src/Switcher/Switcher.jsx";
-import InputText from "../lib/src/InputText/InputText.jsx";
+import TextBox from "../lib/src/TextBox/TextBox.jsx";
 
 
 class CustomButtonPage extends BaseMethods {
@@ -19,7 +19,7 @@ class CustomButtonPage extends BaseMethods {
         return(<Playground title="CustomButton"
                 pComponent={<CustomButton disabled={true} caption={this.state.caption} type="fill" hoverColor={this.state.hoverColor} isImage={true} iconPath="./icons/Excel.svg" reverse={this.state.reverse} />}
                 componentProps={<>
-                    <InputText caption="Caption :" value={this.state.caption} width={200} disabled={false} required={true} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
+                    <TextBox caption="Caption :" value={this.state.caption} width={200} disabled={false} required={true} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
                     <ColorPicker caption="HoverColor :" disabled={false} onReturnData={{ func: this.setData, params: { propName: "hoverColor" } }} />
                     <Switcher caption="Reverse :" disabled={false} inOnState={this.state.reverse} onReturnData={{ func: this.setData, params: { propName: "reverse" } }} />
                 </>}

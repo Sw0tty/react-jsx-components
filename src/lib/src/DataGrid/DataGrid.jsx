@@ -63,6 +63,8 @@ class DataGrid extends BaseComponent {
         this.requiredProps = ['fields'];
         let convertedData = this.convertDataForGrid({ data: props?.data, idKey: props?.idKey, parentIdKey: props?.parentIdKey, iconsParams: props?.iconsParams });
         this.wrapperRef = createRef();
+        this.defaultCellColor = "#ffd575";
+        this.defaultRowColor = "#ffe7b1";
         this.state = {
             data: convertedData,
             lastDataUpdate: props.lastDataUpdate,
@@ -131,20 +133,20 @@ class DataGrid extends BaseComponent {
         document.addEventListener('mouseup', mUp);
     }
     copyCellData = (event) => {
-        if (event.key.toLowerCase() == 'c' && (event.ctrlKey || event.metaKey) && this.state.selected.currentData) {
+        if (event.key.toLowerCase() === 'c' && (event.ctrlKey || event.metaKey) && this.state.selected.currentData) {
             navigator.clipboard.writeText(this.state.selected.currentData);
         }
     }
     returnTreeFromRoot = (params) => {
         const { idKey, parentIdKey, rootId, gridData, treeElems=[] } = params;
-        const rootChilds = gridData.filter(el => el.data[parentIdKey] == rootId);
+        const rootChilds = gridData.filter(el => el.data[parentIdKey] === rootId);
 
         if (rootChilds.length > 0) {
             for (let el of rootChilds) {
                 this.returnTreeFromRoot({ idKey, parentIdKey, rootId: el.data[idKey], gridData, treeElems })
             }
         }
-        treeElems.push(gridData.find(el => el.data[idKey] == rootId))
+        treeElems.push(gridData.find(el => el.data[idKey] === rootId))
         return treeElems;
     }
     shrinkChilds = (params) => {
@@ -172,7 +174,7 @@ class DataGrid extends BaseComponent {
 
         this.setState({
             data: gridData.map(el => {
-                if (el.data[idKey] == treeRoot.data[idKey]) {
+                if (el.data[idKey] === treeRoot.data[idKey]) {
                     return { ...el, childsHidden: !el.childsHidden }
                 } else if (el.data[idKey] in treeActions) {
                     return { ...el, hidden: treeActions[el.data[idKey]] }
@@ -185,7 +187,7 @@ class DataGrid extends BaseComponent {
 
         this.setState({
             data: this.state.data.map(el => {
-                if (el.isParent && el.level == 0) {
+                if (el.isParent && el.level === 0) {
                     return { ...el, childsHidden: onHide }
                 } else if (el.isParent && el.level > 0) {
                     return { ...el, childsHidden: onHide, hidden: onHide }
@@ -208,7 +210,7 @@ class DataGrid extends BaseComponent {
         } else if (iconsParams?.byKey) {
             const byKeyParams = iconsParams.byKey;
             if (byKeyParams?.key || byKeyParams?.icons || data || byKeyParams?.key in data) {
-                const icon = byKeyParams.icons?.find(el => el.typeName == data[byKeyParams?.key])?.iconName;
+                const icon = byKeyParams.icons?.find(el => el.typeName === data[byKeyParams?.key])?.iconName;
                 if (icon) {
                     return icon;
                 } return undefined;
@@ -223,9 +225,9 @@ class DataGrid extends BaseComponent {
                 const { roots, childs, key, parentKey, newRoots = [], level = 0 } = params;
 
                 roots.forEach(root => {
-                    const rootChilds = childs.filter(ch => ch[parentKey] == root[key]);
+                    const rootChilds = childs.filter(ch => ch[parentKey] === root[key]);
 
-                    if (rootChilds.length == 0) {
+                    if (rootChilds.length === 0) {
                         newRoots.push({ checked: false, hidden: false, level: level, icon: this.returnIcon({ iconsParams, data: root }), isParent: false, childsHidden: false, data: root });
                     } else {
                         newRoots.push({ checked: false, hidden: false, level: level, icon: this.returnIcon({ iconsParams, data: root }), isParent: true, childsHidden: false, data: root });
@@ -278,7 +280,7 @@ class DataGrid extends BaseComponent {
             case "datetime":
                 return new DataRender().toDateTimeFormat(new Date(data));
             case "bool":
-                return (<img className="datagrid-cell-img" style={{ WebkitMaskImage: `url(${data ? CheckCircle : CrossCircle})`, maskImage: `url(${data ? CheckCircle : CrossCircle})` }} />);
+                return (<img alt="" className="datagrid-cell-img" style={{ WebkitMaskImage: `url(${data ? CheckCircle : CrossCircle})`, maskImage: `url(${data ? CheckCircle : CrossCircle})` }} />);
             default:
                 return data;
         }
@@ -362,9 +364,9 @@ class DataGrid extends BaseComponent {
         }
 
         if (currentFilters.find(el => !el.checked)) {
-            if (lastQueue == 0) {
+            if (lastQueue === 0) {
                 return 1;
-            } else if (columnKey == lastQueueColumn) {
+            } else if (columnKey === lastQueueColumn) {
                 return lastQueue;
             } return lastQueue + 1;
         } return -1;
@@ -530,7 +532,7 @@ class DataGrid extends BaseComponent {
         });
     }
     componentDidUpdate() {
-        if (this.state.lastDataUpdate != this.props.lastDataUpdate) {
+        if (this.state.lastDataUpdate !== this.props.lastDataUpdate) {
             this.setDefaultGridState();
         }
     }
@@ -541,7 +543,7 @@ class DataGrid extends BaseComponent {
         const { id } = params;
 
         this.setState({
-            data: this.state.data.map(el => el.rowId == id ? { ...el, checked: checked } : el)
+            data: this.state.data.map(el => el.rowId === id ? { ...el, checked: checked } : el)
         });
     }
     updateRedirectPath = (params) => {
@@ -549,7 +551,7 @@ class DataGrid extends BaseComponent {
         let newPath = defaultPath;
 
         for (let ruleParams of updateRules) {
-            if (ruleParams.rule == "ADD") {
+            if (ruleParams.rule === "ADD") {
                 if ("str" in ruleParams) {
                     newPath += ruleParams.str;
                 } else if ("fromSelected" in ruleParams) {
@@ -619,8 +621,8 @@ class DataGrid extends BaseComponent {
                                                         <div className="datagrid-header-handlers">
                                                             <div className="datagrid-thead-buttons">
                                                                 {field.sorting ?
-                                                                    <div className="datagrid-sorter" onClick={() => { this.setSortDataState({ data: this.sortData({ rowData: this.state?.data, columnKey: field.key, dataType: field.dataType }), columnKey: field.key, dataType: field.dataType }) }}>
-                                                                    <img style={{ background: field.key == this.state.sorting?.sortingBy?.columnKey ? '#7aeaf3' : 'black', transform: `rotate(${field.key == this.state.sorting?.sortingBy?.columnKey && this.state.sorting?.increasing ? '180' : '0'}deg)` }} /></div>
+                                                                    <div className="datagrid-sorter" style={{ filter: field.key === this.state.sorting?.sortingBy?.columnKey ? "drop-shadow(0px 0px 2px #f0ff70)" : null }} onClick={() => { this.setSortDataState({ data: this.sortData({ rowData: this.state?.data, columnKey: field.key, dataType: field.dataType }), columnKey: field.key, dataType: field.dataType }) }}>
+                                                                    <img alt="" style={{ background: field.key === this.state.sorting?.sortingBy?.columnKey ? '#e3961e' : '#666666', transform: `rotate(${field.key === this.state.sorting?.sortingBy?.columnKey && this.state.sorting?.increasing ? '180' : '0'}deg)` }} /></div>
                                                                 : null}
                                                             </div>
                                                         </div>
@@ -629,12 +631,12 @@ class DataGrid extends BaseComponent {
                                                         {field.filter ?
                                                             <div className="datagrid-filter-container">
                                                                 <div className={`datagrid-filter${this.state.filters[field.key]?.queueNum > 0 ? " datagrid-filter-active" : ""}`} onClick={(event) => { this.switchFilterForm({ target: event.target, position: event.target.getBoundingClientRect(), columnKey: field.key }) }}>
-                                                                    <img />
+                                                                    <img alt="" />
                                                                 </div>
                                                                 <DGFilter parentTarget={this.state.filters[field.key]?.parentTarget} hidden={this.state.filters[field.key]?.hidden ?? true} onHide={this.closeFilterForm} data={this.state?.filters[field.key]?.data} columnKey={field.key} onReturnData={this.addFiltersHandler} />
                                                             </div>
                                                             : null}
-                                                        <div className="datagrid-resizer" onMouseDown={(event) => this.resizeColumn(event)}><img /></div>
+                                                        <div className="datagrid-resizer" onMouseDown={(event) => this.resizeColumn(event)}><img alt="" /></div>
                                                     </div>
                                                 </div>
                                             </th>)
@@ -647,13 +649,13 @@ class DataGrid extends BaseComponent {
                                             return (<tr key={rowData.rowId}>
                                                 {this.props?.rowNum ? <td className="datagrid-numcolumn"><div>{rowIdx + 1}</div></td> : null}
                                                 {this.props.fields.map((field, fIdx) => {
-                                                    return (<td key={fIdx} style={{ background: rowData.rowId == this.state.selected?.row && fIdx == this.state.selected?.cell ? 'var(--datagridCellSelectedColor)' : rowData.rowId == this.state.selected?.row ? 'var(--datagridRowSelectedColor)' : 'white', }} onClick={() => { this.setState({ selected: { row: rowData.rowId, cell: fIdx, currentData: rowData.data[field?.key], rowData: rowData.data } }) }} onDoubleClick={(event) => { this.props?.onDoubleClick?.func({ event: event, data: rowData.data, params: { ...this.props?.onDoubleClick?.params } }) }} onContextMenu={this.props?.contextMenu ? (event) => { this.setState({ selected: { row: rowData.rowId, cell: fIdx }, selectedData: rowData.data }); this.showContext(event); } : null}>
-                                                        <div className="datagrid-cell" style={{ paddingLeft: fIdx == 0 ? `${rowData.level * 20}px` : '', ...field?.style }}>
-                                                            {fIdx == 0 && this.props?.checkBoxes ? <div className="datagrid-checkbox-wrapper"><DGCheckBox value={rowData.checked} disabled={false} onReturnData={{ func: this.checkRow, params: { id: rowData.rowId } }} /></div> : null}
-                                                            {rowData.isParent && fIdx == 0 ? <div className="datagrid-parent-shrink" onClick={() => this.shrinkChilds({ parentId: rowData.data[this.props.idKey], idKey: this.props.idKey, parentIdKey: this.props.parentIdKey, gridData: this.state.data })}><img style={{ transform: `rotate(${rowData.childsHidden ? -90 : 0}deg)` }} /></div> : null}
-                                                            {this.props?.parentIdKey && !rowData.isParent && fIdx == 0 ? <div className="datagrid-parent-shrink-plug"></div> : null}
-                                                            {rowData.icon && fIdx == 0 ? <div className="datagrid-item-icon"><img src={`/src/assets/${rowData.icon}.svg`} /></div> : null}
-                                                            {field?.render && (typeof field?.render === "function") ? field?.render(rowData.data) ?? '' : this.toDefaultFormat(rowData.data[field?.key], field?.dataType)}
+                                                    return (<td key={fIdx} style={{ background: rowData.rowId === this.state.selected?.row && fIdx === this.state.selected?.cell ? this.props?.cellColor ?? this.defaultCellColor : rowData.rowId === this.state.selected?.row ? this.props?.rowColor ?? this.defaultRowColor : 'white', }} onClick={() => { this.setState({ selected: { row: rowData.rowId, cell: fIdx, currentData: rowData.data[field?.key], rowData: rowData.data } }) }} onDoubleClick={(event) => { this.props?.onDoubleClick?.func({ event: event, data: rowData.data, params: { ...this.props?.onDoubleClick?.params } }) }} onContextMenu={this.props?.contextMenu ? (event) => { this.setState({ selected: { row: rowData.rowId, cell: fIdx }, selectedData: rowData.data }); this.showContext(event); } : null}>
+                                                        <div className="datagrid-cell" style={{ paddingLeft: fIdx === 0 ? `${rowData.level * 20}px` : '', ...field?.style }}>
+                                                            {fIdx === 0 && this.props?.checkBoxes ? <div className="datagrid-checkbox-wrapper"><DGCheckBox value={rowData.checked} disabled={false} onReturnData={{ func: this.checkRow, params: { id: rowData.rowId } }} /></div> : null}
+                                                            {rowData.isParent && fIdx === 0 ? <div className="datagrid-parent-shrink" onClick={() => this.shrinkChilds({ parentId: rowData.data[this.props.idKey], idKey: this.props.idKey, parentIdKey: this.props.parentIdKey, gridData: this.state.data })}><img alt="" style={{ transform: `rotate(${rowData.childsHidden ? -90 : 0}deg)` }} /></div> : null}
+                                                            {this.props?.parentIdKey && !rowData.isParent && fIdx === 0 ? <div className="datagrid-parent-shrink-plug"></div> : null}
+                                                            {rowData.icon && fIdx === 0 ? <div className="datagrid-item-icon"><img alt="" src={`/src/assets/${rowData.icon}.svg`} /></div> : null}
+                                                            {field?.render && (typeof field?.render === "function") ? field?.render(rowData.data) ?? '' : <span>{this.toDefaultFormat(rowData.data[field?.key], field?.dataType)}</span>}
                                                         </div>
                                                     </td>)
                                                 })}
@@ -699,7 +701,7 @@ class DGFilter extends Component {
         document.removeEventListener("mousedown", this.handleClickOutside);
     }
     handleClickOutside(event) {
-        if (this.wrapperRef && !this.wrapperRef.current.contains(event.target) && event.target != this.props.parentTarget) {
+        if (this.wrapperRef && !this.wrapperRef.current.contains(event.target) && event.target !== this.props.parentTarget) {
             this.props.onHide({ columnKey: this.props.columnKey });
             this.setState({
                 data: undefined,
@@ -746,7 +748,7 @@ class DGFilter extends Component {
         }
     }
     componentDidUpdate() {
-        if (this.state.hidden != this.props.hidden) {
+        if (this.state.hidden !== this.props.hidden) {
             this.setState({
                 data: this.props.data,
                 parentHandlerPress: true
@@ -757,7 +759,7 @@ class DGFilter extends Component {
     checkFiltersHandler = (isChecked, params) => {
         const { id } = params;
         const copyData = this.state?.data?.map(el => {
-            if (el.id == id) {
+            if (el.id === id) {
                 return { ...el, checked: isChecked }
             } return { ...el }
         });
@@ -817,7 +819,7 @@ class NonData extends Component {
     render() {
         return (
             <div className="datagrid-nondata-container">
-                <div className="datagrid-nondata-icon"><img /></div>
+                <div className="datagrid-nondata-icon"><img alt="" /></div>
                 <div className="datagrid-nondata-caption">Ничего не найдено</div>
             </div>
         );
@@ -837,7 +839,7 @@ class DataRender {
         const executedData = chainKeys[0] in data ? data[chainKeys[0]] : undefined;
         const newChainKeys = chainKeys.length > 1 ? chainKeys.slice(1, chainKeys.length) : [];
 
-        if (executedData == undefined || newChainKeys.length == 0)
+        if (executedData === undefined || newChainKeys.length === 0)
             return executedData;
         return this.selectFromDictionary({ data: executedData, chainKeys: newChainKeys });
     }

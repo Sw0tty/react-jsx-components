@@ -1,5 +1,5 @@
 import BaseComponent from '../BaseComponent/BaseComponent.jsx';
-import './inputtext.css';
+import './textbox.css';
 
 
 // --- Components params ---
@@ -15,7 +15,7 @@ import './inputtext.css';
 // onReturnData      (Object) - Object with callback function and Object with params
 // style             (Object) - for 'input', 'container' 
 
-class InputText extends BaseComponent {
+class TextBox extends BaseComponent {
     constructor(props) {
         super();
         this.requiredProps = ['width', 'disabled', 'required', 'maxLength'];
@@ -116,4 +116,4 @@ class InputText extends BaseComponent {
     }
 }
 
-export default InputText;
+export default TextBox;

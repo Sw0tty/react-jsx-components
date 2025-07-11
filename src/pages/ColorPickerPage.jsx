@@ -2,7 +2,7 @@ import BaseMethods from "../demoComponents/BaseMethods.jsx";
 import Playground from '../demoComponents/Playground.jsx';
 import ColorPicker from "../lib/src/ColorPicker/ColorPicker.jsx";
 import Switcher from "../lib/src/Switcher/Switcher.jsx";
-import InputText from "../lib/src/InputText/InputText.jsx";
+import TextBox from "../lib/src/TextBox/TextBox.jsx";
 
 
 class ColorPickerPage extends BaseMethods {
@@ -17,7 +17,7 @@ class ColorPickerPage extends BaseMethods {
         return(<Playground title="ColorPicker"
                 pComponent={<ColorPicker caption={this.state.caption} disabled={this.state.disabled} />}
                 componentProps={<>
-                    <InputText caption="Caption :" value={this.state.caption} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
+                    <TextBox caption="Caption :" value={this.state.caption} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
                     <Switcher caption="Disabled :" disabled={false} onReturnData={{ func: this.setData, params: { propName: "disabled" } }} />
                 </>}
                 componentDocumentation={[

@@ -1,7 +1,7 @@
 import BaseMethods from "../demoComponents/BaseMethods.jsx";
 import Playground from '../demoComponents/Playground.jsx';
 import Container from "../lib/src/Container/Container.jsx";
-import InputText from "../lib/src/InputText/InputText.jsx";
+import TextBox from "../lib/src/TextBox/TextBox.jsx";
 import TextArea from "../lib/src/TextArea/TextArea.jsx";
 
 
@@ -17,7 +17,7 @@ class ContainerPage extends BaseMethods {
         return(<Playground title="Container"
                 pComponent={<Container caption={this.state.caption}>{<div dangerouslySetInnerHTML={{ __html: this.state.content }} />}</Container>}
                 componentProps={<>
-                    <InputText caption="Caption :" value={this.state.caption} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
+                    <TextBox caption="Caption :" value={this.state.caption} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
                     <TextArea caption="Container body (children) :" value={this.state.content} required={true} width={500} disabled={false} defaultHeight={50} maxHeight={300} onReturnData={{ func: this.setData, params: { propName: "content" } }} />
                 </>}
                 componentDocumentation={[

@@ -33,8 +33,6 @@ body {
 	--iconRedColor: #FF2400;
 	--iconGreenColor: #00ff00;
 	--backgroundBooksGrayLight: #f3f3f3;
-	--datagridRowSelectedColor: #ffe7b1;
-	--datagridCellSelectedColor: #ffd575;
 }
 
 #root {

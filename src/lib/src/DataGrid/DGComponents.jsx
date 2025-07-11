@@ -80,14 +80,13 @@ export class DGButton extends Component {
         super();
         this.requiredProps = ['caption', 'type'];
         this.baseHoverColor = "#5eaac5";
-        this.buttonStyles = ['hollow', 'fill'];
     }
     render() {
         return (
-            <div className={`datagridbutton-container`}>
-                <div style={{ ...this.props?.style, '--datagridbuttonHoverColor': this.props?.hoverColor ?? this.baseHoverColor, flexDirection: this.props?.reverse ? "row-reverse" : null }} onClick={(event) => this.props?.onClickAction?.func({ event: event, ...this.props?.onClickAction?.params })} className={`button-default ${this.buttonStyles.includes(this.props.type) ? this.props.type : ''}`}>
-                    {this.props?.iconPath ? <div className="datagridbutton-icon">
-                        <img className="datagridbutton-icon-imgicon" style={{ WebkitMaskImage: `url(${this.props.iconPath}.svg)`, maskImage: `url(${this.props.iconPath}.svg)` }} />
+            <div className="dgbutton-container">
+                <div style={{ ...this.props?.style, '--datagridbuttonHoverColor': this.props?.hoverColor ?? this.baseHoverColor, flexDirection: this.props?.reverse ? "row-reverse" : null }} onClick={(event) => this.props?.onClickAction?.func({ event: event, ...this.props?.onClickAction?.params })} className="dgbutton-button">
+                    {this.props?.iconPath ? <div className="dgbutton-icon">
+                        <img className="dgbutton-icon-imgicon" style={{ WebkitMaskImage: `url(${this.props.iconPath}.svg)`, maskImage: `url(${this.props.iconPath}.svg)` }} />
                     </div> : null}
                     {this.props.caption}
                 </div>

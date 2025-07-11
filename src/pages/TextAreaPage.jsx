@@ -1,7 +1,7 @@
 import BaseMethods from "../demoComponents/BaseMethods.jsx";
 import Playground from '../demoComponents/Playground.jsx';
 import TextArea from "../lib/src/TextArea/TextArea.jsx";
-import InputText from "../lib/src/InputText/InputText.jsx";
+import TextBox from "../lib/src/TextBox/TextBox.jsx";
 import Switcher from "../lib/src/Switcher/Switcher.jsx";
 
 
@@ -22,10 +22,10 @@ class TextAreaPage extends BaseMethods {
                 pComponentStyle={{ alignItems: "baseline" }}
                 pComponent={<TextArea caption={this.state.caption} required={this.state.required} disabled={this.state.disabled} width={this.state.width} maxHeight={this.state.maxHeight} defaultHeight={this.state.defaultHeight} />}
                 componentProps={<>
-                    <InputText caption="Caption :" value={this.state.caption} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
-                    <InputText caption="DefaultHeight :" inputType="number" value={this.state.defaultHeight} width={200} disabled={false} required={false} maxLength={3} onReturnData={{ func: this.setData, params: { propName: "defaultHeight" } }} />
-                    <InputText caption="MaxHeight :" inputType="number" value={this.state.maxHeight} width={200} disabled={false} required={false} maxLength={3} onReturnData={{ func: this.setData, params: { propName: "maxHeight" } }} />
-                    <InputText caption="Width :" value={this.state.width} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "width" } }} />
+                    <TextBox caption="Caption :" value={this.state.caption} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
+                    <TextBox caption="DefaultHeight :" inputType="number" value={this.state.defaultHeight} width={200} disabled={false} required={false} maxLength={3} onReturnData={{ func: this.setData, params: { propName: "defaultHeight" } }} />
+                    <TextBox caption="MaxHeight :" inputType="number" value={this.state.maxHeight} width={200} disabled={false} required={false} maxLength={3} onReturnData={{ func: this.setData, params: { propName: "maxHeight" } }} />
+                    <TextBox caption="Width :" value={this.state.width} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "width" } }} />
                     <Switcher caption="Required :" disabled={false} inOnState={this.state.required} onReturnData={{ func: this.setData, params: { propName: "required" } }} />
                     <Switcher caption="Disabled :" disabled={false} inOnState={this.state.disabled} onReturnData={{ func: this.setData, params: { propName: "disabled" } }} />
                 </>}

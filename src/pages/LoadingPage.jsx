@@ -1,7 +1,7 @@
 import BaseMethods from "../demoComponents/BaseMethods.jsx";
 import Playground from '../demoComponents/Playground.jsx';
 import Loading from "../lib/src/Loading/Loading.jsx";
-import InputText from "../lib/src/InputText/InputText.jsx";
+import TextBox from "../lib/src/TextBox/TextBox.jsx";
 import Switcher from "../lib/src/Switcher/Switcher.jsx";
 
 
@@ -20,10 +20,10 @@ class LoadingPage extends BaseMethods {
         return(<Playground title="Loading"
                 pComponent={<Loading isLoading={this.state.isLoading} blurStrong={this.state.blurStrong} speed={this.state.speed} size={this.state.size}><div style={{ width: "400px", height: "200px" }}>Some loading content...</div></Loading>}
                 componentProps={<>
-                    <InputText caption="IconPath :" value={this.state.iconPath} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "iconPath" } }} />
-                    <InputText caption="Speed :" value={this.state.speed} width={200} disabled={false} required={false} maxLength={6} onReturnData={{ func: this.setData, params: { propName: "speed" } }} />
-                    <InputText caption="Size :" inputType="number" value={this.state.size} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "size" } }} />
-                    <InputText caption="BlurStrong :" inputType="number" value={this.state.blurStrong} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "blurStrong" } }} />
+                    <TextBox caption="IconPath :" value={this.state.iconPath} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "iconPath" } }} />
+                    <TextBox caption="Speed :" value={this.state.speed} width={200} disabled={false} required={false} maxLength={6} onReturnData={{ func: this.setData, params: { propName: "speed" } }} />
+                    <TextBox caption="Size :" inputType="number" value={this.state.size} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "size" } }} />
+                    <TextBox caption="BlurStrong :" inputType="number" value={this.state.blurStrong} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "blurStrong" } }} />
                     <Switcher caption="IsLoading :" disabled={false} inOnState={this.state.isLoading} onReturnData={{ func: this.setData, params: { propName: "isLoading" } }} />
                 </>}
                 componentDocumentation={[

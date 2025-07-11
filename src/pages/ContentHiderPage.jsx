@@ -1,7 +1,7 @@
 import BaseMethods from "../demoComponents/BaseMethods.jsx";
 import Playground from '../demoComponents/Playground.jsx';
 import ContentHider from "../lib/src/ContentHider/ContentHider.jsx";
-import InputText from "../lib/src/InputText/InputText.jsx";
+import TextBox from "../lib/src/TextBox/TextBox.jsx";
 import TextArea from "../lib/src/TextArea/TextArea.jsx";
 
 
@@ -19,8 +19,8 @@ class ContentHiderPage extends BaseMethods {
                 pComponentStyle={{ alignItems: "baseline" }}
                 pComponent={<ContentHider caption={this.state.caption} width={this.state.width}>{<div style={{ width: "100%", height: "100%" }} dangerouslySetInnerHTML={{ __html: this.state.content }} />}</ContentHider>}
                 componentProps={<>
-                    <InputText caption="Caption :" value={this.state.caption} width={200} disabled={false} required={true} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
-                    <InputText caption="Width :" value={this.state.width} width={200} disabled={false} required={true} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "width" } }} />
+                    <TextBox caption="Caption :" value={this.state.caption} width={200} disabled={false} required={true} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
+                    <TextBox caption="Width :" value={this.state.width} width={200} disabled={false} required={true} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "width" } }} />
                     <TextArea caption="Container body (children) :" value={this.state.content} required={true} width={500} disabled={false} defaultHeight={50} maxHeight={300} onReturnData={{ func: this.setData, params: { propName: "content" } }} />
                 </>}
                 componentDocumentation={[

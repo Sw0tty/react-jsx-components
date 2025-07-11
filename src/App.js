@@ -17,7 +17,7 @@ class App extends Component {
 							]
 						},
 						{
-							id: undefined, name: "InputText", icon: "Textbox", to: ROOT_PATH + "/InputText"
+							id: undefined, name: "TextBox", icon: "Textbox", to: ROOT_PATH + "/TextBox"
 						},
 						{
 							id: undefined, name: "CheckBox", icon: "CheckCircle", to: ROOT_PATH + "/CheckBox"

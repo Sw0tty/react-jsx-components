@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import InputTextPage from './pages/InputTextPage.jsx';
+import TextBoxPage from './pages/TextBoxPage.jsx';
 import TipPage from './pages/TipPage.jsx';
 import CheckBoxPage from './pages/CheckBoxPage.jsx';
 import ColorPickerPage from './pages/ColorPickerPage.jsx';
@@ -24,7 +24,7 @@ function AppRoutes() {
     return (
         <Routes>
             <Route path="*" element={<div>Path not found.</div>} />
-            <Route path={`${ROOT_PATH}/InputText`} element={<InputTextPage />} />
+            <Route path={`${ROOT_PATH}/TextBox`} element={<TextBoxPage />} />
             <Route path={`${ROOT_PATH}/Tip`} element={<TipPage />} />
             <Route path={`${ROOT_PATH}/CheckBox`} element={<CheckBoxPage />} />
             <Route path={`${ROOT_PATH}/ColorPicker`} element={<ColorPickerPage />} />
