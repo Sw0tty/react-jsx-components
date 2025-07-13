@@ -5,7 +5,7 @@ import './container.css';
 class Container extends BaseComponent {
     constructor() {
         super();
-        this.requiredProps = ['children'];
+        this.requiredProps = [{ name: "children" }];
     }
     renderComponent() {
         return (

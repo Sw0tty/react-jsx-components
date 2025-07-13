@@ -5,7 +5,7 @@ import './switcher.css';
 class Switcher extends BaseComponent {
     constructor(props) {
         super(props);
-        this.requiredProps = ['disabled'];
+        this.requiredProps = [{ name: 'disabled', type: 'boolean'}];
         this.state = {
             value: props?.value ?? false
         }

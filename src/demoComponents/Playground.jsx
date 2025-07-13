@@ -44,7 +44,7 @@ class Playground extends Component {
                             <div>
                                 <h3 className="playground-play-block-title">Example In The Code</h3>
                                 <Container boxStyles={{ margin: "10px", padding: "15px", width: "auto" }}>
-                                    <div style={{ fontFamily: "monospace" }}>{this.props.example}</div>
+                                    <div style={{ fontFamily: "monospace", position: 'relative', padding: '10px', background: '#efefef', borderRadius: '5px', color: '#000000' }}>{this.props.example}<div style={{position: 'absolute', right: '3px', bottom: '4px', cursor: 'pointer', border: '1px solid #979797', borderRadius: '5px', fontSize: '10px', padding: '1px 5px',background: '#d9d9d9' }} onClick={() => { return navigator.clipboard.writeText(this.props.example); }}>Copy</div></div>
                                 </Container>
                             </div>
                         : null

@@ -5,7 +5,7 @@ import './splitter.css';
 class Splitter extends BaseComponent {
     constructor(props) {
         super();
-        this.requiredProps = ['splitRule'];
+        this.requiredProps = [{ name: 'splitRule', constValue: ['vertical', 'horizontal'] }];
         this.state = {
             mainBlockWidth: props?.mainBlockWidth ?? "200px",
         }

@@ -15,7 +15,7 @@ import './textarea.css';
 class TextArea extends BaseComponent {
     constructor(props) {
         super();
-        this.requiredProps = ['required', 'width', 'disabled', 'maxHeight'];
+        this.requiredProps = [{ name: 'required', type: 'boolean'}, { name: 'disabled', type: 'boolean'}, { name: 'maxHeight', type: 'number' }];
         this.state = {
             data: props.value ?? '',
             lastState: props.disabled

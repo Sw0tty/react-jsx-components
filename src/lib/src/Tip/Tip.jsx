@@ -7,7 +7,7 @@ import './tip.css';
 class Tip extends BaseComponent {
     constructor() {
         super();
-        this.requiredProps = ['children'];
+        this.requiredProps = [{ name: 'children' }];
         this.state = {
             tipBoxPosition: null,
             tipBoxDisplay: "none",

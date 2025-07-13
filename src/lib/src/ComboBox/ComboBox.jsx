@@ -20,7 +20,7 @@ import './combobox.css';
 class ComboBox extends BaseComponent {
     constructor(props) {
         super();
-        this.requiredProps = ['valueKey', 'captionKey', 'items', 'required', 'disabled'];
+        this.requiredProps = [{ name: 'valueKey', type: 'string' }, { name: 'width', type: 'number'}, { name: 'captionKey', type: 'string'}, { name: 'items', type: 'Array'}, { name: 'required', type: 'boolean' }, { name: 'disabled', type: 'boolean' }];
         this.state = {
             captionKey: props?.captionKey,
             valueKey: props?.valueKey,
@@ -103,7 +103,7 @@ class ComboBox extends BaseComponent {
         document.removeEventListener("mousedown", this.handleClickOutside);
     }
     handleClickOutside(event) {
-        if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
+        if (this.wrapperRef && !this.wrapperRef.current.contains(event.target) || !this) {
             this.setState({ listItemsHidden: true, focused: false, listData: this.props.items, searching: false, searchingBy: '' });
         }       
     }

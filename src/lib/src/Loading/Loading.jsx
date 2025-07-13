@@ -6,7 +6,7 @@ import './loading.css';
 class Loading extends BaseComponent {
     constructor() {
         super();
-        this.requiredProps = ['children', 'isLoading'];
+        this.requiredProps = [{ name: 'children' }, { name: 'isLoading', type: 'boolean' }];
     }
     renderComponent() {
         const blur = this.props?.blurStrong ? `blur(${this.props.blurStrong}px)` : "blur(5px)";

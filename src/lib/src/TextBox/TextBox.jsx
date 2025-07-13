@@ -18,7 +18,7 @@ import './textbox.css';
 class TextBox extends BaseComponent {
     constructor(props) {
         super();
-        this.requiredProps = ['width', 'disabled', 'required', 'maxLength'];
+        this.requiredProps = [{ name: 'width', type: 'number' }, { name: 'disabled', type: 'boolean' }, { name: 'required', type: 'boolean' }, { name: 'maxLength', type: 'number' }];
         this.state = {
             value: props.value ?? '',
             minYear: 1700,
@@ -27,31 +27,30 @@ class TextBox extends BaseComponent {
         }
         this.defaultSize = 13;
         this.heightIncrement = 6;
-        this.maxLength = props?.inputType === "yearOnly" ? 4 : props?.maxLength;
+        this.maxLength = props?.maxLength;
     }
     setComponentData(value) {
-        const maxLength = this.props?.inputType === "yearOnly" ? 4 : this.props?.maxLength
-
-        if (value.length <= maxLength) {
+        if (value.length <= this.props.maxLength) {
             this.setState({
-                value: this.props?.inputType === "yearOnly" || this.props?.inputType === "number" ? this.returnNumber(value.trim()) : value
+                value: this.props?.inputType === "number" ? this.returnNumber(value.trim()) : value
             });
-        }
-
-        if (this.props?.onReturnData) {
-            setTimeout(() => {
-                const { func, params } = this.props.onReturnData;
-                func(this.props?.inputType === "yearOnly" || this.props?.inputType === "number" ? this.shortDateToDateFormat() : this.state.value, params ?? undefined);
-            }, 0)
+            
+            if (this.props?.onReturnData) {
+                setTimeout(() => {
+                    const { func, params } = this.props.onReturnData;
+                    
+                    func(this.props?.inputType === "number" ? this.returnNumber(value.trim()) : this.state.value, params ?? undefined);
+                }, 0)
+            }
         }
     }
     returnNumber(value) {
         for (let letter of value.split('')) {
             if (letter === " " || isNaN(Number(letter))) {
-                return value.slice(0, value.indexOf(letter));
+                return Number(value.slice(0, value.indexOf(letter)));
             }
         }
-        return value;
+        return Number(value);
     }
     shortDateToDateFormat() {
         return this.state?.value?.length === 4 ? `${this.state?.value}-01-01` : this.state?.value;
@@ -96,7 +95,7 @@ class TextBox extends BaseComponent {
             <div className={`${this.props?.removeBaseCSS ? '' : 'component-baseformat-container '}textbox-container${this.props?.fullWidth ? ' textbox-full' : ''}`} style={this.props?.style?.container}>
                 {
                     this.props.required || this.props?.caption ?
-                        <span className="component-baseformat-text textbox-caption" style={{ fontSize: inputStyle.fontSize }}>{this.props.required ? this.getRequiredSign() : null}{this.props?.caption ? this.props?.caption : null}</span>
+                        <span className="textbox-caption" style={{ fontSize: inputStyle.fontSize }}>{this.props.required ? this.getRequiredSign() : null}{this.props?.caption ? this.props?.caption : null}</span>
                     : null
                 }
                 <div className="textbox-inputcontainer">

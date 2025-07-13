@@ -138,7 +138,7 @@ export class DGSearchTool extends Component {
             <div className={`${this.props?.removeBaseCSS ? '' : 'component-baseformat-container '}dgsearchtool-container${this.props?.fullWidth ? ' dgsearchtool-full' : ''}`} style={this.props?.style?.container}>
                 {
                     this.props.required || this.props?.caption ?
-                        <span className="component-baseformat-text dgsearchtool-caption" style={{ fontSize: inputStyle.fontSize }}>{this.props.required ? this.getRequiredSign() : null}{this.props?.caption ? this.props?.caption : null}</span>
+                        <span className="dgsearchtool-caption" style={{ fontSize: inputStyle.fontSize }}>{this.props.required ? this.getRequiredSign() : null}{this.props?.caption ? this.props?.caption : null}</span>
                     : null
                 }
                 <div className="dgsearchtool-inputcontainer">

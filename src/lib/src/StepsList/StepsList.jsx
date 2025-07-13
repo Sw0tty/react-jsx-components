@@ -5,7 +5,7 @@ import './stepslist.css';
 class StepsList extends BaseComponent {
     constructor() {
         super();
-        this.requiredProps = ['steps'];
+        this.requiredProps = [{ name: 'steps', type: 'Array' }];
         this.stepsCount = this.props?.steps.length;
         this.baseColor = "#0a70cb";
     }

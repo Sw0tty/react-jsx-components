@@ -60,7 +60,7 @@ import './datagrid.css';
 class DataGrid extends BaseComponent {
     constructor(props) {
         super();
-        this.requiredProps = ['fields'];
+        this.requiredProps = [{ name: 'fields', type: 'Array' }];
         let convertedData = this.convertDataForGrid({ data: props?.data, idKey: props?.idKey, parentIdKey: props?.parentIdKey, iconsParams: props?.iconsParams });
         this.wrapperRef = createRef();
         this.defaultCellColor = "#ffd575";

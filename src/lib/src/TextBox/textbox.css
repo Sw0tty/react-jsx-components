@@ -48,7 +48,14 @@
     border-color: var(--componentHoverColor);
 }
 
-.textbox-input, .textbox-caption {
+.textbox-caption {
+	font-size: 13px;
+	color: black;
+	font-family: Helvetica, sans-serif;
+	white-space: nowrap;
+}
+
+.textbox-input {
     font-size: 13px;
 }
 
@@ -84,13 +91,6 @@
 
 .textbox-input:focus {
     outline: none;
-}
-
-.component-baseformat-text {
-	font-size: 13px;
-	color: black;
-	font-family: Helvetica, sans-serif;
-	white-space: nowrap;
 }
 
 .component-baseformat-container {

@@ -26,6 +26,7 @@ class ColorPickerPage extends BaseMethods {
                     {name: "disabled", required: true, dataType: "bool", description: "Component availability state."},
                     {name: "onReturnData", required: false, dataType: "Object", description: "Object type of: { func: callbackFunc, params: { } }"},
                 ]}
+                example={`<ColorPicker caption="${this.state.caption}" disabled={${this.state.disabled}} />`}
             />);
     }
 }

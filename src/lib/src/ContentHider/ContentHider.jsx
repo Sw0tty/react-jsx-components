@@ -6,7 +6,7 @@ import ArrowDown from './ArrowDown.svg';
 class ContentHider extends BaseComponent {
     constructor(props) {
         super(props);
-        this.requiredProps = ['children', 'caption'];
+        this.requiredProps = [{ name: 'children' }, { name: 'caption', type: 'string' }];
         this.state = {
             shrinked: props?.shrinked ?? true,
             maxHeight: props?.maxHeight ? `${props.maxHeight}px` : null

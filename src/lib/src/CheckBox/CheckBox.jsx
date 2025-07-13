@@ -14,7 +14,7 @@ import './checkbox.css';
 class CheckBox extends BaseComponent {
     constructor(props) {
         super();
-        this.requiredProps = ['disabled'];
+        this.requiredProps = [{ name: 'disabled', type: 'boolean' }];
         this.state = {
             value: props?.value ?? false,
         }

@@ -9,7 +9,7 @@ transform: scale(1.02);*/
 class Gallery extends BaseComponent {
     constructor() {
         super();
-        this.requiredProps = ['itemDataKey'];
+        this.requiredProps = [{ name: 'itemDataKey', type: 'string' }];
     }
     //setComponentData
     renderComponent() {
