@@ -5,12 +5,12 @@
 	border-radius: 3px;
 	padding: 3px 5px;
 	background: #ffefef;
+	max-width: 280px;
 }
 
 .basecomponent-error-container span {
 	font-size: 13px;
 	font-family: Helvetica, sans-serif;
-	white-space: nowrap;
 	color: red;
 }
 

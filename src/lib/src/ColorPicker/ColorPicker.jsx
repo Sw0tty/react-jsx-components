@@ -5,7 +5,7 @@ import './colorpicker.css';
 class ColorPicker extends BaseComponent {
     constructor(props) {
         super();
-        this.requiredProps = [{ name: 'disabled', type: 'boolean' }];
+        this._propsRules = [{ name: 'invalid', type: 'boolean' }, { name: 'disabled', type: 'boolean' }];
         this.state = {
             value: props?.value ?? "#ffffff"
         }
@@ -29,7 +29,7 @@ class ColorPicker extends BaseComponent {
         return (
             <div className="colorpicker-container" style={this.props?.style}>
                 {this.props?.caption ? <span className="colorpicker-caption">{this.props.caption}</span> : null}
-                <input type="color" className={`colorpicker${this.props.disabled ? ' disabled' : ' enable'}${this.props?.invalidData ? ' invalid' : ''}`} value={this.state.value} onChange={(event) => { this.setComponentData(event.target.value) }} />
+                <input type="color" className={`colorpicker${this.props.disabled ? ' disabled' : ' enable'}${this.props?.invalid ? ' invalid' : ''}`} value={this.state.value} onChange={(event) => { this.setComponentData(event.target.value) }} />
             </div>
         );
     }

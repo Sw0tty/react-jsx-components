@@ -5,7 +5,7 @@ import './iconitem.css';
 class IconItem extends BaseComponent {
     constructor() {
         super();
-        this.requiredProps = [{ name: 'iconPath', type: 'string' }, { name: 'iconColor', type: 'string' }, { name: 'size', type: 'string' }];
+        this._propsRules = [{ name: 'iconPath', type: 'string' }, { name: 'iconColor', type: 'string' }, { name: 'size', type: 'string' }];
     }
     renderComponent() {
         return (

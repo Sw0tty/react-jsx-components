@@ -23,7 +23,7 @@ class IconItemPage extends BaseMethods {
                     {name: "iconPath", required: true, dataType: "string", description: "Path to icon with icon name. Accepted only SVG format imgs."},
                     {name: "iconColor", required: true, dataType: "string", description: "Color in CSS format."},
                     {name: "size", required: false, dataType: "string", description: "Size in CSS format."},
-                    {name: "addGlow", required: false, dataType: "bool", description: "Icon have glow style."},
+                    {name: "addGlow", required: false, dataType: "boolean", description: "Icon have glow style."},
                     {name: "bodyStyles", required: false, dataType: "Object", description: "CSS styles for container body."},
                     {name: "glowStrong", required: false, dataType: "string", description: "Size in CSS format."},
                     {name: "glowColor", required: false, dataType: "Object", description: "If not passed, but passed 'addGlow' prop - used the iconColor."},

@@ -8,7 +8,7 @@ import './contextmenu.css';
 class ContextMenu extends BaseComponent {
     constructor() {
         super();
-        this.requiredProps = ['children', 'contextActions'];
+        this._propsRules = [{ name: 'children', required: true }, { name: 'contextActions', type: 'Array' }];
         this.baseHoverColor = "#13b3eb";
         this.wrapperRef = createRef();
         this.childrenRef = createRef();
@@ -19,13 +19,15 @@ class ContextMenu extends BaseComponent {
         }
     }
     componentDidMount() {
-        document.addEventListener("mousedown", this.handleClickOutside);
+        if (this.childrenRef.current) {
+            document.addEventListener("mousedown", this.handleClickOutside);
+        }
     }
     componentWillUnmount() {
         document.removeEventListener("mousedown", this.handleClickOutside);
     }
     handleClickOutside(event) {
-        if (this.childrenRef && !this.childrenRef.current.contains(event.target)) {
+        if (this.childrenRef && !this.childrenRef.current?.contains(event.target)) {
             console.log("You clicked outside of me!");
             this.setState({
                 hidden: true
@@ -44,7 +46,7 @@ class ContextMenu extends BaseComponent {
     }
     componentDidUpdate() {
         if (this.wrapperRef?.current) {
-            if (this.state?.contextHeight != this.wrapperRef.current.offsetHeight) {
+            if (this.state?.contextHeight !== this.wrapperRef.current.offsetHeight) {
                 this.setState({
                     contextHeight: this.wrapperRef.current.offsetHeight
                 });
@@ -67,7 +69,6 @@ class ContextMenu extends BaseComponent {
         return (
             <div style={{ position: "relative" }}>
                 <div ref={this.childrenRef} onContextMenu={(event) => { this.showContext(event) } }>{this.props.children}</div>
-
                 <CMWrapper hidden={this.state.hidden}>
                     <div ref={this.wrapperRef} style={{ left: `${this.state?.contextPos?.x}px`, top: `${this.state?.contextPos?.y - (this.state?.contextHeight + this.state?.contextPos?.y > window.innerHeight ? this.state?.contextHeight : 0)}px` }} className="contextmenu-container">
                         {
@@ -80,7 +81,7 @@ class ContextMenu extends BaseComponent {
                                                     {
                                                         item?.iconPath ? 
                                                             <div className="contextmenu-element-icon">
-                                                                <img style={{ WebkitMaskImage: `url(/src/assets/${item.icon}.svg)`, maskImage: `url(/src/assets/${item.icon}.svg)` }} />
+                                                                <img alt="" style={{ WebkitMaskImage: `url(/src/assets/${item.icon}.svg)`, maskImage: `url(/src/assets/${item.icon}.svg)` }} />
                                                             </div>
                                                         : null
                                                     }
@@ -88,7 +89,7 @@ class ContextMenu extends BaseComponent {
                                                 </Link>
                                             );
                                         })}
-                                        {groupIdx + 1 != this.props.contextActions.length ? <div className="contextmenu-separator"></div> : null}
+                                        {groupIdx + 1 !== this.props.contextActions.length ? <div className="contextmenu-separator"></div> : null}
                                     </div>
                                 );
                             })
@@ -154,7 +155,7 @@ class CMWrapper extends Component {
         }
     }
     componentDidUpdate() {
-        if (this.state.hidden != this.props.hidden) {
+        if (this.state.hidden !== this.props.hidden) {
             this.hideModalHandler();
         }
     }
@@ -163,7 +164,7 @@ class CMWrapper extends Component {
     }
     render() {
         return (
-            this.state.bindingElement.display == "none" ? null :
+            this.state.bindingElement.display === "none" ? null :
                 <div className="contextmenuwrapper-container" style={{ display: this.state.bindingElement.display, opacity: this.state?.bindingElement?.willShow ? 1 : 0 }}>
                     {this.props.children}
                 </div>

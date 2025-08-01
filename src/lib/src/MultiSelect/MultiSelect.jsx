@@ -1,62 +1,55 @@
 import BaseComponent from '../BaseComponent/BaseComponent.jsx';
+import Check from './Check.svg';
 import './multiselect.css';
-
-
-// --- Components params ---
-// items         (Array<Object<id, name>>) - list available items of Objects with (id, name) keys
-// selectedItems (Array<Object<id, name>>) - list selected items of Objects with (id, name) keys
-// caption       (string)                  - component caption
-// width         (int)                     - width of select
-// disabled      (bool)                    - can be edited
-// required      (bool)                    - showing required sign
-// invalidData   (bool)                    - null or invalid input by user
 
 
 class MultiSelect extends BaseComponent {
     constructor(props) {
         super();
-        this.requiredProps = [];
+        this._propsRules = [{ name: 'items', type: 'Array' }, { name: 'valueKey', type: 'string' }, { name: 'captionKey', type: 'string'}];
         this.state = {
-            data: props.items,
-            selectedData: props.selectedItems
+            selectedItems: props?.selectedValues ? props.items.filter(item => props.selectedValues.includes(item[props.valueKey])) : undefined
         }
     }
     findItem(id) {
-        return this.state.selectedData.filter((el) => el.id == id);
+        return this.state.selectedItems.find((el) => el[this.props.valueKey] === id);
     }
     change(id) {
-        const stateSelectedData = this.state.selectedData;
-        let selectedData2 = this.state.selectedData.filter((el) => el.id == id);
+        let stateSelectedItems = this.state.selectedItems;
 
-        if (selectedData2.length > 0) {
-            this.setState({
-                selectedData: this.state.selectedData.filter((el) => el.id != id)
-            });
+        if (this.findItem(id)) {
+            stateSelectedItems = this.state.selectedItems.filter((el) => el[this.props.valueKey] !== id);
+            
         } else {
-            stateSelectedData.push(this.state.data.filter((el) => el.id == id)[0]);
-            this.setState({
-                selectedData: stateSelectedData
-            });
+            stateSelectedItems.push(this.props.items.filter((el) => el.id === id)[0]);
         }
-        setTimeout(() => {
-            this.props.onReturnData(this.state.selectedData, this.props.settledParamName);
-        }, 0);
+
+        this.setState({
+            selectedItems: stateSelectedItems
+        });
+
+        if (this.props?.onReturnData) {
+            setTimeout(() => {
+                const { func, params } = this.props.onReturnData;
+                func(stateSelectedItems, params ?? undefined);
+            }, 0)
+        }
     }
-    render() {
+    renderComponent() {
         return (
             <div className="multiselect-container" style={{ width: `${this.props.width}px` }}>
-                <span className="multiselect-text">
-                    {this.props.required ? this.getRequiredSign() : null}{this.props.caption}
+                <span className="multiselect-caption">
+                    {this.props?.required ? this._getRequiredSign() : null}{this.props.caption}
                 </span>
-                <div className={`multiselect-items-container ${this.props.disabled ? "disabled" : "enable"}`} style={{ borderColor: this.props.invalidData ? "red" : undefined }}>
-                    {this.state.data.map((el, idx) => {
+                <div className={`multiselect-items-container ${this.props?.disabled ? "disabled" : "enable"}`} style={{ borderColor: this.props.invalid ? "red" : undefined }}>
+                    {this.props.items.map((el, idx) => {
                         return (
-                            <div key={idx} className="multiselect-item" onClick={() => this.change(el.id)}>
-                                <div className="multiselect-item-text">
-                                    {el.name}
+                            <div key={idx} className="multiselect-item" onClick={() => this.change(el[this.props.valueKey])}>
+                                <div className="multiselect-item-caption">
+                                    {el[this.props.captionKey]}
                                 </div>
                                 <div className="multiselect-item-icon">
-                                    <img src="/src/assets/Check.svg" style={{ opacity: (this.state.selectedData && this.findItem(el.id).length > 0 && this.findItem(el.id)[0].id == el.id) ? 1 : 0 }} />
+                                    <img alt="" src={Check} style={{ opacity: (this.state.selectedItems && this.findItem(el[this.props.valueKey])) ? 1 : 0 }} />
                                 </div>
                             </div>
                         );

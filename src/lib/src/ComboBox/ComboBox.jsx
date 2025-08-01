@@ -20,7 +20,14 @@ import './combobox.css';
 class ComboBox extends BaseComponent {
     constructor(props) {
         super();
-        this.requiredProps = [{ name: 'valueKey', type: 'string' }, { name: 'width', type: 'number'}, { name: 'captionKey', type: 'string'}, { name: 'items', type: 'Array'}, { name: 'required', type: 'boolean' }, { name: 'disabled', type: 'boolean' }];
+        this._propsRules = [
+            { name: 'valueKey', required: true, type: 'string' },
+            { name: 'width', type: 'number'},
+            { name: 'captionKey', required: true, type: 'string'},
+            { name: 'required', type: 'boolean' },
+            { name: 'disabled', type: 'boolean' },
+            { name: 'items', type: 'Array' }
+        ];
         this.state = {
             captionKey: props?.captionKey,
             valueKey: props?.valueKey,
@@ -103,7 +110,7 @@ class ComboBox extends BaseComponent {
         document.removeEventListener("mousedown", this.handleClickOutside);
     }
     handleClickOutside(event) {
-        if (this.wrapperRef && !this.wrapperRef.current.contains(event.target) || !this) {
+        if ((this.wrapperRef && !this.wrapperRef.current.contains(event.target)) || !this) {
             this.setState({ listItemsHidden: true, focused: false, listData: this.props.items, searching: false, searchingBy: '' });
         }       
     }
@@ -112,11 +119,11 @@ class ComboBox extends BaseComponent {
         const boxHeight = this.props?.fontSize ? `${this.props.fontSize + this.heightIncrement}px` : `${this.defaultSize + this.heightIncrement}px`;
         return (
             <div title={this.state?.selectedItem?.caption ?? ''} className="combobox-container" style={this.props?.style}>
-                {this.props.required || this.props?.caption ? <span className="combobox-caption">{this.props.required ? this.getRequiredSign() : null}{this.props?.caption ? this.props.caption : null}</span> : null}
+                {this.props?.required || this.props?.caption ? <span className="combobox-caption">{this.props?.required ? this._getRequiredSign() : null}{this.props?.caption ? this.props.caption : null}</span> : null}
                 <div ref={this.wrapperRef}>
                     <div style={{ position: "relative" }} onMouseLeave={() => { if (this.state.selectedItem) { this.setState({ showClear: false }) } }}>
                         <span className="combobox-clearitem" style={{ display: this.state.showClear ? "flex" : "none", }} onClick={() => this.clear()}><img alt="" src={Drop} /></span>
-                        <div className={`combobox-selector ${this.props.disabled ? "disabled" : "enable"} ${this.state.focused ? "focused" : ''}`} onMouseEnter={() => { this.state.selectedItem ? this.setState({ showClear: true }) : this.setState({ showClear: false }) }} onClick={(event) => { if (!this.state.disabled) { this.setState({ listItemsHidden: false, focused: true, inputPos: event.target.getBoundingClientRect() }) } }} style={{ height: boxHeight, fontSize: boxFontSize, width: `${this.props.width}px`, borderColor: this.props.invalidData ? "red" : undefined }}>
+                        <div className={`combobox-selector ${this.props?.disabled ? "disabled" : "enable"} ${this.state.focused ? "focused" : ''}`} onMouseEnter={() => { this.state.selectedItem ? this.setState({ showClear: true }) : this.setState({ showClear: false }) }} onClick={(event) => { if (!this.state.disabled) { this.setState({ listItemsHidden: false, focused: true, inputPos: event.target.getBoundingClientRect() }) } }} style={{ height: boxHeight, fontSize: boxFontSize, width: `${this.props.width}px`, borderColor: this.props.invalidData ? "red" : undefined }}>
                             <input className="combobox-input" style={{ height: boxHeight, fontSize: boxFontSize, width: `${this.props.width - 24}px` }} value={this.state.listItemsHidden ? '' : this.state.searchingBy} onChange={(event) => this.search(event?.target?.value)} />
                             <span style={{ fontSize: boxFontSize, color: this.state.listItemsHidden ? "black" : "#bfbfbf" }} className="combobox-value">{this.state.searching ? '' : this.state?.selectedItem?.caption}</span>
                             <span onClick={() => this.clear()} className="combobox-icon"><img alt="" style={{ opacity: this.state.showClear ? 0 : 1 }} src={`${this.state.listItemsHidden ? Arrow : Loupe}`} /></span>

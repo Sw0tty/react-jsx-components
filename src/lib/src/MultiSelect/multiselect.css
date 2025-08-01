@@ -2,7 +2,7 @@
     --multiSelect-height: 20px;
 }
 
-.multiselect-item-text, .multiselect-text {
+.multiselect-item-caption, .multiselect-caption {
     color: black;
     font-size: 13px;
 }
@@ -12,7 +12,7 @@
     flex-direction: column;
 }
 
-.multiselect-text {
+.multiselect-caption {
     width: 100%;
     border-bottom: 1px solid var(--componentBorderColor);
     margin-bottom: 3px;
@@ -23,7 +23,7 @@
     border: 1px solid var(--componentBorderColor);
     border-color: var(--componentBorderColor);
     border-radius: 3px;
-    transition: 0.2s border-color;
+    transition: 0.2s border-color, 0.3s background;
 }
 
 .multiselect-items-container:hover {
@@ -48,14 +48,14 @@
     border-bottom: none;
 }
 
-.multiselect-item-text {
+.multiselect-item-caption {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     user-select: none;
 }
 
-.multiselect-text:hover {
+.multiselect-caption:hover {
     cursor: default;
 }
 

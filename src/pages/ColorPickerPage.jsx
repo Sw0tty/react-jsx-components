@@ -10,23 +10,26 @@ class ColorPickerPage extends BaseMethods {
         super();
         this.state = {
             caption: "Test caption :",
-            disabled: false
+            disabled: false,
+            invalid: false
         }
     }
     render() {
         return(<Playground title="ColorPicker"
-                pComponent={<ColorPicker caption={this.state.caption} disabled={this.state.disabled} />}
+                pComponent={<ColorPicker caption={this.state.caption} disabled={this.state.disabled} invalid={this.state.invalid} />}
                 componentProps={<>
-                    <TextBox caption="Caption :" value={this.state.caption} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
-                    <Switcher caption="Disabled :" disabled={false} onReturnData={{ func: this.setData, params: { propName: "disabled" } }} />
+                    <TextBox caption="Caption :" value={this.state.caption} width={200} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
+                    <Switcher caption="Disabled :" value={this.state.disabled} onReturnData={{ func: this.setData, params: { propName: "disabled" } }} />
+                    <Switcher caption="Invalid :" value={this.state.invalid} onReturnData={{ func: this.setData, params: { propName: "invalid" } }} />
                 </>}
                 componentDocumentation={[
                     {name: "caption", required: false, dataType: "string", description: "Caption by left side of component."},
                     {name: "value", required: false, dataType: "string", description: "Default component value."},
-                    {name: "disabled", required: true, dataType: "bool", description: "Component availability state."},
+                    {name: "disabled", required: false, dataType: "boolean", description: "Component availability state. Default is 'false'."},
+                    {name: "invalid", required: false, dataType: "boolean", description: "Sets the invalid state data. Default is 'false'."},
                     {name: "onReturnData", required: false, dataType: "Object", description: "Object type of: { func: callbackFunc, params: { } }"},
                 ]}
-                example={`<ColorPicker caption="${this.state.caption}" disabled={${this.state.disabled}} />`}
+                example={`<ColorPicker caption="${this.state.caption}" disabled={${this.state.disabled}} invalid={${this.state.invalid}} />`}
             />);
     }
 }

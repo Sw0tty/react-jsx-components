@@ -9,7 +9,7 @@ transform: scale(1.02);*/
 class Gallery extends BaseComponent {
     constructor() {
         super();
-        this.requiredProps = [{ name: 'itemDataKey', type: 'string' }];
+        this._propsRules = [{ name: 'itemDataKey', type: 'string' }];
     }
     //setComponentData
     renderComponent() {
@@ -25,7 +25,7 @@ class Gallery extends BaseComponent {
                         this.props?.items ?
                             this.props.items.map((item, idx) => {
                                 return (
-                                    <div key={idx} className="gallery-item" title={`${item?.caption ?? ''}`} style={{ width: this.props?.itemSize, height: this.props?.itemSize }} style1={ this.props.selectedItem == item[this.props.itemDataKey] ? selectedStyle : null } onClick={() => { this.setComponentData('selectedItem', idx); this.props.onClick.func(item.data, { ...this.props.onClick?.params }) }} onDoubleClick={() => this.props.onDoubleClick.func(item.data, { ...this.props.onDoubleClick?.params })}>
+                                    <div key={idx} className="gallery-item" title={`${item?.caption ?? ''}`} style={{ width: this.props?.itemSize, height: this.props?.itemSize }} style1={ this.props.selectedItem === item[this.props.itemDataKey] ? selectedStyle : null } onClick={() => { this.setComponentData('selectedItem', idx); this.props.onClick.func(item.data, { ...this.props.onClick?.params }) }} onDoubleClick={() => this.props.onDoubleClick.func(item.data, { ...this.props.onDoubleClick?.params })}>
                                         <div className="gallery-item-icon">
                                             <img alt="" style={{ height: this.props?.iconsSize ? `${this.props?.iconsSize}%` : null, width: this.props?.iconsSize ? `${this.props?.iconsSize}%` : null }} src={`${item?.iconPath ?? this.props?.iconsPath ?? '/'}${item.iconName}`} />
                                         </div>

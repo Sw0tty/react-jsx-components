@@ -1,12 +1,12 @@
 .checkbox-container {
     display: flex;
     align-items: center;
+    column-gap: 5px;
 }
 
 .checkbox-caption {
     color: black;
     font-size: 13px;
-    margin-right: 5px;
     white-space: nowrap;
     font-family: Helvetica, sans-serif;
 }
@@ -51,6 +51,11 @@
 
 .checked {
     background: #66d775;
+}
+
+.disabled {
+    pointer-events: none;
+    background: #e7e7e7;
 }
 
 .checkbox-box-filler img {

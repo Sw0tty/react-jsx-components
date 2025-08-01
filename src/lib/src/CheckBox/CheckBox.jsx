@@ -14,7 +14,7 @@ import './checkbox.css';
 class CheckBox extends BaseComponent {
     constructor(props) {
         super();
-        this.requiredProps = [{ name: 'disabled', type: 'boolean' }];
+        this._propsRules = [{ name: 'disabled', type: 'boolean' }];
         this.state = {
             value: props?.value ?? false,
         }
@@ -30,21 +30,15 @@ class CheckBox extends BaseComponent {
                 func(!value, params ?? undefined);
             }, 0)
         }
-    
-        if (this.props?.onBindingData) {
-            this.props.onBindingData(this.props.bindingParamName)
-        }
-
-        //this.props.onBindingData ? this.props.onBindingData.func(this.props.onBindingData?.params) : null;
     }
     renderComponent() {
         return (
             <div className="checkbox-container">
                 <>
                     {this.props?.caption ? <span className="checkbox-caption">{this.props?.caption}</span> : null}
-                    <div className={`checkbox-box${this.props.disabled ? " disabled" : ''}`} style={{ width: this.props?.size ? `${this.props.size}px` : null, height: this.props?.size ? `${this.props.size}px` : null }} onClick={() => this.setComponentData(this.state.value)}>
+                    <div className={`checkbox-box${this.props?.disabled ? " disabled" : ''}`} style={{ width: this.props?.size ? `${this.props.size}px` : null, height: this.props?.size ? `${this.props.size}px` : null }} onClick={() => { if (!this.props?.disabled) {this.setComponentData(this.state.value)} }}>
                         <div className={`checkbox-box-filler${this.state.value ? " checked" : ''}`}>
-                            {this.state.value ? <img style={{ WebkitMaskImage: this.props?.iconPath ? `url(${this.props.iconPath}.svg)` : `url(${Check})`, maskImage: this.props?.iconPath ? `url(${this.props.iconPath}.svg)` : `url(${Check})` }} /> : null}
+                            {this.state.value ? <img alt="" style={{ WebkitMaskImage: this.props?.iconPath ? `url(${this.props.iconPath}.svg)` : `url(${Check})`, maskImage: this.props?.iconPath ? `url(${this.props.iconPath}.svg)` : `url(${Check})` }} /> : null}
                         </div>
                     </div>
                 </>

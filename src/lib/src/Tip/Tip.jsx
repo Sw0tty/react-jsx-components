@@ -1,4 +1,3 @@
-//import PropTypes from 'prop-types';
 import BaseComponent from '../BaseComponent/BaseComponent.jsx';
 import Question from './Question.svg';
 import './tip.css';
@@ -7,7 +6,7 @@ import './tip.css';
 class Tip extends BaseComponent {
     constructor() {
         super();
-        this.requiredProps = [{ name: 'children' }];
+        this._propsRules = [{ name: 'children', required: true }];
         this.state = {
             tipBoxPosition: null,
             tipBoxDisplay: "none",
@@ -50,13 +49,5 @@ class Tip extends BaseComponent {
         );
     }
 }
-// Tip.propTypes = {
-//     children: PropTypes.any.isRequired,
-//     caption: PropTypes.string,
-//     addGlow: PropTypes.bool,
-//     icon: PropTypes.string,
-//     iconColor: PropTypes.string
-// }
-
 
 export default Tip;

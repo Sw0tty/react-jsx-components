@@ -18,9 +18,9 @@ class GalleryPage extends BaseMethods {
                 componentDocumentation={[
                     {name: "caption", required: true, dataType: "string", description: "Color in CSS format."},
                     {name: "hoverColor", required: true, dataType: "string", description: "Color in CSS format."},
-                    {name: "isImage", required: false, dataType: "bool", description: "Passed icon not need to mask and not have hover effect."},
+                    {name: "isImage", required: false, dataType: "boolean", description: "Passed icon not need to mask and not have hover effect."},
                     {name: "iconPath", required: false, dataType: "string", description: "If isImage prop pass - path to icon with icon name and extension. Else path and name of icon with SVG extension."},
-                    {name: "reverse", required: false, dataType: "bool", description: "Reverse the icon and caption."},
+                    {name: "reverse", required: false, dataType: "boolean", description: "Reverse the icon and caption."},
                 ]}
             />);
     }

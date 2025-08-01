@@ -22,8 +22,8 @@ class ContextMenuPage extends BaseMethods {
                         }
                     ]]} ><div style={{ background: "gray", width: "200px", height: "200px" }}>SomeBlock</div></ContextMenu>}
                 componentProps={<>
-                    <TextBox caption="Caption :" value={this.state.caption} width={200} disabled={false} required={true} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
-                    <TextBox caption="Width :" value={this.state.width} width={200} disabled={false} required={true} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "width" } }} />
+                    <TextBox caption="Caption :" value={this.state.caption} width={200} required={true} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
+                    <TextBox caption="Width :" value={this.state.width} width={200} required={true} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "width" } }} />
                     <TextArea caption="Container body (children) :" value={this.state.content} required={true} width={500} disabled={false} defaultHeight={50} maxHeight={300} onReturnData={{ func: this.setData, params: { propName: "content" } }} />
                 </>}
                 componentDocumentation={[

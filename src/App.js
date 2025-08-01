@@ -64,6 +64,15 @@ class App extends Component {
 						{
 							id: undefined, name: "StepsList", icon: "StepsList", to: ROOT_PATH + "/StepsList"
 						},
+						{
+							id: undefined, name: "MultiSelect", icon: "MultiSelect", to: ROOT_PATH + "/MultiSelect"
+						},
+						{
+							id: undefined, name: "ItemSelector", icon: "ItemSelector", to: ROOT_PATH + "/ItemSelector"
+						},
+						{
+							id: undefined, name: "ProgressBar", icon: "Progress", to: ROOT_PATH + "/ProgressBar"
+						},
 					]
 				} />
 				<div id="body-block">

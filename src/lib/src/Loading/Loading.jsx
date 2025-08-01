@@ -6,13 +6,18 @@ import './loading.css';
 class Loading extends BaseComponent {
     constructor() {
         super();
-        this.requiredProps = [{ name: 'children' }, { name: 'isLoading', type: 'boolean' }];
+        this._propsRules = [
+            { name: 'children', required: true },
+            { name: 'blurStrong', interval: [1, 8] },
+            { name: 'size', interval: [30, 200] },
+            { name: 'isLoading', type: 'boolean' }
+        ]
     }
     renderComponent() {
         const blur = this.props?.blurStrong ? `blur(${this.props.blurStrong}px)` : "blur(5px)";
         return (
             <div className="loading-container" style={this.props?.containerStyles}>
-                <div className="loading-background-2" style={{ WebkitBackdropFilter: this.props?.isLoading ? blur : null, backdropFilter: this.props.isLoading ? blur : null, background: this.props.isLoading ? "#00000024" : null }}></div>
+                <div className="loading-background" style={{ WebkitBackdropFilter: this.props?.isLoading ? blur : null, backdropFilter: this.props.isLoading ? blur : null, background: this.props.isLoading ? "#00000024" : null }}></div>
                 {
                     this.props.isLoading ?
                         <div className="loading-icon-container">

@@ -17,6 +17,9 @@ import ContextMenuPage from './pages/ContextMenuPage.jsx';
 import GalleryPage from './pages/GalleryPage.jsx';
 import DataGridPage from './pages/DataGridPage.jsx';
 import StepsListPage from './pages/StepsListPage.jsx';
+import MultiSelectPage from './pages/MultiSelectPage.jsx';
+import ItemSelectorPage from './pages/ItemSelectorPage.jsx';
+import ProgressBarPage from './pages/ProgressBarPage.jsx';
 import { ROOT_PATH } from './AppConts.js';
 
 
@@ -42,6 +45,9 @@ function AppRoutes() {
             <Route path={`${ROOT_PATH}/Gallery`} element={<GalleryPage />} />
             <Route path={`${ROOT_PATH}/DataGrid`} element={<DataGridPage />} />
             <Route path={`${ROOT_PATH}/StepsList`} element={<StepsListPage />} />
+            <Route path={`${ROOT_PATH}/MultiSelect`} element={<MultiSelectPage />} />
+            <Route path={`${ROOT_PATH}/ItemSelector`} element={<ItemSelectorPage />} />
+            <Route path={`${ROOT_PATH}/ProgressBar`} element={<ProgressBarPage />} />
         </Routes>
     );
 }

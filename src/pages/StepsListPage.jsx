@@ -20,16 +20,16 @@ class StepsListPage extends BaseMethods {
         return (<Playground title="StepsList"
                 pComponent={<StepsList width={this.state.width} stayNum={this.state.stayNum} reverse={this.state.reverse} stepsColor={this.state.stepsColor} steps={[{ title: "Open git bash", description: "In your repo folder fight click -> open git bash" }, { title: "Add all for commit", description: "Input command: git add -A" }, { title: "Commit", description: "Input command: git commit -m 'change code' " }, { title: "Ready to push!" }]} />}
                 componentProps={<>
-                    <Switcher value={this.state.reverse} disabled={false} caption="Reverse :" onReturnData={{ func: this.setData, params: { propName: "reverse" } }} />
-                    <Switcher value={this.state.stayNum} disabled={false} caption="Stay num :" onReturnData={{ func: this.setData, params: { propName: "stayNum" } }} />
-                    <TextBox caption="Width :" value={this.state.width} width={100} maxLength={10} disabled={false} required={false} onReturnData={{ func: this.setData, params: { propName: "width" } }} />
+                    <Switcher value={this.state.reverse} caption="Reverse :" onReturnData={{ func: this.setData, params: { propName: "reverse" } }} />
+                    <Switcher value={this.state.stayNum} caption="Stay num :" onReturnData={{ func: this.setData, params: { propName: "stayNum" } }} />
+                    <TextBox caption="Width :" value={this.state.width} width={100} maxLength={10} onReturnData={{ func: this.setData, params: { propName: "width" } }} />
                     <ColorPicker disabled={false} caption="Steps color :" onReturnData={{ func: this.setData, params: { propName: "stepsColor" } }} />
                 </>}
                 componentDocumentation={[
                     {name: "steps", required: true, dataType: "ArrayOfObjects", description: ""},
-                    {name: "stayNum", required: false, dataType: "bool", description: "Switch check in last step on num."},
+                    {name: "stayNum", required: false, dataType: "boolean", description: "Switch check in last step on num."},
                     {name: "stepsColor", required: false, dataType: "string", description: "Sets color on each step. Default color is blue."},
-                    {name: "reverse", required: false, dataType: "bool", description: "Reverse the steps num and steps description."},
+                    {name: "reverse", required: false, dataType: "boolean", description: "Reverse the steps num and steps description."},
                     {name: "width", required: false, dataType: "string", description: "Sets the width in CSS format. Min-width is 200px."},
                     {name: "style", required: false, dataType: "Object", description: "Object with CSS styles for element container."},
                 ]}

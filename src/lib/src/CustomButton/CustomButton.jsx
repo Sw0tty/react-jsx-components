@@ -15,7 +15,7 @@ class CustomButton extends BaseComponent {
     constructor() {
         super();
         this.buttonStyles = ['hollow', 'fill'];
-        this.requiredProps = [{ name: 'caption', type: 'string' }, { name: 'type', constValue: this.buttonStyles }];
+        this._propsRules = [{ name: 'caption', type: 'string' }, { name: 'type', constStrings: this.buttonStyles }];
         this.baseHoverColor = "#5eaac5";
     }
     renderComponent() {

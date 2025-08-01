@@ -17,7 +17,7 @@ class ContainerPage extends BaseMethods {
         return(<Playground title="Container"
                 pComponent={<Container caption={this.state.caption}>{<div dangerouslySetInnerHTML={{ __html: this.state.content }} />}</Container>}
                 componentProps={<>
-                    <TextBox caption="Caption :" value={this.state.caption} width={200} disabled={false} required={false} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
+                    <TextBox caption="Caption :" value={this.state.caption} width={200} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
                     <TextArea caption="Container body (children) :" value={this.state.content} required={true} width={500} disabled={false} defaultHeight={50} maxHeight={300} onReturnData={{ func: this.setData, params: { propName: "content" } }} />
                 </>}
                 componentDocumentation={[
@@ -27,6 +27,7 @@ class ContainerPage extends BaseMethods {
                     {name: "boxStyles", required: false, dataType: "Object", description: "CSS styles for container border."},
                     {name: "bodyStyles", required: false, dataType: "Object", description: "CSS styles for container body."},
                 ]}
+                example={`<Container caption="${this.state.caption}" boxStyles={{ margin: "10px", width: "auto" }} bodyStyles={{ display: "flex" }}>${this.state.content}</Container>`}
             />);
     }
 }

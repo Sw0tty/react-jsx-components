@@ -19,8 +19,8 @@ class ContentHiderPage extends BaseMethods {
                 pComponentStyle={{ alignItems: "baseline" }}
                 pComponent={<ContentHider caption={this.state.caption} width={this.state.width}>{<div style={{ width: "100%", height: "100%" }} dangerouslySetInnerHTML={{ __html: this.state.content }} />}</ContentHider>}
                 componentProps={<>
-                    <TextBox caption="Caption :" value={this.state.caption} width={200} disabled={false} required={true} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
-                    <TextBox caption="Width :" value={this.state.width} width={200} disabled={false} required={true} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "width" } }} />
+                    <TextBox caption="Caption :" value={this.state.caption} width={200} required={true} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
+                    <TextBox caption="Width :" value={this.state.width} width={200} required={true} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "width" } }} />
                     <TextArea caption="Container body (children) :" value={this.state.content} required={true} width={500} disabled={false} defaultHeight={50} maxHeight={300} onReturnData={{ func: this.setData, params: { propName: "content" } }} />
                 </>}
                 componentDocumentation={[
@@ -29,6 +29,7 @@ class ContentHiderPage extends BaseMethods {
                     {name: "maxHeight", required: false, dataType: "number", description: "CSS height in px. Default height is 100px."},
                     {name: "content", required: false, dataType: "HTMLContent", description: "Whatever you want on html"},
                 ]}
+                example={`<ContentHider caption="${this.state.caption}" width="${this.state.width}">${this.state.content}</ContentHider>`}
             />);
     }
 }

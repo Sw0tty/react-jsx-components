@@ -45,10 +45,10 @@ class DataGridPage extends BaseMethods {
                 componentDocumentation={[
                     {name: "fields", required: true, dataType: "ArrayOfObjects", description: "This is complex prop with all rules to getting, render and working with passed data. Each object is the column of table and have next params: key, columnName, dataType, width, sorting, filter, render, style. Detailed information on the prop is described below."},
                     {name: "data", required: false, dataType: "ArrayOfObjects", description: "A array of data to process according to the rules described in 'fields' prop. Without data be render empty block."},
-                    {name: "rowNum", required: false, dataType: "bool", description: "Add row number for each row."},
-                    {name: "checkBoxes", required: false, dataType: "bool", description: "Add checkboxes for each row."},
-                    {name: "toolbar", required: false, dataType: "bool", description: "Add toolbar."},
-                    {name: "searchTool", required: false, dataType: "bool", description: "Add search in datagrid (toolbar prop is required for activate)."},
+                    {name: "rowNum", required: false, dataType: "boolean", description: "Add row number for each row."},
+                    {name: "checkBoxes", required: false, dataType: "boolean", description: "Add checkboxes for each row."},
+                    {name: "toolbar", required: false, dataType: "boolean", description: "Add toolbar."},
+                    {name: "searchTool", required: false, dataType: "boolean", description: "Add search in datagrid (toolbar prop is required for activate)."},
                     {name: "tools", required: false, dataType: "ArrayOfObjects", description: "This is complex prop with display rules and user interaction (toolbar prop is required for activate). Detailed information about the parameters included in each object is described below."},
                     {name: "contextMenu", required: false, dataType: "ArrayOfArraysOfObjects", description: "This is complex prop with display rules and user interaction. Detailed information about the parameters included in each object is described below."},
                 ]}

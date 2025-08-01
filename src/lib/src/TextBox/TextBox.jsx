@@ -18,7 +18,12 @@ import './textbox.css';
 class TextBox extends BaseComponent {
     constructor(props) {
         super();
-        this.requiredProps = [{ name: 'width', type: 'number' }, { name: 'disabled', type: 'boolean' }, { name: 'required', type: 'boolean' }, { name: 'maxLength', type: 'number' }];
+        this._propsRules = [
+            { name: 'width', type: 'number' },
+            { name: 'disabled', type: 'boolean' },
+            { name: 'required', type: 'boolean' },
+            { name: 'maxLength', type: 'number' }
+        ];
         this.state = {
             value: props.value ?? '',
             minYear: 1700,
@@ -94,13 +99,13 @@ class TextBox extends BaseComponent {
         return (
             <div className={`${this.props?.removeBaseCSS ? '' : 'component-baseformat-container '}textbox-container${this.props?.fullWidth ? ' textbox-full' : ''}`} style={this.props?.style?.container}>
                 {
-                    this.props.required || this.props?.caption ?
-                        <span className="textbox-caption" style={{ fontSize: inputStyle.fontSize }}>{this.props.required ? this.getRequiredSign() : null}{this.props?.caption ? this.props?.caption : null}</span>
+                    this.props?.required || this.props?.caption ?
+                        <span className="textbox-caption" style={{ fontSize: inputStyle.fontSize }}>{this.props?.required ? this._getRequiredSign() : null}{this.props?.caption ? this.props?.caption : null}</span>
                     : null
                 }
                 <div className="textbox-inputcontainer">
-                    <div className={`textbox-inputbox${this.props.disabled ? " disabled" : " enable"}${this.props?.invalid ? ' invalid' : ''}`} style={{ flexDirection: this.props?.inputIconReverse ? "row-reverse" : "" }}>
-                        <input placeholder={this.props?.placeholder} onBlur={() => { if (this.props?.inputType === "yearOnly") { this.testShortDate() } }} spellCheck="true" value={this.props?.inputType === "yearOnly" ? this.returnShortDate() : this.state.value} type={this.props.inputType === "date" ? "date" : this.props.inputType === "password" ? "password" : "text"} className={`textbox-input${this.props.disabled ? " disabled" : " enable"}`} title={this.state.lastType === "password" ? '' : this.state.value} style={this.props?.style?.input ?? inputStyle} onChange={(event) => this.setComponentData(event.target.value)} />
+                    <div className={`textbox-inputbox${this.props?.disabled ? " disabled" : " enable"}${this.props?.invalid ? ' invalid' : ''}`} style={{ flexDirection: this.props?.inputIconReverse ? "row-reverse" : "" }}>
+                        <input placeholder={this.props?.placeholder} onBlur={() => { if (this.props?.inputType === "yearOnly") { this.testShortDate() } }} spellCheck="true" value={this.props?.inputType === "yearOnly" ? this.returnShortDate() : this.state.value} type={this.props.inputType === "date" ? "date" : this.props.inputType === "password" ? "password" : "text"} className={`textbox-input${this.props.disabled ? " disabled" : " enable"}`} title={this.state.lastType === "password" ? '' : this.state.value} style={this.props?.style?.input ?? inputStyle} onChange={(event) => { if (!this.props?.disabled) {this.setComponentData(event.target.value)} }} />
                         {
                             this.props.inputIconPath ?
                                 <div className="textbox-inputbox-icon">
