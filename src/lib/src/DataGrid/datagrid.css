@@ -62,15 +62,19 @@
 	padding: 1px 5px;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	/* display: flex; */
+	display: flex;
 	/* margin-left: 5px; */
 	/*column-gap: 5px;*/
 }
 
-.datagrid-cell span {
+.datagrid-cell span, .datagrid-cell .datagrid-cell-data {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+.datagrid-cell .datagrid-cell-data {
+	width: 100%;
 }
 
 #datagrid tbody td:not(.datagrid-numcolumn) {
@@ -144,6 +148,7 @@ tr > th.datagrid-numcolumn {
 	display: flex;
 	align-items: center;
 	overflow: hidden;
+	column-gap: 3px;
 }
 
 .datagrid-header-right-handlers {

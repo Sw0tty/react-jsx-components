@@ -20,8 +20,10 @@ class ComboBoxPage extends BaseMethods {
         return(<Playground title="ComboBox"
                 pComponent={<ComboBox caption={this.state.caption} valueKey="id" captionKey="caption" width={this.state.width} required={this.state.required} disabled={this.state.disabled} items={this.state.items} />}
                 componentProps={<>
-                    <TextBox caption="Caption :" value={this.state.caption} width={200} maxLength={200} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
-                    <TextBox caption="Width :" inputType="number" value={this.state.width} width={200} maxLength={255} invalidData={false} onReturnData={{ func: this.setData, params: { propName: "width" } }} />
+                    <div style={{ display: "flex", flexDirection: "column", width: "max-content", alignItems: "end", rowGap: "5px" }}>
+                        <TextBox caption="Caption :" value={this.state.caption} width={200} maxLength={200} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
+                        <TextBox caption="Width :" inputType="number" value={this.state.width} width={200} maxLength={255} invalidData={false} onReturnData={{ func: this.setData, params: { propName: "width" } }} />
+                    </div>
                     <Switcher caption="Disabled :" value={this.state.disabled} onReturnData={{ func: this.setData, params: { propName: "disabled" } }} />
                     <Switcher caption="Required :" value={this.state.required} onReturnData={{ func: this.setData, params: { propName: "required" } }} />
                 </>}

@@ -73,6 +73,9 @@ class App extends Component {
 						{
 							id: undefined, name: "ProgressBar", icon: "Progress", to: ROOT_PATH + "/ProgressBar"
 						},
+						{
+							id: undefined, name: "Modals", icon: "Modals", to: ROOT_PATH + "/Modals"
+						},
 					]
 				} />
 				<div id="body-block">

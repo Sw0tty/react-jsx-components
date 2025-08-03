@@ -90,6 +90,11 @@ class DataGrid extends BaseComponent {
                 sortingBy: undefined
             },
 
+            searching: {
+                columns: undefined, // ArrayOfStrings
+                value: undefined
+            },
+
             filters: this.createFilters({ data: convertedData, fields: props?.fields })
         }
     }
@@ -508,6 +513,7 @@ class DataGrid extends BaseComponent {
             data: data
         }));
     }
+    // ----  ----
     setDefaultGridState = () => {
         let convertedData = this.convertDataForGrid({ data: this.props?.data, idKey: this.props?.idKey, parentIdKey: this.props?.parentIdKey, iconsParams: this.props?.iconsParams });
         const gridFilters = this.createFilters({ data: convertedData, fields: this.props?.fields });
@@ -522,7 +528,10 @@ class DataGrid extends BaseComponent {
                 currentData: undefined,
                 rowData: undefined
             },
-            searchBy: undefined,
+            searching: {
+                columns: this.props?.searchToolColumns,
+                value: undefined
+            },
             sorting: {
                 isSorting: false,
                 increasing: false,
@@ -583,7 +592,13 @@ class DataGrid extends BaseComponent {
         });
     }
     setSearchStr = (value) => {
-        //console.log(value);
+        console.log(value);
+        this.setState(prevState => ({
+            searching: {
+                ...prevState.searching,
+                value: value.trim().length > 0 ? value.trim() : undefined
+            }
+        }));
     }
     renderComponent() {
         try {
@@ -621,8 +636,8 @@ class DataGrid extends BaseComponent {
                                                         <div className="datagrid-header-handlers">
                                                             <div className="datagrid-thead-buttons">
                                                                 {field.sorting ?
-                                                                    <div className="datagrid-sorter" style={{ filter: field.key === this.state.sorting?.sortingBy?.columnKey ? "drop-shadow(0px 0px 2px #f0ff70)" : null }} onClick={() => { this.setSortDataState({ data: this.sortData({ rowData: this.state?.data, columnKey: field.key, dataType: field.dataType }), columnKey: field.key, dataType: field.dataType }) }}>
-                                                                    <img alt="" style={{ background: field.key === this.state.sorting?.sortingBy?.columnKey ? '#e3961e' : '#666666', transform: `rotate(${field.key === this.state.sorting?.sortingBy?.columnKey && this.state.sorting?.increasing ? '180' : '0'}deg)` }} /></div>
+                                                                    <div className="datagrid-sorter" style={{ filter: field.key === this.state.sorting?.sortingBy?.columnKey ? "drop-shadow(0px 0px 2px #70c6ffff)" : null }} onClick={() => { this.setSortDataState({ data: this.sortData({ rowData: this.state?.data, columnKey: field.key, dataType: field.dataType }), columnKey: field.key, dataType: field.dataType }) }}>
+                                                                    <img alt="" style={{ background: field.key === this.state.sorting?.sortingBy?.columnKey ? '#077be1' : '#666666', transform: `rotate(${field.key === this.state.sorting?.sortingBy?.columnKey && this.state.sorting?.increasing ? '180' : '0'}deg)` }} /></div>
                                                                 : null}
                                                             </div>
                                                         </div>
@@ -650,12 +665,12 @@ class DataGrid extends BaseComponent {
                                                 {this.props?.rowNum ? <td className="datagrid-numcolumn"><div>{rowIdx + 1}</div></td> : null}
                                                 {this.props.fields.map((field, fIdx) => {
                                                     return (<td key={fIdx} style={{ background: rowData.rowId === this.state.selected?.row && fIdx === this.state.selected?.cell ? this.props?.cellColor ?? this.defaultCellColor : rowData.rowId === this.state.selected?.row ? this.props?.rowColor ?? this.defaultRowColor : 'white', }} onClick={() => { this.setState({ selected: { row: rowData.rowId, cell: fIdx, currentData: rowData.data[field?.key], rowData: rowData.data } }) }} onDoubleClick={(event) => { this.props?.onDoubleClick?.func({ event: event, data: rowData.data, params: { ...this.props?.onDoubleClick?.params } }) }} onContextMenu={this.props?.contextMenu ? (event) => { this.setState({ selected: { row: rowData.rowId, cell: fIdx }, selectedData: rowData.data }); this.showContext(event); } : null}>
-                                                        <div className="datagrid-cell" style={{ paddingLeft: fIdx === 0 ? `${rowData.level * 20}px` : '', ...field?.style }}>
+                                                        <div className="datagrid-cell" style={{ paddingLeft: fIdx === 0 ? `${rowData.level * 15}px` : '' }}>
                                                             {fIdx === 0 && this.props?.checkBoxes ? <div className="datagrid-checkbox-wrapper"><DGCheckBox value={rowData.checked} disabled={false} onReturnData={{ func: this.checkRow, params: { id: rowData.rowId } }} /></div> : null}
                                                             {rowData.isParent && fIdx === 0 ? <div className="datagrid-parent-shrink" onClick={() => this.shrinkChilds({ parentId: rowData.data[this.props.idKey], idKey: this.props.idKey, parentIdKey: this.props.parentIdKey, gridData: this.state.data })}><img alt="" style={{ transform: `rotate(${rowData.childsHidden ? -90 : 0}deg)` }} /></div> : null}
                                                             {this.props?.parentIdKey && !rowData.isParent && fIdx === 0 ? <div className="datagrid-parent-shrink-plug"></div> : null}
                                                             {rowData.icon && fIdx === 0 ? <div className="datagrid-item-icon"><img alt="" src={`/src/assets/${rowData.icon}.svg`} /></div> : null}
-                                                            {field?.render && (typeof field?.render === "function") ? field?.render(rowData.data) ?? '' : <span>{this.toDefaultFormat(rowData.data[field?.key], field?.dataType)}</span>}
+                                                            {field?.render && (typeof field?.render === "function") ? <div className="datagrid-cell-data" style={{ ...field?.style}}>{field?.render(rowData.data)}</div> ?? '' : <span>{this.toDefaultFormat(rowData.data[field?.key], field?.dataType)}</span>}
                                                         </div>
                                                     </td>)
                                                 })}

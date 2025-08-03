@@ -30,7 +30,9 @@
 }
 
 .gallery-item-icon {
-    height: 75%;
+    /* height: 75%; */
+    flex: 1 0 0%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -42,9 +44,10 @@
 }
 
 .gallery-item-caption {
-    height: 25%;
+    height: 25px;
     color: black;
     font-size: 12px;
+    font-size: 70%;
     overflow: hidden;
     text-align: center;
     text-overflow: ellipsis;

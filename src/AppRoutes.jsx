@@ -20,6 +20,7 @@ import StepsListPage from './pages/StepsListPage.jsx';
 import MultiSelectPage from './pages/MultiSelectPage.jsx';
 import ItemSelectorPage from './pages/ItemSelectorPage.jsx';
 import ProgressBarPage from './pages/ProgressBarPage.jsx';
+import ModalsPage from './pages/ModalsPage.jsx';
 import { ROOT_PATH } from './AppConts.js';
 
 
@@ -48,6 +49,7 @@ function AppRoutes() {
             <Route path={`${ROOT_PATH}/MultiSelect`} element={<MultiSelectPage />} />
             <Route path={`${ROOT_PATH}/ItemSelector`} element={<ItemSelectorPage />} />
             <Route path={`${ROOT_PATH}/ProgressBar`} element={<ProgressBarPage />} />
+            <Route path={`${ROOT_PATH}/Modals`} element={<ModalsPage />} />
         </Routes>
     );
 }

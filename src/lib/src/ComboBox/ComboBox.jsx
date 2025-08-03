@@ -6,17 +6,6 @@ import Loupe from './Loupe.svg';
 import './combobox.css';
 
 
-// --- Components params ---
-// input             (string)                   - default value of input (TODO)
-// items             (Array<Object<id, value>>) - list items of Objects with (id, value) keys
-// caption           (string)                   - caption
-// width             (int)                      - width of select
-// disabled          (bool)                     - can be edited
-// required          (bool)                     - showing required sign
-// onReturnData      (func)                     - callback function for current data
-// settledParamName  (string)                   - name of param in parent object
-
-
 class ComboBox extends BaseComponent {
     constructor(props) {
         super();
@@ -26,7 +15,8 @@ class ComboBox extends BaseComponent {
             { name: 'captionKey', required: true, type: 'string'},
             { name: 'required', type: 'boolean' },
             { name: 'disabled', type: 'boolean' },
-            { name: 'items', type: 'Array' }
+            { name: 'items', required: true, type: 'Array' },
+            { name: 'onReturnData', type: 'CallbackObject' }
         ];
         this.state = {
             captionKey: props?.captionKey,
@@ -152,7 +142,7 @@ class CBListWrapper extends Component {
             }
         }
     }
-    hideModalHangler = () => {
+    hideModalHandler = () => {
         const CSSTransitionTime = 200;
 
         this.setState({
@@ -195,11 +185,11 @@ class CBListWrapper extends Component {
     }
     componentDidUpdate() {
         if (this.state.hidden !== this.props.hidden) {
-            this.hideModalHangler();
+            this.hideModalHandler();
         }
     }
     componentDidMount() {
-        this.hideModalHangler();
+        this.hideModalHandler();
     }
     render() {
         return (

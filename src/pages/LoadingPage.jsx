@@ -20,10 +20,12 @@ class LoadingPage extends BaseMethods {
         return(<Playground title="Loading"
                 pComponent={<Loading isLoading={this.state.isLoading} blurStrong={this.state.blurStrong} speed={this.state.speed} size={this.state.size}><div style={{ width: "400px", height: "200px" }}>Some loading content...</div></Loading>}
                 componentProps={<>
-                    <TextBox caption="IconPath :" value={this.state.iconPath} width={200} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "iconPath" } }} />
-                    <TextBox caption="Speed :" value={this.state.speed} width={200} maxLength={6} onReturnData={{ func: this.setData, params: { propName: "speed" } }} />
-                    <TextBox caption="Size :" inputType="number" value={this.state.size} width={200} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "size" } }} />
-                    <TextBox caption="BlurStrong :" inputType="number" value={this.state.blurStrong} width={200} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "blurStrong" } }} />
+                    <div style={{ display: "flex", flexDirection: "column", width: "max-content", alignItems: "end", rowGap: "5px" }}>
+                        <TextBox caption="IconPath :" value={this.state.iconPath} width={200} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "iconPath" } }} />
+                        <TextBox caption="Speed :" value={this.state.speed} width={200} maxLength={6} onReturnData={{ func: this.setData, params: { propName: "speed" } }} />
+                        <TextBox caption="Size :" inputType="number" value={this.state.size} width={200} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "size" } }} />
+                        <TextBox caption="BlurStrong :" inputType="number" value={this.state.blurStrong} width={200} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "blurStrong" } }} />
+                    </div>
                     <Switcher caption="IsLoading :" value={this.state.isLoading} onReturnData={{ func: this.setData, params: { propName: "isLoading" } }} />
                 </>}
                 componentDocumentation={[

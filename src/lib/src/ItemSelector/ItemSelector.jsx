@@ -139,8 +139,7 @@ class ItemSelector extends BaseComponent {
                             </div>
                         </div>
                     </ISModalWrapper>
-
-                    </>
+                </>
             </div>
         );
     }

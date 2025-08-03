@@ -1,0 +1,69 @@
+.modalswrapper-background {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    background: #00000094;
+    position: fixed;
+    z-index: 9000;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+.modalswrapper-container {
+    width: 100%;
+    justify-items: center;
+}
+
+.modalswrapper-background, .modalswrapper-container {
+    transition: margin-top 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.infomodalform-form {
+	background: white;
+	border-radius: 2px;
+	padding: 8px;
+	box-shadow: 0px 0px 40px 10px #0000008c;
+	max-width: 370px;
+	display: flex;
+	flex-direction: column;
+	transition: margin-top 0.3s;
+}
+
+.infomodalform-form-content {
+	display: flex;
+	column-gap: 15px;
+	margin: 10px;
+}
+
+.infomodalform-form-content-icon {
+	display: flex;
+	align-items: center;
+}
+
+.infomodalform-form-content-icon img {
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	mask-position: center;
+	display: block;
+	user-select: none;
+	mask-size: 85%;
+	width: 40px;
+	height: 40px;
+	background-color: black;
+}
+
+.infomodalform-form-content-caption {
+	font-family: system-ui;
+	display: flex;
+	line-height: 20px;
+	text-align: justify;
+	align-items: center;
+}
+
+.infomodalform-form-button {
+	display: flex;
+	justify-content: end;
+}

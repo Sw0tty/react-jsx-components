@@ -29,15 +29,20 @@ class TextBoxPage extends BaseMethods {
                     <TextBox inputType={this.state.inputType} invalid={this.state.invalid} inputIconPath="./icons/Warning" inputIconReverse={this.state.inputIconReverse} required={this.state.required} caption={this.state.caption} width={this.state.width} maxLength={this.state.maxLength} placeholder={this.state.placeholder} invalidData={false} onReturnData={{ func: this.setData, params: { settledParamName: "address" } }} disabled={this.state.disabled} />
                 }
                 componentProps={<>
-                    <TextBox caption="Caption :" value={this.state.caption} width={200} maxLength={255} invalidData={false} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
-                    <TextBox caption="Placeholder :" value={this.state.placeholder} width={200} maxLength={255} invalidData={false} onReturnData={{ func: this.setData, params: { propName: "placeholder" } }} />
-                    <TextBox caption="Width :" inputType="number" value={this.state.width} width={200} maxLength={255} invalidData={false} onReturnData={{ func: this.setData, params: { propName: "width" } }} />
-                    <TextBox caption="MaxLength :" inputType="number" value={this.state.maxLength} width={200} maxLength={255} invalidData={false} onReturnData={{ func: this.setData, params: { propName: "maxLength" } }} />
-                    <Switcher caption="Disabled :" onReturnData={{ func: this.setData, params: { propName: "disabled" } }} />
-                    <Switcher caption="Required :" value={this.state.required} onReturnData={{ func: this.setData, params: { propName: "required" } }} />
-                    <Switcher caption="Invalid :" value={this.state.invalid} onReturnData={{ func: this.setData, params: { propName: "invalid" } }} />
-                    <Switcher caption="InputIconReverse :" value={this.state.inputIconReverse} onReturnData={{ func: this.setData, params: { propName: "inputIconReverse" } }} />
-                    <ComboBox caption="Input type :" disabled={false} required={false} width={200} valueKey="dataType" captionKey="dataType" items={[{ dataType: "number" }, { dataType: "date" }]} onReturnData={{ func: this.setData, params: { propName: "inputType" } }} />
+                    <div style={{ display: "flex", flexDirection: "column", width: "max-content", alignItems: "end", rowGap: "5px" }}>
+                        <TextBox caption="Caption :" value={this.state.caption} width={200} maxLength={255} invalidData={false} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
+                        <TextBox caption="Placeholder :" value={this.state.placeholder} width={200} maxLength={255} invalidData={false} onReturnData={{ func: this.setData, params: { propName: "placeholder" } }} />
+                        <TextBox caption="Width :" inputType="number" value={this.state.width} width={200} maxLength={255} invalidData={false} onReturnData={{ func: this.setData, params: { propName: "width" } }} />
+                        <TextBox caption="MaxLength :" inputType="number" value={this.state.maxLength} width={200} maxLength={255} invalidData={false} onReturnData={{ func: this.setData, params: { propName: "maxLength" } }} />
+                        <ComboBox caption="Input type :" disabled={false} required={false} width={200} valueKey="dataType" captionKey="dataType" items={[{ dataType: "number" }, { dataType: "date" }]} onReturnData={{ func: this.setData, params: { propName: "inputType" } }} />
+                    </div>
+                    <div style={{ display: "flex", flexWrap: "wrap", columnGap: "25px", rowGap: "5px" }}>
+                        <Switcher caption="Disabled :" onReturnData={{ func: this.setData, params: { propName: "disabled" } }} />
+                        <Switcher caption="InputIconReverse :" value={this.state.inputIconReverse} onReturnData={{ func: this.setData, params: { propName: "inputIconReverse" } }} />
+                        <Switcher caption="Required :" value={this.state.required} onReturnData={{ func: this.setData, params: { propName: "required" } }} />
+                        <Switcher caption="Invalid :" value={this.state.invalid} onReturnData={{ func: this.setData, params: { propName: "invalid" } }} />
+                    </div>
+                    
                 </>}
                 componentDocumentation={[
                     {name: "disabled", required: false, dataType: "boolean", description: "Deactivate actions for user. Default is 'false'."},

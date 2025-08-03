@@ -13,12 +13,13 @@ class StepsListPage extends BaseMethods {
             stayNum: false,
             stepsColor: undefined,
             reverse: false,
-            width: undefined
+            width: undefined,
+            steps: [{ title: "Open git bash", description: "In your repo folder fight click -> open git bash" }, { title: "Add all for commit", description: "Input command: git add -A" }, { title: "Commit", description: "Input command: git commit -m 'change code'" }, { title: "Ready to push!" }]
         }
     }
     render() {
         return (<Playground title="StepsList"
-                pComponent={<StepsList width={this.state.width} stayNum={this.state.stayNum} reverse={this.state.reverse} stepsColor={this.state.stepsColor} steps={[{ title: "Open git bash", description: "In your repo folder fight click -> open git bash" }, { title: "Add all for commit", description: "Input command: git add -A" }, { title: "Commit", description: "Input command: git commit -m 'change code' " }, { title: "Ready to push!" }]} />}
+                pComponent={<StepsList width={this.state.width} stayNum={this.state.stayNum} reverse={this.state.reverse} stepsColor={this.state.stepsColor} steps={this.state.steps} />}
                 componentProps={<>
                     <Switcher value={this.state.reverse} caption="Reverse :" onReturnData={{ func: this.setData, params: { propName: "reverse" } }} />
                     <Switcher value={this.state.stayNum} caption="Stay num :" onReturnData={{ func: this.setData, params: { propName: "stayNum" } }} />
@@ -33,7 +34,7 @@ class StepsListPage extends BaseMethods {
                     {name: "width", required: false, dataType: "string", description: "Sets the width in CSS format. Min-width is 200px."},
                     {name: "style", required: false, dataType: "Object", description: "Object with CSS styles for element container."},
                 ]}
-                example='<StepsList stayNum={true} stepsColor="green" steps={[{ title: "Some t", description: "Some d" }, { title: "Some t 2" }, { title: "Some t 3", description: "Some d 3" }]} />'
+                example={`<StepsList ${this.state?.width ? `width="${this.state.width}"` : ''} stayNum={${this.state.stayNum}} reverse={${this.state.reverse}} ${this.state?.stepsColor ? `stepsColor="${this.state.stepsColor}"` : ''} steps={[${this.state.steps.map(el => { return `{ title: "${el.title}"${el?.description ? `, description: "${el.description}"` : ''} }`})}]} />`}
             />);
     }
 }

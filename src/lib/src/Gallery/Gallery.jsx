@@ -7,17 +7,28 @@ border - color: var(--componentHoverColor);
 transform: scale(1.02);*/
 
 class Gallery extends BaseComponent {
-    constructor() {
+    constructor(props) {
         super();
-        this._propsRules = [{ name: 'itemDataKey', type: 'string' }];
+        this.state = {
+            selectedItemIdx: this.selectItemByName(props.selectedItem, props.items)
+        };
+        this._propsRules = [
+            { name: 'itemDataKey', type: 'string' },
+            { name: 'itemsSize', required: true, type: 'number' },
+            { name: 'iconsSize', required: true, type: 'number', interval: [0, 100] }
+        ];
     }
-    //setComponentData
+    selectItemByName = (iconName, items) => {
+        let selectedIdx;
+        items?.forEach((el, idx) => {
+            if (el.iconName === iconName) {
+                selectedIdx = idx;
+                return;
+            }
+        });
+        return selectedIdx;
+    }
     renderComponent() {
-        const selectedStyle = {
-            boxShadow: "0px 0px 3px 3px var(--componentFocusShadowColor)",
-            borderColor: "var(--componentHoverColor)",
-            transform: "scale(1.02)"
-        }
         return (
             <div className="gallery-container" style={{ width: this.props?.cWidth, height: this.props?.cHeight}}>
                 <div className="gallery-items-container">
@@ -25,7 +36,7 @@ class Gallery extends BaseComponent {
                         this.props?.items ?
                             this.props.items.map((item, idx) => {
                                 return (
-                                    <div key={idx} className="gallery-item" title={`${item?.caption ?? ''}`} style={{ width: this.props?.itemSize, height: this.props?.itemSize }} style1={ this.props.selectedItem === item[this.props.itemDataKey] ? selectedStyle : null } onClick={() => { this.setComponentData('selectedItem', idx); this.props.onClick.func(item.data, { ...this.props.onClick?.params }) }} onDoubleClick={() => this.props.onDoubleClick.func(item.data, { ...this.props.onDoubleClick?.params })}>
+                                    <div key={idx} className="gallery-item" title={`${item?.caption ?? ''}`} style={{ width: `${this.props?.itemsSize}px`, height: `${this.props?.itemsSize}px`, boxShadow: this.state.selectedItemIdx === idx ? "0px 0px 3px 3px var(--componentFocusShadowColor)" : null, borderColor: this.state.selectedItemIdx === idx ? "var(--componentHoverColor)" : null, transform: this.state.selectedItemIdx === idx ? "scale(1.02)" : null }} onClick={() => { this.setState({ selectedItemIdx: idx }); if (this.props?.onClickAction) { this.props.onClickAction.func(item.data, { ...this.props.onClickAction?.params }) } }}>
                                         <div className="gallery-item-icon">
                                             <img alt="" style={{ height: this.props?.iconsSize ? `${this.props?.iconsSize}%` : null, width: this.props?.iconsSize ? `${this.props?.iconsSize}%` : null }} src={`${item?.iconPath ?? this.props?.iconsPath ?? '/'}${item.iconName}`} />
                                         </div>

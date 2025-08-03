@@ -29,7 +29,7 @@ class DataGridPage extends BaseMethods {
                 { id: 13, parentId: 11, mark: "Q7", colorName: "Platinum Silver", colorValue: "#C0C0C0", price: 65000, prodDate: 2022 },
                 { id: 14, parentId: 11, mark: "R8", colorName: "Ruby Red", colorValue: "#DC143C", price: 150000, prodDate: 2023 }
             ],
-            contextMenu: [[{ caption: "Edit" }, { caption: "Edit" }], [{ caption: "Delete", color: "red" }]], // func is priority on redirect
+            //contextMenu: [[{ caption: "Edit" }, { caption: "Edit" }], [{ caption: "Delete", color: "red" }]], // func is priority on redirect
             tools: [{ caption: "Download" }, { caption: "Set default", color: "red" }],
             hoverColor: null,
             reverse: false

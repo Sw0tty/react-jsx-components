@@ -3,6 +3,7 @@
     align-items: center;
     white-space: nowrap;
     column-gap: 5px;
+    width: max-content;
 }
 
 .switcher-caption {

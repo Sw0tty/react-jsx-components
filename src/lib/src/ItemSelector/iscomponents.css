@@ -58,33 +58,7 @@
     box-shadow: 0px 0px 5px 1px #c8e8f3;
 }
 
-.fill {
-    background: #517fc5;
-    color: white;
-    font-weight: bold;
-    transition: 0.3s background, 0.1s box-shadow ease-out
-}
-
-.fill:hover {
-    background: #46628d;
-}
-
-.fill:active {
-    box-shadow: 0px 0px 4px 1px #7a7a7a;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-.modalwrapper-background {
+.ismodalwrapper-background {
     display: flex;
     justify-content: center;
     align-items: baseline;
@@ -97,11 +71,13 @@
     height: 100%;
 }
 
-.modalwrapper-container {
+.ismodalwrapper-container {
     width: 100%;
     justify-items: center;
+    display: flex;
+    justify-content: center;
 }
 
-.modalwrapper-background, .modalwrapper-container {
+.ismodalwrapper-background, .ismodalwrapper-container {
     transition: margin-top 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
