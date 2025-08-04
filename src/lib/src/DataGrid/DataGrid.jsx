@@ -807,7 +807,7 @@ class DGFilter extends Component {
                 </div>
                 <div className="datagrid-filter-form-data">
                     {this.state?.data?.map((item, idx) => {
-                        return (<div className="datagrid-filter-form-data-item" key={idx}><DGCheckBox value={item.checked} disabled={false} onReturnData={{ func: this.checkFiltersHandler, params: { id: item.id } }} /><span title={item.value}>{item.value}</span></div>);
+                        return (<div className="datagrid-filter-form-data-item" key={idx}><DGCheckBox value={item.checked} onReturnData={{ func: this.checkFiltersHandler, params: { id: item.id } }} /><span title={item.value}>{item.value}</span></div>);
                     })}
                 </div>
                 <div className="datagrid-filter-form-buttons">

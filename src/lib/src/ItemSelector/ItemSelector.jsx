@@ -1,5 +1,5 @@
 import BaseComponent from '../BaseComponent/BaseComponent.jsx';
-import { ISModalWrapper, ISButton } from "./ISComponents.jsx";
+import { ISModalWrapper, ISButton, ISGallery } from "./ISComponents.jsx";
 import './itemselector.css';
 
 //, ISDataGrid, ISGallery
@@ -7,6 +7,9 @@ import './itemselector.css';
 class ItemSelector extends BaseComponent {
     constructor(props) {
         super();
+        this._propsRules = [
+            { name: 'type', required: true, type: 'string', constStrings: ['gallery', 'datagrid'] }
+        ]
         this.state = {
             modalFormHidden: true,
             mouseHover: false,
@@ -126,12 +129,12 @@ class ItemSelector extends BaseComponent {
                                 </div>
                             </div>
                             <div className="itemselector-modalform-body">
-                                {/* {
-                                    this.props?.type == "grid" ?
-                                        <div className="itemselector-modalform-body-grid"><ISDataGrid onDoubleClick={{ func: this.selectFromGridReturnSelectedAndClose, params: { inComponentKey: this.props.gridSelectorParams?.returnedData?.inComponent, fromComponentKey: this.props.gridSelectorParams?.returnedData?.fromComponent } }} styles={this.props?.gridSelectorParams?.styles} idKey={this.props.gridSelectorParams?.hierarchyKeys?.idKey} parentIdKey={this.props.gridSelectorParams?.hierarchyKeys?.parentIdKey} iconsParams={this.props.gridSelectorParams?.iconsParams} rowNum={false} checkBoxes={false} data={this.props.gridSelectorParams?.data} lastDataUpdate={new Date()} fields={this.props.gridSelectorParams?.fields} contextMenu={undefined} /></div> :
-                                    this.props?.type == "gallery" ?
-                                        <div className="itemselector-modalform-body-gallery"><ISGallery selectedItem={this.state.selectedItemData} onClick={{ func: this.selectItemData }} onDoubleClick={{ func: this.selectReturnSelectedAndClose }} items={this.props?.galleryParams?.items} /></div> : null
-                                } */}
+                                {
+                                    this.props?.type === "grid" ?
+                                        null : //<div className="itemselector-modalform-body-grid"><ISDataGrid onDoubleClick={{ func: this.selectFromGridReturnSelectedAndClose, params: { inComponentKey: this.props.gridSelectorParams?.returnedData?.inComponent, fromComponentKey: this.props.gridSelectorParams?.returnedData?.fromComponent } }} styles={this.props?.gridSelectorParams?.styles} idKey={this.props.gridSelectorParams?.hierarchyKeys?.idKey} parentIdKey={this.props.gridSelectorParams?.hierarchyKeys?.parentIdKey} iconsParams={this.props.gridSelectorParams?.iconsParams} rowNum={false} checkBoxes={false} data={this.props.gridSelectorParams?.data} lastDataUpdate={new Date()} fields={this.props.gridSelectorParams?.fields} contextMenu={undefined} /></div> :
+                                    this.props?.type === "gallery" ?
+                                        <div className="itemselector-modalform-body-gallery"><ISGallery cHeight="100%" cWidth="100%" selectedItem="Rocket.svg" itemDataKey="data" iconsSize={this.props?.galleryParams?.iconsSize ?? 70} iconsPath="./icons/" itemsSize={this.props?.galleryParams?.itemsSize ?? 70} onClick={{ func: this.selectItemData }} onDoubleClick={{ func: this.selectReturnSelectedAndClose }} items={this.props?.galleryParams?.items} /></div> : null
+                                }
                             </div>
                             <div className="itemselector-modalform-buttons">
                                 <ISButton caption="Выбрать" type="acceptHollow" disabled={this.state?.selectedItemData ? false : true} onClickAction={{ func: this.returnSelectedAndClose }} style={{ padding: "0px 15px", height: "30px" }} />
@@ -144,8 +147,6 @@ class ItemSelector extends BaseComponent {
         );
     }
 }
-
-
 
 
 export default ItemSelector;

@@ -58,6 +58,13 @@ export class DGCheckBox extends Component {
             }, 0)
         }
     }
+    componentDidUpdate() {
+        if (this.props.value !== this.state.value) {
+            this.setState({
+                value: this.props.value
+            });
+        }
+    }
     render() {
         return (
             <div className="dgcheckbox-container">

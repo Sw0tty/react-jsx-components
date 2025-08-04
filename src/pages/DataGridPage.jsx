@@ -29,7 +29,7 @@ class DataGridPage extends BaseMethods {
                 { id: 13, parentId: 11, mark: "Q7", colorName: "Platinum Silver", colorValue: "#C0C0C0", price: 65000, prodDate: 2022 },
                 { id: 14, parentId: 11, mark: "R8", colorName: "Ruby Red", colorValue: "#DC143C", price: 150000, prodDate: 2023 }
             ],
-            //contextMenu: [[{ caption: "Edit" }, { caption: "Edit" }], [{ caption: "Delete", color: "red" }]], // func is priority on redirect
+            contextMenu: [[{ caption: "Edit" }, { caption: "Add" }], [{ caption: "Delete", color: "red" }]], // func is priority on redirect
             tools: [{ caption: "Download" }, { caption: "Set default", color: "red" }],
             hoverColor: null,
             reverse: false
@@ -38,7 +38,7 @@ class DataGridPage extends BaseMethods {
     render() {
         return(<>
             <Playground title={<div style={{ display: "flex", justifyContent: "center", position: "relative" }}><div>DataGrid</div><div><span style={{ fontSize: "12px", padding: "0 5px", position: "absolute", borderRadius: "5px", fontWeight: "bolder", color: "white", background: "gray"  }}>BETA</span></div></div>}
-                pComponent={<DataGrid toolbar={true} searchTool={true} checkBoxes={false} tools={this.state.tools} contextMenu={this.state.contextMenu} fields={[{ key: "caption", columnName: "Name", width: 120, sorting: true, filter: true }, { key: "price", columnName: "Price", dataType: "number", sorting: true, render: (rowData) => { return `$ ${rowData.price}` }, style: { textAlign: "right"} }, { key: "quant", columnName: "Quantity in stock" }, { key: "inStock", columnName: "In stock", style: { display: "flex", justifyContent: "center" }, render: (rowData) => { return rowData.quant === 0 ? SOLD_OUT : IN_STOCK } }, { key: "lastOrder", columnName: "Last order", width: 150, dataType: "datetime" }]} data={this.state.data} />}
+                pComponent={<DataGrid styles={{ height: "400px" }} toolbar={true} searchTool={true} checkBoxes={false} tools={this.state.tools} contextMenu={this.state.contextMenu} fields={[{ key: "caption", columnName: "Name", width: 120, sorting: true, filter: true }, { key: "price", columnName: "Price", dataType: "number", sorting: true, render: (rowData) => { return `$ ${rowData.price}` }, style: { textAlign: "right"} }, { key: "quant", columnName: "Quantity in stock" }, { key: "inStock", columnName: "In stock", style: { display: "flex", justifyContent: "center" }, render: (rowData) => { return rowData.quant === 0 ? SOLD_OUT : IN_STOCK } }, { key: "lastOrder", columnName: "Last order", width: 150, dataType: "datetime" }]} data={this.state.data} />}
             />
             <Playground
                 pComponent={<DataGrid idKey="id" parentIdKey="parentId" toolbar={true} searchTool={true} checkBoxes={false} tools={this.state.tools} fields={[{ key: "mark", columnName: "Mark / model", width: 120, sorting: true }, { key: "price", columnName: "Price", dataType: "number", sorting: true, render: (rowData) => { return `$ ${rowData.price}` }, style: { textAlign: "right"} }, { key: "color", width: 150, columnName: "Color", render: (rowData) => { return rowData?.parentId ? <div style={{ display: "flex", columnGap: "5px", alignItems: "center" }}><div style={{ minWidth: "15px", height: "15px", borderRadius: "3px", background: rowData.colorValue, boxShadow: "0px 0px 0px 1px #d9d9d9" }}></div><span>{rowData.colorName}</span></div> : null  } }]} data={this.state.carsData} />}

@@ -146,7 +146,7 @@ class Menu extends Component {
 								<div key={parentIdx}>
 									<Link key={parentIdx} className="menu-item" to={parent?.to} title={parent?.name} onClick={() => parent?.id && !this.state.shrinked ? this.hideSub(parent?.id) : this.setSelectedItem(parentIdx)} onMouseEnter={(event) => parent?.id && this.state.shrinked ? this.showSubOnshrinked(event.target, parent?.id) : null} onMouseLeave={(event) => parent?.id && this.state.shrinked ? this.isLeave(event, parent?.id) : null}>
 										<div className="menu-item-icon-block">
-											<img style={{ WebkitMaskImage: `url(${this.props?.iconsPath ?? './src/assets/'}${parent?.icon}.svg)`, maskImage: `url(${this.props?.iconsPath ?? './src/assets/'}${parent?.icon}.svg)` }} />
+											<img style={{ WebkitMaskImage: `url(${this.props?.iconsPath ?? './src/assets/'}${parent?.icon}.svg)`, maskImage: `url(${this.props?.iconsPath ?? './src/assets/'}${parent?.icon}.svg)`, backgroundColor: parentIdx === this.state.selectedItemId ? "white" : null }} />
 										</div>
 										<div className={`menu-item-text${parentIdx == this.state.selectedItemId ? ' menu-item-selected-caption' : ''}`}>
 											{parent?.name}

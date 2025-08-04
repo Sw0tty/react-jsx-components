@@ -12,13 +12,14 @@ class GalleryPage extends BaseMethods {
             cHeight: "280px",
             cWidth: "300px",
             iconsSize: 70,
-            itemsSize: 70
+            itemsSize: 70,
+            items: [{ iconName: "Excel.svg", data: "data", caption: "Excel icon" }, { iconName: "Progress.svg", data: "dropper" }, { iconName: "Rocket.svg", data: "dropper" }, { iconName: "Graph.svg", data: "dropper" }, { iconName: "Compas.svg", data: "dropper" }, { iconName: "Eyedropper.svg", data: "dropper" }, { iconName: "Box.svg", data: "dropper" }]
         }
     }
     render() {
         return(<>
             <Playground title="Gallery"
-                pComponent={<Gallery cHeight={this.state.cHeight} cWidth={this.state.cWidth} selectedItem="Rocket.svg" itemDataKey="data" iconsSize={this.state.iconsSize} iconsPath="./icons/" itemsSize={this.state.itemsSize} items={[{ iconName: "Excel.svg", data: "data", caption: "Excel icon" }, { iconName: "Progress.svg", data: "dropper" }, { iconName: "Rocket.svg", data: "dropper" }, { iconName: "Graph.svg", data: "dropper" }, { iconName: "Compas.svg", data: "dropper" }, { iconName: "Eyedropper.svg", data: "dropper" }, { iconName: "Box.svg", data: "dropper" }]} />}
+                pComponent={<Gallery cHeight={this.state.cHeight} cWidth={this.state.cWidth} selectedItem="Rocket.svg" itemDataKey="data" iconsSize={this.state.iconsSize} iconsPath="./icons/" itemsSize={this.state.itemsSize} items={this.state.items} />}
                 componentProps={<>
                 <div style={{ display: "flex", flexDirection: "column", width: "max-content", alignItems: "end", rowGap: "5px" }}>
                     <TextBox caption="Component width :" width={200} maxLength={10} value={this.state.cWidth} onReturnData={{ func: this.setData, params: { propName: "cWidth" } }} />

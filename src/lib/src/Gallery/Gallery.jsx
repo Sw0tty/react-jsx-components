@@ -2,10 +2,6 @@ import BaseComponent from '../BaseComponent/BaseComponent.jsx';
 import './gallery.css';
 
 
-/*box - shadow: 0px 0px 3px 3px var(--componentFocusShadowColor);
-border - color: var(--componentHoverColor);
-transform: scale(1.02);*/
-
 class Gallery extends BaseComponent {
     constructor(props) {
         super();

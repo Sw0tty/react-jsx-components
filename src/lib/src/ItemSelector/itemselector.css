@@ -59,6 +59,10 @@
 	width: 22px;
 }
 
+.itemselector-modal-button:active {
+    box-shadow: 0px 0px 5px 1px #c8e8f3;
+}
+
 .itemselector-modal-button img {
 	-webkit-mask-image: url("Dots.svg");
 	mask-image: url("Dots.svg");

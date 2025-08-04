@@ -22,7 +22,7 @@ class ModalsPage extends Component {
         });
     }
     render() {
-        return(<Playground title="Modals"
+        return(<Playground title={<div style={{ display: "flex", justifyContent: "center", position: "relative" }}><div>Modals</div><div><span style={{ fontSize: "12px", padding: "0 5px", position: "absolute", borderRadius: "5px", fontWeight: "bolder", color: "white", background: "gray"  }}>SOON</span></div></div>}
                 pComponent={<div><InfoModalForm hidden={this.state.infoModalHidden}/></div>}
                 componentProps={<>
                     <CustomButton caption="Show modal" type="hollow" onClickAction={{ func: this.openModal, params: { modalName: 'infoModalHidden' } }} style={{ padding: "0px 15px", height: "30px" }} />
