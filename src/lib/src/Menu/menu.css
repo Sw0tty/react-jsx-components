@@ -106,7 +106,7 @@
 }
 
 .menu-item-icon-block, .menu-item-icon-block-daughter {
-    width: var(--menu-icon-block-width);
+    min-width: var(--menu-icon-block-width);
 }
 
 .menu-item-icon-block {

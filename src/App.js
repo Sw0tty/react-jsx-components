@@ -74,7 +74,10 @@ class App extends Component {
 							id: undefined, name: "ProgressBar", icon: "Progress", to: ROOT_PATH + "/ProgressBar"
 						},
 						{
-							id: undefined, name: "Modals", icon: "Modals", to: ROOT_PATH + "/Modals"
+							id: "sub2", name: "Modals", icon: "Modals", to: undefined, childs: [
+								{ name: "InfoModal", to: `${ROOT_PATH}/InfoModal` },
+								{ name: "ErrorModal", accessRoles: [], to: `${ROOT_PATH}/ErrorModal` }
+							]
 						},
 					]
 				} />

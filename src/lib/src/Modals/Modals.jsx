@@ -6,7 +6,10 @@ import './modals.css';
 export class InfoModalForm extends Component {
     constructor(props) {
         super();
-        this._propsRules = [{ name: '' }]
+        this._propsRules = [
+            { name: 'buttonCaption', type: 'string' },
+            { name: 'hidden', required: true, type: 'boolean' }
+        ];
     }
     // switch = () => {
     //     this.setState({
@@ -21,14 +24,14 @@ export class InfoModalForm extends Component {
                 <div className="infomodalform-form">
                     <div className="infomodalform-form-content">
                         {this.props?.icon ? 
-                            <div className="infomodalform-form-content-icon" style={{ WebkitFilter: `drop-shadow(1px 1px 4px ${this.props?.color ?? baseIconColor})` }}>
-                                <img style={{ WebkitMaskImage: `url(/src/assets/${this.props?.icon}.svg)`, maskImage: `url(/src/assets/${this.props?.icon}.svg)`, backgroundColor: this.props?.color ?? baseIconColor }} />
+                            <div className="infomodalform-form-content-icon" style={{ WebkitFilter: `drop-shadow(1px 1px 4px ${this.props?.iconGlowColor ?? this.props?.iconColor ?? baseIconColor})` }}>
+                                <img alt="" style={{ WebkitMaskImage: `url(${this.props?.icon})`, maskImage: `url(${this.props?.icon})`, backgroundColor: this.props?.iconColor ?? baseIconColor }} />
                             </div>
                         : null}
                         <div className="infomodalform-form-content-caption">{this.props.caption}</div>
                     </div>
                     <div className="infomodalform-form-button">
-                        <CustomButton caption="Ок" type="hollow" onClickAction={{ func: this.switch }} style={{ padding: "0px 15px", height: "30px" }} />
+                        <CustomButton caption={this.props?.buttonCaption ?? "Ok"} type="hollow" onClickAction={{ func: this.props.onClickAction.func, params: this.props.onClickAction?.params }} style={{ padding: "0px 15px", height: "30px" }} />
                     </div>
                 </div>
             </ModalWrapper>
@@ -91,7 +94,7 @@ class ModalWrapper extends Component {
         }
     }
     componentDidUpdate() {
-        if (this.state.hidden != this.props.hidden) {
+        if (this.state.hidden !== this.props.hidden) {
             this.hideModalHandler();
         }
     }
@@ -100,7 +103,7 @@ class ModalWrapper extends Component {
     }
     render() {
         return (
-            this.state.bindingElement.display == "none" ? null :
+            this.state.bindingElement.display === "none" ? null :
                 <div className="modalswrapper-background" style={{ display: this.state.bindingElement.display, opacity: this.state?.bindingElement?.willShow ? 1 : 0 }}>
                     <div className="modalswrapper-container" style={{ marginTop: this.state?.bindingElement?.willShow ? this.state.marginTop : 0, height: this.props?.fullScreen ? `calc(100% - ${this.state.marginTop} - ${this.state.marginTop})` : null }}>
                         {this.props.children}
