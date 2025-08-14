@@ -379,7 +379,7 @@ export class ISDataGrid extends BaseComponent {
             case "datetime":
                 return new DataRender().toDateTimeFormat(new Date(data));
             case "bool":
-                return (<img alt="" className="datagrid-cell-img" style={{ WebkitMaskImage: `url(${data ? CheckCircle : CrossCircle})`, maskImage: `url(${data ? CheckCircle : CrossCircle})` }} />);
+                return (<img alt="" className="isdatagrid-cell-img" style={{ WebkitMaskImage: `url(${data ? CheckCircle : CrossCircle})`, maskImage: `url(${data ? CheckCircle : CrossCircle})` }} />);
             default:
                 return data;
         }
@@ -697,16 +697,16 @@ export class ISDataGrid extends BaseComponent {
     renderComponent() {
         try {
             return (
-                <div id="datagrid-element-block" style={this.props?.styles}>
+                <div id="isdatagrid-element-block" style={this.props?.styles}>
                     {
                         this.props?.toolbar ? 
-                            <div className="datagrid-toolbar">
+                            <div className="isdatagrid-toolbar">
                                 {/* <div className="datagrid-toolbar-tools">
                                     {this.props?.tools ? this.props.tools.map((tool, idx) => { return (<DGTool key={idx} disabled={this.state.isLoading} caption={tool.caption} icon={tool.icon} isImage={tool?.isImage} hoverColor={tool?.color} onClickAction={{ action: (typeof tool?.func) === "function" ? { func: tool.func, params: { _dataGridData: this.returnCurrentDataState(), ...tool?.funcParams } } : undefined, redirect: tool?.redirect ? { path: tool?.redirect?.path } : undefined }} />); }) : null}
                                 </div> */}
                                 {
                                     this.props?.searchTool ?
-                                        <div className="datagrid-toolbar-search">
+                                        <div className="isdatagrid-toolbar-search">
                                             <ISDGSearchTool width="" fullWidth={true} removeBaseCSS={true} disabled={false} required={false} placeholder={this.props?.searchToolPlaceholder ?? 'Search'} inputIcon={{ icon: "Loupe" }} onReturnData={{ func: this.setSearchStr }} />
                                         </div>
                                     : null
@@ -714,17 +714,17 @@ export class ISDataGrid extends BaseComponent {
                             </div>
                         : null
                     }
-                    <div className="datagrid-container">
-                        <div className="datagrid-elements-container">
-                            <table id="datagrid">
+                    <div className="isdatagrid-container">
+                        <div className="isdatagrid-elements-container">
+                            <table id="isdatagrid">
                                 <thead>
                                     <tr>
-                                        {this.props?.rowNum ? <th className="datagrid-numcolumn"></th> : null}
+                                        {this.props?.rowNum ? <th className="isdatagrid-numcolumn"></th> : null}
                                         {this.props.fields.map((field, idx) => {
-                                            return (<th key={idx} className="datagrid-header">
-                                                <div className="datagrid-header-container" style={{ width: field?.width ? `${field?.width}px` : null }}>
-                                                    <div className="datagrid-header-left-handlers">
-                                                        <div className="datagrid-header-title" title={field?.columnName ?? ''}>{field.columnName}</div>
+                                            return (<th key={idx} className="isdatagrid-header">
+                                                <div className="isdatagrid-header-container" style={{ width: field?.width ? `${field?.width}px` : null }}>
+                                                    <div className="isdatagrid-header-left-handlers">
+                                                        <div className="isdatagrid-header-title" title={field?.columnName ?? ''}>{field.columnName}</div>
                                                         {/* <div className="datagrid-header-handlers">
                                                             <div className="datagrid-thead-buttons">
                                                                 {field.sorting ?
@@ -734,8 +734,8 @@ export class ISDataGrid extends BaseComponent {
                                                             </div>
                                                         </div> */}
                                                     </div>
-                                                    <div className="datagrid-header-right-handlers">
-                                                        <div className="datagrid-resizer" onMouseDown={(event) => this.resizeColumn(event)}><img alt="" /></div>
+                                                    <div className="isdatagrid-header-right-handlers">
+                                                        <div className="isdatagrid-resizer" onMouseDown={(event) => this.resizeColumn(event)}><img alt="" /></div>
                                                     </div>
                                                 </div>
                                             </th>)
@@ -746,14 +746,14 @@ export class ISDataGrid extends BaseComponent {
                                     {!this.props?.data ? null :
                                         this.state?.data?.filter(el => !el.hidden)?.map((rowData, rowIdx) => {
                                             return (<tr key={rowData.rowId}>
-                                                {this.props?.rowNum ? <td className="datagrid-numcolumn"><div>{rowIdx + 1}</div></td> : null}
+                                                {this.props?.rowNum ? <td className="isdatagrid-numcolumn"><div>{rowIdx + 1}</div></td> : null}
                                                 {this.props.fields.map((field, fIdx) => {
                                                     return (<td key={fIdx} style={{ background: rowData.rowId === this.state.selected?.row && fIdx === this.state.selected?.cell ? this.props?.cellColor ?? this.defaultCellColor : rowData.rowId === this.state.selected?.row ? this.props?.rowColor ?? this.defaultRowColor : 'white', }} onClick={() => { this.setState({ selected: { row: rowData.rowId, cell: fIdx, currentData: rowData.data[field?.key], rowData: rowData.data } }) }} onDoubleClick={(event) => { this.props?.onDoubleClick?.func({ event: event, data: rowData.data, params: { ...this.props?.onDoubleClick?.params } }) }} onContextMenu={this.props?.contextMenu ? (event) => { this.setState({ selected: { row: rowData.rowId, cell: fIdx }, selectedData: rowData.data }); this.showContext(event); } : null}>
-                                                        <div className="datagrid-cell" style={{ paddingLeft: fIdx === 0 ? `${rowData.level * 15}px` : '' }}>
-                                                            {rowData.isParent && fIdx === 0 ? <div className="datagrid-parent-shrink" onClick={() => this.shrinkChilds({ parentId: rowData.data[this.props.idKey], idKey: this.props.idKey, parentIdKey: this.props.parentIdKey, gridData: this.state.data })}><img alt="" style={{ transform: `rotate(${rowData.childsHidden ? -90 : 0}deg)` }} /></div> : null}
-                                                            {this.props?.parentIdKey && !rowData.isParent && fIdx === 0 ? <div className="datagrid-parent-shrink-plug"></div> : null}
-                                                            {rowData.icon && fIdx === 0 ? <div className="datagrid-item-icon"><img alt="" src={`/src/assets/${rowData.icon}.svg`} /></div> : null}
-                                                            {field?.render && (typeof field?.render === "function") ? <div className="datagrid-cell-data" style={{ ...field?.style}}>{field?.render(rowData.data)}</div> ?? '' : <span>{this.toDefaultFormat(rowData.data[field?.key], field?.dataType)}</span>}
+                                                        <div className="isdatagrid-cell" style={{ paddingLeft: fIdx === 0 ? `${rowData.level * 15}px` : '' }}>
+                                                            {rowData.isParent && fIdx === 0 ? <div className="isdatagrid-parent-shrink" onClick={() => this.shrinkChilds({ parentId: rowData.data[this.props.idKey], idKey: this.props.idKey, parentIdKey: this.props.parentIdKey, gridData: this.state.data })}><img alt="" style={{ transform: `rotate(${rowData.childsHidden ? -90 : 0}deg)` }} /></div> : null}
+                                                            {this.props?.parentIdKey && !rowData.isParent && fIdx === 0 ? <div className="isdatagrid-parent-shrink-plug"></div> : null}
+                                                            {rowData.icon && fIdx === 0 ? <div className="isdatagrid-item-icon"><img alt="" src={`/src/assets/${rowData.icon}.svg`} /></div> : null}
+                                                            {field?.render && (typeof field?.render === "function") ? <div className="isdatagrid-cell-data" style={{ ...field?.style}}>{field?.render(rowData.data)}</div> ?? '' : <span>{this.toDefaultFormat(rowData.data[field?.key], field?.dataType)}</span>}
                                                         </div>
                                                     </td>)
                                                 })}

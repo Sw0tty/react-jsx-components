@@ -60,7 +60,10 @@ import './datagrid.css';
 class DataGrid extends BaseComponent {
     constructor(props) {
         super();
-        this._propsRules = [{ name: 'fields', type: 'Array' }];
+        this._propsRules = [
+            { name: 'fields', type: 'Array' },
+            { name: 'searchByColumns', type: 'ArrayOfStrings' }
+        ];
         let convertedData = this.convertDataForGrid({ data: props?.data, idKey: props?.idKey, parentIdKey: props?.parentIdKey, iconsParams: props?.iconsParams });
         this.wrapperRef = createRef();
         this.defaultCellColor = "#ffd575";
@@ -91,7 +94,7 @@ class DataGrid extends BaseComponent {
             },
 
             searching: {
-                columns: undefined, // ArrayOfStrings
+                columns: props?.searchByColumns,
                 value: undefined
             },
 
@@ -143,16 +146,16 @@ class DataGrid extends BaseComponent {
         }
     }
     returnTreeFromRoot = (params) => {
-        const { idKey, parentIdKey, rootId, gridData, treeElems=[] } = params;
+        const { idKey, parentIdKey, rootId, gridData, treeElements=[] } = params;
         const rootChilds = gridData.filter(el => el.data[parentIdKey] === rootId);
 
         if (rootChilds.length > 0) {
             for (let el of rootChilds) {
-                this.returnTreeFromRoot({ idKey, parentIdKey, rootId: el.data[idKey], gridData, treeElems })
+                this.returnTreeFromRoot({ idKey, parentIdKey, rootId: el.data[idKey], gridData, treeElements })
             }
         }
-        treeElems.push(gridData.find(el => el.data[idKey] === rootId))
-        return treeElems;
+        treeElements.push(gridData.find(el => el.data[idKey] === rootId))
+        return treeElements;
     }
     shrinkChilds = (params) => {
         const { idKey, parentIdKey, parentId, gridData } = params;
@@ -233,9 +236,9 @@ class DataGrid extends BaseComponent {
                     const rootChilds = childs.filter(ch => ch[parentKey] === root[key]);
 
                     if (rootChilds.length === 0) {
-                        newRoots.push({ checked: false, hidden: false, level: level, icon: this.returnIcon({ iconsParams, data: root }), isParent: false, childsHidden: false, data: root });
+                        newRoots.push({ checked: false, hideBySearch: false, hideByFilter: false, hidden: false, level: level, icon: this.returnIcon({ iconsParams, data: root }), isParent: false, childsHidden: false, data: root });
                     } else {
-                        newRoots.push({ checked: false, hidden: false, level: level, icon: this.returnIcon({ iconsParams, data: root }), isParent: true, childsHidden: false, data: root });
+                        newRoots.push({ checked: false, hideBySearch: false, hideByFilter: false, hidden: false, level: level, icon: this.returnIcon({ iconsParams, data: root }), isParent: true, childsHidden: false, data: root });
                         recursData({ roots: rootChilds, childs: childs, key: key, parentKey: parentKey, newRoots: newRoots, level: level + 1 });
                     }
                 });
@@ -244,7 +247,7 @@ class DataGrid extends BaseComponent {
             return recursData({ roots: data.filter(el => el[parentIdKey] == null), childs: data.filter(el => el[parentIdKey] != null), key: idKey, parentKey: parentIdKey }).map((el, idx) => { return { ...el, rowId: idx } });
         }
         return data?.map((el, idx) => {
-            return { rowId: idx, checked: false, hidden: false, level: 0, icon: this.returnIcon({ iconsParams, data: el }), isParent: false, childsHidden: false, data: el }
+            return { rowId: idx, checked: false, hideBySearch: false, hideByFilter: false, hidden: false, level: 0, icon: this.returnIcon({ iconsParams, data: el }), isParent: false, childsHidden: false, data: el }
         });
     }
     switchLoading = (params) => {
@@ -279,8 +282,6 @@ class DataGrid extends BaseComponent {
     toDefaultFormat(data, dataType) {
         switch (dataType) {
             case "date":
-
-
                 return new DataRender().toDateFormat(new Date(data));
             case "datetime":
                 return new DataRender().toDateTimeFormat(new Date(data));
@@ -290,15 +291,15 @@ class DataGrid extends BaseComponent {
                 return data;
         }
     }
-    /*renderData(data, objectKey, key, dataType) {
-        if (objectKey) {
-            return data[objectKey] != null ? data[objectKey][key] != null ? this.toDefaultFormat(data[objectKey][key], dataType) : '' : '';
-        }
-        return data[key] != null ? this.toDefaultFormat(data[key], dataType) : '';
-    }*/
     switchFilterForm = (params) => {
         const { target, columnKey } = params;
-        const updatedFilter = { ...this.state.filters[columnKey], parentTarget: target, hidden: !this.state.filters[columnKey].hidden }
+        const notHidden = new Set(this.state.data.filter(d => !d.hideBySearch).map(d => d.data[columnKey]));
+        const updatedFilter = {
+            ...this.state.filters[columnKey],
+            data: this.state.filters[columnKey].data.map(el => { return { ...el, hidden: !notHidden.has(el.value) } }),
+            parentTarget: target,
+            hidden: !this.state.filters[columnKey].hidden
+        }
 
         this.setState((prevState) => ({
             filters: {
@@ -318,7 +319,74 @@ class DataGrid extends BaseComponent {
             }
         }));
     }
-    // ---- UNDER METHODS IS NOT CONFIRM AND CHECKED ON BUGS ----
+    setSearchStr = (value) => {
+        this.setState(prevState => ({
+            searching: {
+                ...prevState.searching,
+                value: value.trim().length > 0 ? value.trim() : undefined
+            }
+        }));
+        
+        setTimeout(() => {
+            this.searchData();
+        }, 1);
+    }
+    searchData = () => {
+        let data = this.state.data;
+        data = data.map(row => {
+            if (!this.state.searching.value) {
+                row.hideBySearch = false;
+                return row;
+            }
+            for (let columnName of (this.state.searching?.columns ?? this.props.fields.map(el => el.key))) {
+                if (!row.data[columnName]) {
+                    continue;
+                }
+                if (((row.data[columnName].toString().toLowerCase()).indexOf(this.state.searching.value.toLowerCase()) > -1)) {
+                    row.hideBySearch = false;
+                    return row;
+                }
+            }
+            row.hideBySearch = true;
+            return row;
+        })
+        
+        this.setState({
+            data: data
+        });
+    }
+    sortData(params) {
+        let { data, columnKey, dataType } = params;
+        
+        data = data?.sort((a, b) => {
+            if (a.data[columnKey] < b.data[columnKey]) {
+                return this.state.sorting?.increasing ? -1 : 1;
+            } else if (a.data[columnKey] > b.data[columnKey]) {
+                return this.state.sorting?.increasing ? 1 : -1;
+            }
+            return 0;
+        });
+
+        if (this.props?.idKey && this.props?.parentIdKey) {
+            let hierarchySort = [];
+            for (let parent of data.filter(el => !el.data[this.props.parentIdKey])) {
+                hierarchySort.push(parent);
+                for (let child of data.filter(el => el.data[this.props.parentIdKey] === parent.data[this.props.idKey])) {
+                    hierarchySort.push(child);
+                }
+            }
+            data = hierarchySort;
+        }
+        
+        this.setState({
+            sorting: {
+                isSorting: true,
+                increasing: !this.state.sorting?.increasing,
+                sortingBy: { columnKey: columnKey, dataType: dataType }
+            },
+            data: data
+        });
+    }
     createFilters = (params) => {
         const { data, fields } = params;
         let gridFilters = {};
@@ -327,13 +395,14 @@ class DataGrid extends BaseComponent {
             if (field.filter) {
                 let columnData = new Set();
                 data?.forEach(el => { columnData.add(el.data[field.key]) });
-                columnData = Array.from(columnData).map((el, idx) => { return { id: idx, checked: true, hidden: false, value: el } });
+                columnData = Array.from(columnData).map((el, idx) => { return { rowId: idx, checked: true, hidden: false, value: el } });
                 gridFilters[field.key] = { data: columnData, hidden: true, queueNum: -1 };
             }
         });
 
         return gridFilters;
     }
+    // ---- UNDER METHODS IS NOT CONFIRM AND CHECKED ON BUGS ----
     updateFilters = (params) => {
         const { notHiddenData, filters, currentColumn } = params;
 
@@ -410,14 +479,15 @@ class DataGrid extends BaseComponent {
     filterData = (params) => {
         let { rawData, filters } = params;
         //let skipRows = [];
-
+        console.log(1, rawData, filters);
         //const { resetedData } = this.returnReseted({ data: rawData, filters: filters });
         //console.log("filter1", resetedData);
         // ---
         let { resetedData } = this.returnReseted({ data: rawData });
+        console.log(2, resetedData);
 
         let filtersOrder = [];
-        console.log("filters[filterKey]", filters);
+        //console.log("filters[filterKey]", filters);
         for (let filterKey of Object.keys(filters)) {
             if (filters[filterKey].queueNum > 0) {
                 filtersOrder.push({ key: filterKey, order: filters[filterKey].queueNum });
@@ -435,13 +505,14 @@ class DataGrid extends BaseComponent {
                 //nextSkip = new Set([...nextSkip, ...hiddenFilters]);
                 resetedData = resetedData.map(el => {
                     if (!el.hidden && executedValues.includes(el.data[filter.key])) {
-                        return { ...el, hidden: true }
+                        //return { ...el, hidden: true }
+                        return { ...el, hideByFilter: true, hidden: false }
                     } return el;
                 });
             }
         } else {
             resetedData = resetedData.map(el => {
-                return { ...el, hidden: false }
+                return { ...el, hideByFilter: false, hidden: false }
             });
         }
         
@@ -464,54 +535,6 @@ class DataGrid extends BaseComponent {
         }
 
         return { resetedData, resetedFilters };
-    }
-    setResetFilters = (params) => {
-        const { data, filters } = params;
-    }
-    sortData(params) {
-        let { rowData, columnKey, dataType } = params;
-
-        return rowData?.sort((a, b) => {
-            if (a.data[columnKey] < b.data[columnKey]) {
-                return this.state.sorting?.increasing ? -1 : 1;
-            } else if (a.data[columnKey] > b.data[columnKey]) {
-                return this.state.sorting?.increasing ? 1 : -1;
-            }
-            return 0;
-        });
-    }
-    setSortFilterDataState = (params) => {
-        const { data, filters, sortingColumnKey, sortingDataType } = params;
-
-        this.setState((prevState) => ({
-            filters: filters,
-            sorting: {
-                isSorting: true,
-                increasing: !this.state.sorting?.increasing,
-                sortingBy: { columnKey: sortingColumnKey, dataType: sortingDataType }
-            },
-            data: data
-        }));
-    }
-    setSortDataState = (params) => {
-        const { data, columnKey, dataType } = params;
-
-        this.setState({
-            sorting: {
-                isSorting: true,
-                increasing: !this.state.sorting?.increasing,
-                sortingBy: { columnKey: columnKey, dataType: dataType }
-            },
-            data: data
-        });
-    }
-    setFilterDataState = (params) => {
-        const { data, filters } = params;
-
-        this.setState((prevState) => ({
-            filters: filters,
-            data: data
-        }));
     }
     // ----  ----
     setDefaultGridState = () => {
@@ -591,15 +614,6 @@ class DataGrid extends BaseComponent {
             })
         });
     }
-    setSearchStr = (value) => {
-        console.log(value);
-        this.setState(prevState => ({
-            searching: {
-                ...prevState.searching,
-                value: value.trim().length > 0 ? value.trim() : undefined
-            }
-        }));
-    }
     renderComponent() {
         try {
             return (
@@ -611,11 +625,11 @@ class DataGrid extends BaseComponent {
                                     {this.props?.tools ? this.props.tools.map((tool, idx) => { return (<DGTool key={idx} disabled={this.state.isLoading} caption={tool.caption} icon={tool.icon} isImage={tool?.isImage} hoverColor={tool?.color} onClickAction={{ action: (typeof tool?.func) === "function" ? { func: tool.func, params: { _dataGridData: this.returnCurrentDataState(), ...tool?.funcParams } } : undefined, redirect: tool?.redirect ? { path: tool?.redirect?.path } : undefined }} />); }) : null}
                                 </div>
                                 {
-                                    this.props?.searchTool ?
+                                    this.props?.searchTool === false ?
+                                        null :
                                         <div className="datagrid-toolbar-search">
-                                            <DGSearchTool width="" fullWidth={true} removeBaseCSS={true} disabled={false} required={false} placeholder={this.props?.searchToolPlaceholder ?? 'Search'} inputIcon={{ icon: "Loupe" }} onReturnData={{ func: this.setSearchStr }} />
+                                            <DGSearchTool placeholder={this.props?.searchToolPlaceholder ?? 'Search'} inputIcon={{ icon: "Loupe" }} onReturnData={{ func: this.setSearchStr }} />
                                         </div>
-                                    : null
                                 }
                             </div>
                         : null
@@ -636,7 +650,7 @@ class DataGrid extends BaseComponent {
                                                         <div className="datagrid-header-handlers">
                                                             <div className="datagrid-thead-buttons">
                                                                 {field.sorting ?
-                                                                    <div className="datagrid-sorter" style={{ filter: field.key === this.state.sorting?.sortingBy?.columnKey ? "drop-shadow(0px 0px 2px #70c6ffff)" : null }} onClick={() => { this.setSortDataState({ data: this.sortData({ rowData: this.state?.data, columnKey: field.key, dataType: field.dataType }), columnKey: field.key, dataType: field.dataType }) }}>
+                                                                    <div className="datagrid-sorter" style={{ filter: field.key === this.state.sorting?.sortingBy?.columnKey ? "drop-shadow(0px 0px 2px #70c6ffff)" : null }} onClick={() => { this.sortData({ data: this.state?.data, columnKey: field.key, dataType: field.dataType }) }}>
                                                                     <img alt="" style={{ background: field.key === this.state.sorting?.sortingBy?.columnKey ? '#077be1' : '#666666', transform: `rotate(${field.key === this.state.sorting?.sortingBy?.columnKey && this.state.sorting?.increasing ? '180' : '0'}deg)` }} /></div>
                                                                 : null}
                                                             </div>
@@ -660,7 +674,7 @@ class DataGrid extends BaseComponent {
                                 </thead>
                                 <tbody>
                                     {!this.props?.data ? null :
-                                        this.state?.data?.filter(el => !el.hidden)?.map((rowData, rowIdx) => {
+                                        this.state?.data?.filter(el => (!el.hideBySearch && !el.hideByFilter && !el.hidden))?.map((rowData, rowIdx) => {
                                             return (<tr key={rowData.rowId}>
                                                 {this.props?.rowNum ? <td className="datagrid-numcolumn"><div>{rowIdx + 1}</div></td> : null}
                                                 {this.props.fields.map((field, fIdx) => {
@@ -670,7 +684,7 @@ class DataGrid extends BaseComponent {
                                                             {rowData.isParent && fIdx === 0 ? <div className="datagrid-parent-shrink" onClick={() => this.shrinkChilds({ parentId: rowData.data[this.props.idKey], idKey: this.props.idKey, parentIdKey: this.props.parentIdKey, gridData: this.state.data })}><img alt="" style={{ transform: `rotate(${rowData.childsHidden ? -90 : 0}deg)` }} /></div> : null}
                                                             {this.props?.parentIdKey && !rowData.isParent && fIdx === 0 ? <div className="datagrid-parent-shrink-plug"></div> : null}
                                                             {rowData.icon && fIdx === 0 ? <div className="datagrid-item-icon"><img alt="" src={`/src/assets/${rowData.icon}.svg`} /></div> : null}
-                                                            {field?.render && (typeof field?.render === "function") ? <div className="datagrid-cell-data" style={{ ...field?.style}}>{field?.render(rowData.data)}</div> ?? '' : <span>{this.toDefaultFormat(rowData.data[field?.key], field?.dataType)}</span>}
+                                                            {field?.render && (typeof field?.render === "function") ? <div className="datagrid-cell-data" style={{ ...field?.style}}>{field?.render(rowData.data, this.props.data)}</div> ?? '' : <span>{this.toDefaultFormat(rowData.data[field?.key], field?.dataType)}</span>}
                                                         </div>
                                                     </td>)
                                                 })}
@@ -723,7 +737,7 @@ class DGFilter extends Component {
             });
         }
     }
-    hiddingHangler = () => {
+    hideHandler = () => {
         this.setState({
             hidden: this.props.hidden
         });
@@ -768,13 +782,14 @@ class DGFilter extends Component {
                 data: this.props.data,
                 parentHandlerPress: true
             });
-            this.hiddingHangler();
+            this.hideHandler();
         }
     }
     checkFiltersHandler = (isChecked, params) => {
-        const { id } = params;
+        const { rowId } = params;
+        console.log(222, this.state.data);
         const copyData = this.state?.data?.map(el => {
-            if (el.id === id) {
+            if (el.rowId === rowId) {
                 return { ...el, checked: isChecked }
             } return { ...el }
         });
@@ -806,8 +821,8 @@ class DGFilter extends Component {
                     </div>
                 </div>
                 <div className="datagrid-filter-form-data">
-                    {this.state?.data?.map((item, idx) => {
-                        return (<div className="datagrid-filter-form-data-item" key={idx}><DGCheckBox value={item.checked} onReturnData={{ func: this.checkFiltersHandler, params: { id: item.id } }} /><span title={item.value}>{item.value}</span></div>);
+                    {this.state?.data?.filter(el => !el.hidden)?.map((item, idx) => {
+                        return (<div className="datagrid-filter-form-data-item" key={idx}><DGCheckBox value={item.checked} onReturnData={{ func: this.checkFiltersHandler, params: { rowId: item.rowId } }} /><span title={item.value}>{item.value}</span></div>);
                     })}
                 </div>
                 <div className="datagrid-filter-form-buttons">

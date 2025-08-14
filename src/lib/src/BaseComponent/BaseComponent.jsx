@@ -77,6 +77,16 @@ class BaseComponent extends Component {
                         return this._getErrorBlock(`Value of prop '${prop.name}' not equal to required type of '${prop.type}'`);
                     }
                     break;
+                case 'ArrayOfStrings':
+                    if (!Array.isArray(this.props[prop.name])) {
+                        return this._getErrorBlock(`Value of prop '${prop.name}' not equal to required type of '${prop.type}'`);
+                    }
+                    for (let i of this.props[prop.name]) {
+                        if (typeof(i) !== 'string') {
+                            return this._getErrorBlock(`Values of Array prop '${prop.name}' not equal to required type of 'string'`);
+                        }
+                    }
+                    break;
                 case 'Object':
                     //
                     break;
