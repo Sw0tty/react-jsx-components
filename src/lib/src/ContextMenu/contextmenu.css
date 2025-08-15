@@ -5,7 +5,7 @@
 	border: 1px solid gray;
 	width: 160px;
 	padding: 2px 3px;
-	box-shadow: 0px 0px 14px #cdcdcd;
+	box-shadow: 2px 3px 4px 1px #49494991;
 	transition: height 0.3s ease, opacity 0.3s ease;
 	height: max-content;
 	z-index: 200;
@@ -31,7 +31,8 @@
 }
 
 .contextmenu-element-caption {
-	font-size: 12px;
+	font-size: 11px;
+	font-family: Helvetica, sans-serif;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;

@@ -8,7 +8,11 @@ import './contextmenu.css';
 class ContextMenu extends BaseComponent {
     constructor() {
         super();
-        this._propsRules = [{ name: 'children', required: true }, { name: 'contextActions', type: 'Array' }];
+        this._propsRules = [
+            { name: 'children', required: true },
+            { name: 'contextActions', required: true, type: 'ArrayOfObjects' },
+            { name: 'iconsPath', type: 'string' }
+        ];
         this.baseHoverColor = "#13b3eb";
         this.wrapperRef = createRef();
         this.childrenRef = createRef();
@@ -27,8 +31,7 @@ class ContextMenu extends BaseComponent {
         document.removeEventListener("mousedown", this.handleClickOutside);
     }
     handleClickOutside(event) {
-        if (this.childrenRef && !this.childrenRef.current?.contains(event.target)) {
-            console.log("You clicked outside of me!");
+        if ((this.childrenRef && !this.childrenRef.current?.contains(event.target)) || event.button === 0) {
             this.setState({
                 hidden: true
             });
@@ -37,12 +40,6 @@ class ContextMenu extends BaseComponent {
                 hidden: false
             });
         }
-
-
-        // console.log("ref", this.childrenRef.current);
-        // console.log("target", event);
-
-        
     }
     componentDidUpdate() {
         if (this.wrapperRef?.current) {
@@ -56,7 +53,7 @@ class ContextMenu extends BaseComponent {
     showContext = (event) => {
         
         event.preventDefault();
-        console.log(11123123, event);
+
         this.setState({
             hidden: false,
             contextPos: {
@@ -79,9 +76,9 @@ class ContextMenu extends BaseComponent {
                                             return (
                                                 <Link key={idx} title={item.caption} style={{ '--contextMenuHoverColor': item?.color ?? this.baseHoverColor }} className="contextmenu-element" onClick={(event) => item?.onClick?.func ? item.onClick?.func({ event: event, ...item.onClick?.params }) : this.setState({ hidden: true })} to={!(item?.onClick?.func) && item?.onClick?.redirect ? `/${item?.onClick?.redirect}` : ''} >
                                                     {
-                                                        item?.iconPath ? 
+                                                        item?.icon ? 
                                                             <div className="contextmenu-element-icon">
-                                                                <img alt="" style={{ WebkitMaskImage: `url(/src/assets/${item.icon}.svg)`, maskImage: `url(/src/assets/${item.icon}.svg)` }} />
+                                                                <img alt="" style={{ WebkitMaskImage: `url(${item?.iconPath ?? this.props?.iconsPath ?? './'}${item.icon}.svg)`, maskImage: `url(${item?.iconPath ?? this.props?.iconsPath ?? './'}${item.icon}.svg)` }} />
                                                             </div>
                                                         : null
                                                     }
@@ -151,7 +148,7 @@ class CMWrapper extends Component {
                         willShow: true
                     }
                 }));
-            }, 0);
+            }, 100);
         }
     }
     componentDidUpdate() {
