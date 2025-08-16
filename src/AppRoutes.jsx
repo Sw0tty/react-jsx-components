@@ -21,6 +21,7 @@ import MultiSelectPage from './pages/MultiSelectPage.jsx';
 import ItemSelectorPage from './pages/ItemSelectorPage.jsx';
 import ProgressBarPage from './pages/ProgressBarPage.jsx';
 import InfoModalPage from './pages/InfoModalPage.jsx';
+import BaseComponentPage from './pages/BaseComponentPage.jsx';
 import { ROOT_PATH } from './AppConts.js';
 
 
@@ -50,6 +51,7 @@ function AppRoutes() {
             <Route path={`${ROOT_PATH}/ItemSelector`} element={<ItemSelectorPage />} />
             <Route path={`${ROOT_PATH}/ProgressBar`} element={<ProgressBarPage />} />
             <Route path={`${ROOT_PATH}/InfoModal`} element={<InfoModalPage />} />
+            <Route path={`${ROOT_PATH}/BaseComponent`} element={<BaseComponentPage />} />
         </Routes>
     );
 }

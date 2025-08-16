@@ -12,21 +12,30 @@ class Playground extends Component {
         return (
             <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", rowGap: "40px" }}>
                 {this.props?.title ? <h1 className="playground-main-title">{this.props.title}</h1> : null}
+                {this.props?.description ?? null}
                 <div style={{ display: "flex", flexDirection: "column", rowGap: "80px" }}>
                     <div style={{ display: "flex" }}>
-                        <div style={{ width: "50%" }} className="playground-play-block">
-                            <h3 className="playground-play-block-title">Props Interaction</h3>
-                            <Container boxStyles={{ margin: "10px", width: "auto", flex: "1 0 0%" }} bodyStyles={{ display: "flex", flexDirection: "column", rowGap: "5px" }}>
-                                {this.props?.componentProps}
-                            </Container>
-                        </div>
-                        <div style={{ width: "50%" }} className="playground-play-block">
-                            <>
-                                <h3 className="playground-play-block-title">Playground</h3>
-                                <Container boxStyles={{ margin: "10px", width: "auto", flex: "1 0 0%" }} bodyStyles={{ display: "flex", alignItems: "center", justifyContent: "center", ...this.props?.pComponentStyle }}>
-                                    {this.props?.pComponent}
-                                </Container>
-                            </>
+                        {
+                            this.props?.componentProps ?
+                                <div style={{ width: "50%" }} className="playground-play-block">
+                                    <h3 className="playground-play-block-title">Props Interaction</h3>
+                                    <Container boxStyles={{ margin: "10px", width: "auto", flex: "1 0 0%" }} bodyStyles={{ display: "flex", flexDirection: "column", rowGap: "5px" }}>
+                                        {this.props?.componentProps}
+                                    </Container>
+                                </div>
+                            : null
+                        }
+                        <div style={{ width: "50%", flex: "1 0 0%" }} className="playground-play-block">
+                            {
+                                this.props?.pComponent ?
+                                    <>
+                                        <h3 className="playground-play-block-title">Playground</h3>
+                                        <Container boxStyles={{ margin: "10px", width: "auto", flex: "1 0 0%" }} bodyStyles={{ display: "flex", alignItems: "center", justifyContent: "center", ...this.props?.pComponentStyle }}>
+                                            {this.props?.pComponent}
+                                        </Container>
+                                    </>
+                                : null
+                            }
                             {
                                 this.props?.returnedData ? 
                                     <>

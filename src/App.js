@@ -11,6 +11,9 @@ class App extends Component {
 				<Menu shrinkedWidth={45} fullWidth={250} title="React Comps" currentUserRole={null} iconsPath="./icons/" items={
 					[
 						{
+							id: undefined, name: "BaseComponent", icon: "BaseComponent", to: ROOT_PATH + "/BaseComponent"
+						},
+						{
 							id: "sub1", name: "Buttons", icon: "ButtonClick", to: undefined, childs: [
 								{ name: "CustomButton", to: `${ROOT_PATH}/CustomButton` },
 								{ name: "ToolButton", accessRoles: [], to: `${ROOT_PATH}/ToolButton` }
