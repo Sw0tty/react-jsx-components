@@ -2,7 +2,8 @@ import { Component, createRef } from 'react';
 import BaseComponent from '../BaseComponent/BaseComponent.jsx';
 import CheckCircle from './CheckCircle.svg';
 import CrossCircle from './CrossCircle.svg';
-
+import CheckSquare from './CheckSquare.svg';
+import UncheckSquare from './UncheckSquare.svg';
 
 
 import { DGCheckBox, DGSearchTool, DGTool, DGContextMenu, DGButton } from './DGComponents.jsx';
@@ -62,8 +63,27 @@ class DataGrid extends BaseComponent {
         super();
         this._propsRules = [
             { name: 'fields', type: 'Array' },
-            { name: 'searchByColumns', type: 'ArrayOfStrings' }
+            { name: 'searchByColumns', type: 'ArrayOfStrings' },
+            { name: 'language', constStrings: ['en', 'ru'] }
         ];
+        this._captions = {
+            searchTool: {
+                en: 'Search',
+                ru: 'Поиск'
+            },
+            filterTitle: {
+                en: 'Column filter',
+                ru: 'Фильтр столбца'
+            },
+            filterCheckAll: {
+                en: 'Check all',
+                ru: 'Отметить все'
+            },
+            filterUncheckAll: {
+                en: 'Uncheck all',
+                ru: 'Снять отметки'
+            }
+        }
         let convertedData = this.convertDataForGrid({ data: props?.data, idKey: props?.idKey, parentIdKey: props?.parentIdKey, iconsParams: props?.iconsParams });
         this.wrapperRef = createRef();
         this.defaultCellColor = "#ffd575";
@@ -628,7 +648,7 @@ class DataGrid extends BaseComponent {
                                     this.props?.searchTool === false ?
                                         null :
                                         <div className="datagrid-toolbar-search">
-                                            <DGSearchTool placeholder={this.props?.searchToolPlaceholder ?? 'Search'} inputIcon={{ icon: "Loupe" }} onReturnData={{ func: this.setSearchStr }} />
+                                            <DGSearchTool placeholder={this._captions['searchTool'][this.props?.language ?? 'en']} inputIcon={{ icon: "Loupe" }} onReturnData={{ func: this.setSearchStr }} />
                                         </div>
                                 }
                             </div>
@@ -662,7 +682,7 @@ class DataGrid extends BaseComponent {
                                                                 <div className={`datagrid-filter${this.state.filters[field.key]?.queueNum > 0 ? " datagrid-filter-active" : ""}`} onClick={(event) => { this.switchFilterForm({ target: event.target, position: event.target.getBoundingClientRect(), columnKey: field.key }) }}>
                                                                     <img alt="" />
                                                                 </div>
-                                                                <DGFilter parentTarget={this.state.filters[field.key]?.parentTarget} hidden={this.state.filters[field.key]?.hidden ?? true} onHide={this.closeFilterForm} data={this.state?.filters[field.key]?.data} columnKey={field.key} onReturnData={this.addFiltersHandler} />
+                                                                <DGFilter checkButton={this._captions['filterCheckAll'][this.props?.language ?? 'en']} uncheckButton={this._captions['filterUncheckAll'][this.props?.language ?? 'en']} title={this._captions['filterTitle'][this.props?.language ?? 'en']} parentTarget={this.state.filters[field.key]?.parentTarget} hidden={this.state.filters[field.key]?.hidden ?? true} onHide={this.closeFilterForm} data={this.state?.filters[field.key]?.data} columnKey={field.key} onReturnData={this.addFiltersHandler} />
                                                             </div>
                                                             : null}
                                                         <div className="datagrid-resizer" onMouseDown={(event) => this.resizeColumn(event)}><img alt="" /></div>
@@ -814,10 +834,10 @@ class DGFilter extends Component {
         return (
             <div ref={this.wrapperRef} className="datagrid-filter-form-container" style={{ position: "absolute", display: this.state?.bindingElement?.display ?? "none", height: this.state?.bindingElement?.willShow ? "250px" : 0, opacity: this.state?.bindingElement?.willShow ? 1 : 0, top: `30px` }}>
                 <div className="datagrid-filter-form-header">
-                    <div className="datagrid-filter-form-header-title">Фильтр столбца</div>
+                    <div className="datagrid-filter-form-header-title">{this.props.title}</div>
                     <div className="datagrid-filter-form-actions">
-                        <DGButton icon="CheckSquare" caption="Отметить все" type="acceptHollow" onClickAction={{ func: this.checkAllHandler, params: { data: this.state.data } }} style={{ height: "20px", padding: "0px 8px", fontSize: "12px" }} />
-                        <DGButton icon="UncheckSquare" caption="Снять все отметки" type="acceptHollow" onClickAction={{ func: this.uncheckAllHandler, params: { data: this.state.data } }} style={{ height: "20px", padding: "0px 8px", fontSize: "12px" }} />
+                        <DGButton icon={CheckSquare} caption={this.props.checkButton} type="acceptHollow" onClickAction={{ func: this.checkAllHandler, params: { data: this.state.data } }} style={{ height: "20px", padding: "0px 8px", fontSize: "12px" }} />
+                        <DGButton icon={UncheckSquare} caption={this.props.uncheckButton} type="acceptHollow" onClickAction={{ func: this.uncheckAllHandler, params: { data: this.state.data } }} style={{ height: "20px", padding: "0px 8px", fontSize: "12px" }} />
                     </div>
                 </div>
                 <div className="datagrid-filter-form-data">
@@ -826,7 +846,7 @@ class DGFilter extends Component {
                     })}
                 </div>
                 <div className="datagrid-filter-form-buttons">
-                    <DGButton caption="Ок" type="acceptHollow" onClickAction={{ func: this.props.onReturnData, params: { filters: this.state.data, columnKey: this.props.columnKey } }} style={{ height: "20px", padding: "2px 10px", fontSize: "13px" }} />
+                    <DGButton caption="Ok" type="acceptHollow" onClickAction={{ func: this.props.onReturnData, params: { filters: this.state.data, columnKey: this.props.columnKey } }} style={{ height: "20px", padding: "2px 10px", fontSize: "13px" }} />
                 </div>
             </div>
         )

@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import ShrinkArrow from './ShrinkArrow.svg';
 import './menu.css';
 
 // --- Component guide ---
@@ -30,7 +29,7 @@ class Menu extends Component {
 			item.topPos = undefined;
 		});
 
-		if (this.state.position == "relative") {
+		if (this.state.position === "relative") {
 			setTimeout(() => {
 				this.setState({
 					position: "absolute",
@@ -51,7 +50,7 @@ class Menu extends Component {
 		let itemsCopy = JSON.parse(JSON.stringify(this.state.menuItems));
 
 		itemsCopy.map(item => {
-			if (item.id == subId) {
+			if (item.id === subId) {
 				item.childShrinked = !item.childShrinked;
 			}
 		});
@@ -72,17 +71,17 @@ class Menu extends Component {
 			}, 100);
 		}
 	}
-	showSubOnshrinked(target, subId) {
+	showSubOnShrinked(target, subId) {
 		this.setState({
 			isWaiting: true,
 			waitId: subId
 		});
 
 		setTimeout(() => {
-			if (this.state.isWaiting && this.state.waitId == subId) {
+			if (this.state.isWaiting && this.state.waitId === subId) {
 				let itemsCopy = JSON.parse(JSON.stringify(this.state.menuItems));
 				itemsCopy.map(item => {
-					if (item.id == subId) {
+					if (item.id === subId) {
 						item.isHover = true;
 						item.topPos = item?.childShrinked ? target.getBoundingClientRect().top : undefined;
 					} else {
@@ -101,11 +100,11 @@ class Menu extends Component {
 		}, 300);
 	}
 	hideSubOnshrinked(target, subId) {
-		if (subId != this.state.hoverParentId) {
+		if (subId !== this.state.hoverParentId) {
 			let itemsCopy = JSON.parse(JSON.stringify(this.state.menuItems));
 
 			itemsCopy.map(item => {
-				if (item.id == subId) {
+				if (item.id === subId) {
 					item.isHover = false;
 				}
 			});
@@ -130,10 +129,10 @@ class Menu extends Component {
 	}
 	render() {
 		return (
-			<div id="menu-block" style={{ width: this.state.shrinked ? `${this.props.shrinkedWidth}px` : `${this.props.fullWidth}px` }}>
+			<div id="menu-block" style={{ width: this.state.shrinked ? `45px` : `${this.props.fullWidth}px` }}>
 				<Link className="menu-logo-block" to="/">
 					<div className="menu-item-icon-block">
-						<img style={{ WebkitMaskImage: `url(${this.props?.iconsPath ?? './src/assets/'}StackLayers.svg)`, maskImage: `url(${this.props?.iconsPath ?? './src/assets/'}StackLayers.svg)` }} />
+						<img alt="" style={{ WebkitMaskImage: `url(${this.props?.iconsPath ?? './src/assets/'}StackLayers.svg)`, maskImage: `url(${this.props?.iconsPath ?? './src/assets/'}StackLayers.svg)` }} />
 					</div>
 					<div className="menu-item-text menu-logo-text" >
 						{this.props?.title}
@@ -141,10 +140,10 @@ class Menu extends Component {
 				</Link>
 				<div className="menu-items-block">
 					{this.state.menuItems.map((parent, parentIdx) => {
-						if (!this.props?.currentUserRole || parent.accessRoles.length == 0 || parent.accessRoles.includes(this.props?.currentUserRole)) {
+						if (!this.props?.currentUserRole || parent.accessRoles.length === 0 || parent.accessRoles.includes(this.props?.currentUserRole)) {
 							return (
 								<div key={parentIdx}>
-									<Link key={parentIdx} className="menu-item" to={parent?.to} title={parent?.name} onClick={() => parent?.id && !this.state.shrinked ? this.hideSub(parent?.id) : this.setSelectedItem(parentIdx)} onMouseEnter={(event) => parent?.id && this.state.shrinked ? this.showSubOnshrinked(event.target, parent?.id) : null} onMouseLeave={(event) => parent?.id && this.state.shrinked ? this.isLeave(event, parent?.id) : null}>
+									<Link key={parentIdx} className="menu-item" to={parent?.to} title={parent?.name} onClick={() => parent?.id && !this.state.shrinked ? this.hideSub(parent?.id) : this.setSelectedItem(parentIdx)} onMouseEnter={(event) => parent?.id && this.state.shrinked ? this.showSubOnShrinked(event.target, parent?.id) : null} onMouseLeave={(event) => parent?.id && this.state.shrinked ? this.isLeave(event, parent?.id) : null}>
 										<div className="menu-item-icon-block">
 											<img style={{ WebkitMaskImage: `url(${this.props?.iconsPath ?? './src/assets/'}${parent?.icon}.svg)`, maskImage: `url(${this.props?.iconsPath ?? './src/assets/'}${parent?.icon}.svg)`, backgroundColor: parentIdx === this.state.selectedItemId ? "white" : null }} />
 										</div>
@@ -153,12 +152,12 @@ class Menu extends Component {
 										</div>
 									</Link>
 									{parent?.id && parent?.childs ?
-										<div className="menu-sub-items-container" onMouseEnter={() => parent?.id && this.state.shrinked ? this.setState({ hoverParentId: parent?.id }) : null} onMouseLeave={(event) => parent?.id && this.state.shrinked ? this.clearHoverId(event, parent?.id) : null} style={{ position: this.state?.position, left: this.state?.position == "absolute" ? '45px' : null, top: parent?.topPos, height: !this.state.shrinked ? (parent?.childShrinked ? '0px' : `${(this.props?.currentUserRole ? parent?.childs?.filter(el => el.accessRoles.length == 0 || el.accessRoles.includes(this.props?.currentUserRole)) : parent?.childs)?.length * this.menuItemHeight}px`) : (parent?.isHover ? `${(this.props?.currentUserRole ? parent?.childs?.filter(el => el.accessRoles.length == 0 || el.accessRoles.includes(this.props?.currentUserRole)) : parent?.childs)?.length * this.menuItemHeight}px` : '0px') }}>
-											{(this.props?.currentUserRole ? parent?.childs?.filter(el => el.accessRoles.length == 0 || el.accessRoles.includes(this.props?.currentUserRole)) : parent?.childs)?.map((child, childIdx) => {
+										<div className="menu-sub-items-container" onMouseEnter={() => parent?.id && this.state.shrinked ? this.setState({ hoverParentId: parent?.id }) : null} onMouseLeave={(event) => parent?.id && this.state.shrinked ? this.clearHoverId(event, parent?.id) : null} style={{ position: this.state?.position, left: this.state?.position === "absolute" ? '45px' : null, top: parent?.topPos, height: !this.state.shrinked ? (parent?.childShrinked ? '0px' : `${(this.props?.currentUserRole ? parent?.childs?.filter(el => el.accessRoles.length === 0 || el.accessRoles.includes(this.props?.currentUserRole)) : parent?.childs)?.length * this.menuItemHeight}px`) : (parent?.isHover ? `${(this.props?.currentUserRole ? parent?.childs?.filter(el => el.accessRoles.length === 0 || el.accessRoles.includes(this.props?.currentUserRole)) : parent?.childs)?.length * this.menuItemHeight}px` : '0px') }}>
+											{(this.props?.currentUserRole ? parent?.childs?.filter(el => el.accessRoles.length === 0 || el.accessRoles.includes(this.props?.currentUserRole)) : parent?.childs)?.map((child, childIdx) => {
 												return (
 													<Link key={`ch-${childIdx}`} className="menu-item" title={child?.name} to={child?.to} onClick={() => this.setSelectedItem(`ch-${childIdx}`)}>
 														<div className="menu-item-icon-block-daughter">
-															<img />
+															<img alt="" />
 														</div>
 														<div className={`menu-item-text${`ch-${childIdx}` == this.state.selectedItemId ? ' menu-item-selected-caption' : ''}`}>
 															{child?.name}
@@ -173,14 +172,14 @@ class Menu extends Component {
 						}
 					})}
 				</div>
-				<a className="menu-shrink-button" onClick={() => this.shrinkMenu()}>
+				<div className="menu-shrink-button" onClick={() => this.shrinkMenu()}>
 					<div className="menu-item-icon-block">
-						<img style={{ WebkitMaskImage: this.props?.shrinkIconPath ? `url(${this.props.shrinkIconPath}.svg)` : `url(${ShrinkArrow})`, maskImage: this.props?.shrinkIconPath ? `url(${this.props.shrinkIconPath}.svg)` : `url(${ShrinkArrow})`, transition: 'all .3s ease', transform: this.state.shrinked ? 'rotate(0deg)' : 'rotate(-180deg)' }} />
+						<img alt="" style={{ transition: 'all .3s ease', transform: this.state.shrinked ? 'rotate(0deg)' : 'rotate(-180deg)' }} />
 					</div>
 					<div className="menu-item-text">
 						{this.props?.shrinkCaption ?? 'Shrink'}
 					</div>
-				</a>
+				</div>
 			</div>
 		);
 	}

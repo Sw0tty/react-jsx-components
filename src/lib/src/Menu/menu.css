@@ -127,6 +127,8 @@
     mask-position: center;
     transition: background-color .3s ease;
     background-color: var(--second-color);
+    -webkit-mask-image: url('ShrinkArrow.svg');
+    mask-image: url('ShrinkArrow.svg');
 }
 
 .menu-item:hover img {

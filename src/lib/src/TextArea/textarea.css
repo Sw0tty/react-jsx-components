@@ -43,7 +43,6 @@
 }
 
 .textarea-text {
-    /*border-bottom: 1px solid black;*/
     margin-bottom: 3px;
     white-space: nowrap;
 }
@@ -54,7 +53,7 @@
 
 .textarea-content {
     border-radius: 3px;
-    border-color: var(--componentBorderColor);
+    border-color: #959595;
     transition: 0.3s background, 0.3s border-color, 0.3s box-shadow;
     padding: 5px;
     width: max-content;
@@ -64,12 +63,12 @@
 
 .textarea-content:focus {
     outline: none;
-    border-color: var(--componentHoverColor);
-    box-shadow: 0px 0px 3px 1px var(--componentFocusShadowColor);
+    border-color: var(--textArea-actionColor-border);
+    box-shadow: 0px 0px 3px 1px var(--textArea-actionColor-shadow);
 }
 
 .textarea-content:hover {
-    border-color: var(--componentFocusColor);
+    border-color: var(--textArea-actionColor-border);
 }
 
 .invalid {

@@ -1,5 +1,4 @@
 import BaseComponent from '../BaseComponent/BaseComponent.jsx';
-import Question from './Question.svg';
 import './tip.css';
 
 
@@ -41,7 +40,7 @@ class Tip extends BaseComponent {
                     <div className="tip-icon" >
                         <div className="tip-caption-block" style={{ display: this.state.tipBoxDisplay, opacity: this.state.tipBoxOpacity }}>{this.props?.caption}</div>
                         <div style={{ WebkitFilter: this.props?.addGlow ? `drop-shadow(0px 0px 5px ${this.props?.glowColor ?? this.props?.iconColor ?? 'black'})` : "none" }}>
-                            <img alt="" style={{ WebkitMaskImage: this.props?.iconPath ? `url(${this.props.iconPath}.svg)` : `url(${Question})`, maskImage: this.props?.iconPath ? `url(${this.props.iconPath}.svg)` : `url(${Question})`, backgroundColor: this.props?.iconColor ?? "black" }} onMouseEnter={(event) => this.showHelp(event)} onMouseLeave={(event) => this.hideHelp(event)} />
+                            <img alt="" style={{ WebkitMaskImage: this.props?.iconPath ? `url(${this.props.iconPath}.svg)` : '', maskImage: this.props?.iconPath ? `url(${this.props.iconPath}.svg)` : '', backgroundColor: this.props?.iconColor ?? "black" }} onMouseEnter={(event) => this.showHelp(event)} onMouseLeave={(event) => this.hideHelp(event)} />
                         </div>
                     </div>
                 </div>

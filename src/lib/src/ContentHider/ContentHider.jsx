@@ -18,15 +18,19 @@ class ContentHider extends BaseComponent {
         }
     }
     renderComponent() {
+        const CSSVariables = {
+            '--contentHider-actionColor-border': this.props?.actionBorderColor ?? this._baseActionColorBorder,
+            '--contentHider-actionColor-shadow': this.props?.actionShadowColor ?? this._baseActionColorShadow
+        };
         return (
-            <div className="contenthider-container" style={{ width: this.props?.width ?? null }}>
+            <div className="contenthider-container" style={{ width: this.props?.width ?? null, ...CSSVariables }}>
                <div className="contenthider-hider-container" title={this.props.caption} onClick={() => this.setState({ shrinked: !this.state.shrinked })}>
                     <div className="contenthider-hider">
                         <div className="contenthider-hider-caption">
                             {this.props.caption}
                         </div>
                         <div className="contenthider-hider-icon">
-                            <img alt="" style={{ WebkitMaskImage: `url(${ArrowDown})`, maskImage: `url(${ArrowDown})`, transform: `rotate(${this.state.shrinked ? 0 : -180}deg)` }} />
+                            <img alt="" style={{ transform: `rotate(${this.state.shrinked ? 0 : -180}deg)` }} />
                         </div>
                     </div>
                 </div>

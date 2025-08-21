@@ -16,15 +16,19 @@
 .colorpicker {
     display: flex;
     height: 100%;
-    border: 1px solid var(--componentBorderColor);
+    border: 1px solid #959595;
     border-radius: 3px;
     outline: none;
     cursor: pointer;
-    transition: 0.3s border-color;
+    transition: 0.3s border-color, 0.3s box-shadow;
 }
 
 .colorpicker:hover {
-    border-color: var(--componentHoverColor);
+    border-color: var(--colorPicker-actionColor-border);
+}
+
+.colorpicker:active {
+    box-shadow: 0px 0px 5px 1px var(--colorPicker-actionColor-shadow);
 }
 
 .colorpicker::-webkit-color-swatch-wrapper {

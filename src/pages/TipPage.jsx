@@ -23,9 +23,6 @@ class TipPage extends BaseMethods {
             <Playground title="Tip"
                 pComponent={<Tip caption={this.state.caption} iconPath={this.state?.iconPath} iconName={this.state?.iconName} iconColor={this.state?.iconColor} addGlow={this.state?.addGlow} glowColor={this.state?.glowColor}><div>Some Block</div></Tip>}
                 componentProps={<>
-                    <Tip caption="Allowed icons: Warning, Error" iconColor="#25cf8f" addGlow={true}>                            
-                        <TextBox width={200} maxLength={100} caption="IconPath :" placeholder="Test icons in './icons/'" value={this.state?.iconPath} onReturnData={{ func: this.setData, params: { propName: "iconPath" } }} />
-                    </Tip>
                     <ColorPicker caption="IconColor" value={this.state.iconColor} disabled={false} onReturnData={{ func: this.setData, params: { propName: "iconColor" } }} />
                     <TextBox width={200} maxLength={255} caption="Tip caption :" value={this.state?.caption} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
                     <Switcher caption="AddGlow to tip" onReturnData={{ func: this.setData, params: { propName: "addGlow" } }} />

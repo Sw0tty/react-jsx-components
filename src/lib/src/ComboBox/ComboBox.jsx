@@ -107,8 +107,12 @@ class ComboBox extends BaseComponent {
     renderComponent() {
         const boxFontSize = this.props?.fontSize ? `${this.props.fontSize}px` : `${this.defaultSize}px`;
         const boxHeight = this.props?.fontSize ? `${this.props.fontSize + this.heightIncrement}px` : `${this.defaultSize + this.heightIncrement}px`;
+        const CSSVariables = {
+            '--comboBox-actionColor-border': this.props?.actionBorderColor ?? this._baseActionColorBorder,
+            '--comboBox-actionColor-shadow': this.props?.actionShadowColor ?? this._baseActionColorShadow
+        };
         return (
-            <div title={this.state?.selectedItem?.caption ?? ''} className="combobox-container" style={this.props?.style}>
+            <div title={this.state?.selectedItem?.caption ?? ''} className="combobox-container" style={{...this.props?.style, ...CSSVariables}}>
                 {this.props?.required || this.props?.caption ? <span className="combobox-caption">{this.props?.required ? this._getRequiredSign() : null}{this.props?.caption ? this.props.caption : null}</span> : null}
                 <div ref={this.wrapperRef}>
                     <div style={{ position: "relative" }} onMouseLeave={() => { if (this.state.selectedItem) { this.setState({ showClear: false }) } }}>

@@ -6,7 +6,12 @@ import './multiselect.css';
 class MultiSelect extends BaseComponent {
     constructor(props) {
         super();
-        this._propsRules = [{ name: 'items', type: 'Array' }, { name: 'valueKey', type: 'string' }, { name: 'captionKey', type: 'string'}];
+        this._propsRules = [
+            { name: 'items', required: true, type: 'ArrayOfObjects' },
+            { name: 'valueKey', required: true, type: 'string' },
+            { name: 'captionKey', required: true, type: 'string'},
+            { name: 'onReturnData', type: 'CallbackObject' }
+        ];
         this.state = {
             selectedItems: props?.selectedValues ? props.items.filter(item => props.selectedValues.includes(item[props.valueKey])) : undefined
         }
@@ -31,7 +36,7 @@ class MultiSelect extends BaseComponent {
         if (this.props?.onReturnData) {
             setTimeout(() => {
                 const { func, params } = this.props.onReturnData;
-                func(stateSelectedItems, params ?? undefined);
+                func({ data: stateSelectedItems, params: params ?? undefined });
             }, 0)
         }
     }

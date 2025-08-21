@@ -8,7 +8,7 @@ class App extends Component {
 	render() {
 		return (
 			<>
-				<Menu shrinkedWidth={45} fullWidth={250} title="React Comps" currentUserRole={null} iconsPath="./icons/" items={
+				<Menu fullWidth={250} title="React Components" currentUserRole={null} iconsPath="./icons/" items={
 					[
 						{
 							id: undefined, name: "BaseComponent", icon: "BaseComponent", to: ROOT_PATH + "/BaseComponent"
@@ -92,7 +92,7 @@ class App extends Component {
 						</div>
 						<div id="body-block-footer">
 							<div className="footer-info">
-								<div>Version: 1.0.0</div>
+								<div>Version: 0.1.2</div>
 								<div>Copyright © Sw0tty, 2025</div>
 							</div>
 						</div>

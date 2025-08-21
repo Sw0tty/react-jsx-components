@@ -14,7 +14,7 @@ class TextArea extends BaseComponent {
         ];
         this.state = {
             value: props.value ?? '',
-            lastState: props.disabled
+            lastUpdate: props?.lastUpdate
         }
     }
     setComponentData(value) {
@@ -29,9 +29,22 @@ class TextArea extends BaseComponent {
             }, 0)
         }
     }
+    componentCheckValueUpdate() {
+        if (this.props.lastUpdate !== this.state.lastUpdate) {
+            this.setState({
+                value: this.props?.value ?? '',
+                lastUpdate: this.props.lastUpdate
+            });
+        }
+    }
     renderComponent() {
+        this.componentCheckValueUpdate();
+        const CSSVariables = {
+            '--textArea-actionColor-border': this.props?.actionBorderColor ?? this._baseActionColorBorder,
+            '--textArea-actionColor-shadow': this.props?.actionShadowColor ?? this._baseActionColorShadow
+        };
         return (
-            <div className="textarea-container" style={{ minWidth: this.props?.width, maxWidth: this.props?.width }}>
+            <div className="textarea-container" style={{ minWidth: this.props?.width, maxWidth: this.props?.width, ...CSSVariables }}>
                 <div className="textarea-text-block">
                     {this.props?.caption ? 
                         <span className="textarea-text">

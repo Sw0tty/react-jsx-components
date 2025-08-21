@@ -34,12 +34,12 @@
 }
 
 .combobox-selector:hover {
-    border-color: var(--componentHoverColor);
+    border-color: var(--comboBox-actionColor-border);
 }
 
 .focused {
-    border-color: var(--componentHoverColor);
-    box-shadow: 0px 0px 3px 1px var(--componentFocusShadowColor);
+    border-color: var(--comboBox-actionColor-border);
+    box-shadow: 0px 0px 3px 1px var(--comboBox-actionColor-shadow);
 }
 
 .combobox-value {

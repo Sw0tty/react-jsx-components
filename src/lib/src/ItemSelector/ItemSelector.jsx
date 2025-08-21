@@ -10,7 +10,8 @@ class ItemSelector extends BaseComponent {
             { name: 'type', required: true, type: 'string', constStrings: ['gallery', 'datagrid'] },
             { name: 'data', required: true, type: 'Array' },
             { name: 'itemDataKey', required: true, type: 'string' },
-            { name: 'fields', type: 'Array' }
+            { name: 'fields', type: 'Array' },
+            { name: 'onReturnData', type: 'CallbackObject' }
         ]
         this.state = {
             modalFormHidden: true,
@@ -61,18 +62,18 @@ class ItemSelector extends BaseComponent {
     }
     selectFromGridReturnSelectedAndClose = (params_) => {
         const { data, params } = params_;
-        const inComponentData = data[params.inComponentKey];
-        const fromComponentData = data[params.fromComponentKey];
 
-        if (this.props.gridSelectorParams?.getOnlyChilds && !data[this.props?.gridSelectorParams?.hierarchyKeys?.parentIdKey]) {
-            return;
-        }
+        //const fromComponentData = data[params.fromComponentKey];
 
-        this.selectItemData(inComponentData);
+        // if (this.props.gridSelectorParams?.getOnlyChilds && !data[this.props?.gridSelectorParams?.hierarchyKeys?.parentIdKey]) {
+        //     return;
+        // }
+
+        this.selectItemData(data);
         this.closeModalForm();
 
         this.props?.onReturnData?.func ?
-            this.props.onReturnData.func(fromComponentData, { ...this.props.onReturnData?.params })
+            this.props.onReturnData.func(data, { ...this.props.onReturnData?.params })
         : console.error("ItemSelector: onReturnData is undefined");
     }
     returnSelectedAndClose = () => {
@@ -136,9 +137,9 @@ class ItemSelector extends BaseComponent {
                             <div className="itemselector-modalform-body">
                                 {
                                     this.props?.type === "datagrid" ?
-                                        <div className="itemselector-modalform-body-grid"><ISDataGrid onDoubleClick={{ func: this.selectFromGridReturnSelectedAndClose, params: { inComponentKey: this.props.gridSelectorParams?.returnedData?.inComponent, fromComponentKey: this.props.gridSelectorParams?.returnedData?.fromComponent } }} styles={this.props?.gridSelectorParams?.styles} idKey={this.props.gridSelectorParams?.hierarchyKeys?.idKey} parentIdKey={this.props.gridSelectorParams?.hierarchyKeys?.parentIdKey} iconsParams={this.props.gridSelectorParams?.iconsParams} rowNum={false} data={this.props?.data} lastDataUpdate={new Date()} fields={this.props.gridSelectorParams?.fields} /></div> :
+                                        <div className="itemselector-modalform-body-grid"><ISDataGrid iconsPath={this.props.iconsPath} onClick={this.selectItemData} onDoubleClick={{ func: this.selectFromGridReturnSelectedAndClose, params: { inComponentKey: this.props.gridSelectorParams?.returnedData?.inComponent, fromComponentKey: this.props.gridSelectorParams?.returnedData?.fromComponent } }} styles={this.props?.gridSelectorParams?.styles} idKey={this.props.gridSelectorParams?.hierarchyKeys?.idKey} parentIdKey={this.props.gridSelectorParams?.hierarchyKeys?.parentIdKey} iconsParams={this.props.gridSelectorParams?.iconsParams} rowNum={false} data={this.props?.data} lastDataUpdate={new Date()} fields={this.props.gridSelectorParams?.fields} /></div> :
                                     this.props?.type === "gallery" ?
-                                        <div className="itemselector-modalform-body-gallery"><ISGallery cHeight="100%" cWidth="100%" selectedItem={this.state?.selectedItemData} itemDataKey={this.props?.itemDataKey} iconsSize={this.props?.galleryIconsSize ?? 70} iconsPath="./icons/" itemsSize={this.props?.galleryItemsSize ?? 70} onClick={this.selectItemData} onDoubleClick={this.selectReturnSelectedAndClose} items={this.props?.data} /></div> : null
+                                        <div className="itemselector-modalform-body-gallery"><ISGallery cHeight="100%" cWidth="100%" selectedItem={this.state?.selectedItemData} itemDataKey={this.props?.itemDataKey} iconsSize={this.props?.galleryIconsSize ?? 70} iconsPath={this.props.iconsPath} itemsSize={this.props?.galleryItemsSize ?? 70} onClick={this.selectItemData} onDoubleClick={this.selectReturnSelectedAndClose} items={this.props?.data} /></div> : null
                                 }
                             </div>
                             <div className="itemselector-modalform-buttons">

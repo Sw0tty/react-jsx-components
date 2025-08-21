@@ -16,13 +16,6 @@
 	justify-content: center;
 }
 
-.tip-icon1 img {
-	width: 19px;
-	transition: 0.3s background;
-	position: relative;
-	top: -5px;
-}
-
 .tip-icon img {
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
@@ -38,6 +31,8 @@
 	background: black;
 	position: relative;
 	top: -5px;
+	-webkit-mask-image: url('Question.svg');
+	mask-image: url('Question.svg');
 }
 
 .tip-icon img:hover {

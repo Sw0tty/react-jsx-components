@@ -3,6 +3,11 @@ import './basecomponent.css';
 
 
 class BaseComponent extends Component {
+    constructor() {
+        super();
+        this._baseActionColorBorder = "#52aaca";
+        this._baseActionColorShadow = "#b3e6f8";
+    }
     _checkPropsRules(propsRules) {
         if (!propsRules || propsRules.length === 0) {
             return;

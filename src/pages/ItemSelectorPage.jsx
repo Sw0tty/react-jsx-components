@@ -16,6 +16,7 @@ class ItemSelectorPage extends BaseMethods {
             invalid: false,
             speed: "1.2s",
             type: "gallery",
+            iconsPath: "./icons/",
             size: 45,
             blurStrong: 3,
             iconsSize: 70,
@@ -47,7 +48,7 @@ class ItemSelectorPage extends BaseMethods {
     }
     render() {
         return(<Playground title={<div style={{ display: "flex", justifyContent: "center", position: "relative" }}><div>ItemSelector</div><div><span style={{ fontSize: "12px", padding: "0 5px", position: "absolute", borderRadius: "5px", fontWeight: "bolder", color: "white", background: "gray"  }}>BETA</span></div></div>}
-                pComponent={<ItemSelector itemDataKey={this.state.itemDataKey} data={this.state.type === 'gallery' ? this.state.galleyItems : this.state.type === 'datagrid' ? this.state.datagridData : undefined} fields={this.state.datagridFields} galleryIconsSize={this.state.iconsSize} galleryItemsSize={this.state.itemsSize} gridSelectorParams={{ hierarchyKeys: { idKey: "id", parentIdKey: "parentId" }, data: this.state.datagridCarsData, fields: this.state.datagridFields }} type={this.state.type} required={this.state.required} invalid={this.state.invalid} caption={this.state.caption} disabled={this.state.disabled} />}
+                pComponent={<ItemSelector iconsPath={this.state.iconsPath} itemDataKey={this.state.type === 'gallery' ? 'data' : 'mark'} data={this.state.type === 'gallery' ? this.state.galleyItems : this.state.type === 'datagrid' ? this.state.datagridData : undefined} fields={this.state.datagridFields} galleryIconsSize={this.state.iconsSize} galleryItemsSize={this.state.itemsSize} gridSelectorParams={{ hierarchyKeys: { idKey: "id", parentIdKey: "parentId" }, data: this.state.datagridCarsData, fields: this.state.datagridFields }} type={this.state.type} required={this.state.required} invalid={this.state.invalid} caption={this.state.caption} disabled={this.state.disabled} />}
                 componentProps={<>
                     <TextBox caption="Caption :" value={this.state.caption} width={200} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
                     <Switcher caption="Disabled :" value={this.state.disabled} onReturnData={{ func: this.setData, params: { propName: "disabled" } }} />
@@ -63,6 +64,7 @@ class ItemSelectorPage extends BaseMethods {
                     {name: "disabled", required: false, dataType: "boolean", description: "Component availability state. Default state is 'false'."},
                     {name: "required", required: false, dataType: "boolean", description: "Component is required state. Default state is 'false'."},
                     {name: "invalid", required: false, dataType: "boolean", description: "Component invalid data state. Default state is 'false'."},
+                    {name: "iconsPath", required: false, dataType: "string", description: "Path for icons."},
                 ]}
             />);
     }

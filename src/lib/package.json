@@ -1,12 +1,8 @@
 {
   "name": "@swotty/react-jsx-components",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "main": "src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
+  "keywords": ["jsx"],
   "license": "ISC",
-  "description": ""
+  "description": "JSX components on React."
 }

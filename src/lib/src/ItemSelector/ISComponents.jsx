@@ -635,9 +635,9 @@ export class ISDataGrid extends BaseComponent {
         });
     }
     componentDidUpdate() {
-        if (this.state.lastDataUpdate !== this.props.lastDataUpdate) {
-            this.setDefaultGridState();
-        }
+        // if (this.state.lastDataUpdate !== this.props.lastDataUpdate) {
+        //     this.setDefaultGridState();
+        // }
     }
     componentDidMount() {
         this.switchLoading({ isLoading: false });
@@ -748,7 +748,7 @@ export class ISDataGrid extends BaseComponent {
                                             return (<tr key={rowData.rowId}>
                                                 {this.props?.rowNum ? <td className="isdatagrid-numcolumn"><div>{rowIdx + 1}</div></td> : null}
                                                 {this.props.fields.map((field, fIdx) => {
-                                                    return (<td key={fIdx} style={{ background: rowData.rowId === this.state.selected?.row && fIdx === this.state.selected?.cell ? this.props?.cellColor ?? this.defaultCellColor : rowData.rowId === this.state.selected?.row ? this.props?.rowColor ?? this.defaultRowColor : 'white', }} onClick={() => { this.setState({ selected: { row: rowData.rowId, cell: fIdx, currentData: rowData.data[field?.key], rowData: rowData.data } }) }} onDoubleClick={(event) => { this.props?.onDoubleClick?.func({ event: event, data: rowData.data, params: { ...this.props?.onDoubleClick?.params } }) }} onContextMenu={this.props?.contextMenu ? (event) => { this.setState({ selected: { row: rowData.rowId, cell: fIdx }, selectedData: rowData.data }); this.showContext(event); } : null}>
+                                                    return (<td key={fIdx} style={{ background: rowData.rowId === this.state.selected?.row && fIdx === this.state.selected?.cell ? this.props?.cellColor ?? this.defaultCellColor : rowData.rowId === this.state.selected?.row ? this.props?.rowColor ?? this.defaultRowColor : 'white', }} onClick={() => {  this.props.onClick(rowData.data); this.setState({ selected: { row: rowData.rowId, cell: fIdx, currentData: rowData.data[field?.key], rowData: rowData.data } }); }} onDoubleClick={(event) => { this.props?.onDoubleClick?.func({ event: event, data: rowData.data, params: { ...this.props?.onDoubleClick?.params } }) }} onContextMenu={this.props?.contextMenu ? (event) => { this.setState({ selected: { row: rowData.rowId, cell: fIdx }, selectedData: rowData.data }); this.showContext(event); } : null}>
                                                         <div className="isdatagrid-cell" style={{ paddingLeft: fIdx === 0 ? `${rowData.level * 15}px` : '' }}>
                                                             {rowData.isParent && fIdx === 0 ? <div className="isdatagrid-parent-shrink" onClick={() => this.shrinkChilds({ parentId: rowData.data[this.props.idKey], idKey: this.props.idKey, parentIdKey: this.props.parentIdKey, gridData: this.state.data })}><img alt="" style={{ transform: `rotate(${rowData.childsHidden ? -90 : 0}deg)` }} /></div> : null}
                                                             {this.props?.parentIdKey && !rowData.isParent && fIdx === 0 ? <div className="isdatagrid-parent-shrink-plug"></div> : null}

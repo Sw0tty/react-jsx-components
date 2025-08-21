@@ -34,13 +34,13 @@
 }
 
 .switcher-switch-block:hover {
-    border-color: #5eaac5;
-    box-shadow: 0px 0px 3px 0px #31afc9;
+    border-color: var(--switcher-actionColor-border);
+    box-shadow: 0px 0px 3px 0px var(--switcher-actionColor-shadow);
 }
 
 .switcher-switch-block:hover .switcher-button {
-    border-color: #5eaac5;
-    box-shadow: 0px 0px 3px 0px #31afc9;
+    border-color: var(--switcher-actionColor-border);
+    box-shadow: 0px 0px 3px 0px var(--switcher-actionColor-shadow);
 }
 
 .switcher-button-container {

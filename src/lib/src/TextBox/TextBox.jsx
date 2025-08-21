@@ -22,13 +22,14 @@ class TextBox extends BaseComponent {
             { name: 'width', type: 'number' },
             { name: 'disabled', type: 'boolean' },
             { name: 'required', type: 'boolean' },
-            { name: 'maxLength', type: 'number' }
+            { name: 'maxLength', type: 'number' },
+            { name: 'onReturnData', type: 'CallbackObject' }
         ];
         this.state = {
             value: props.value ?? '',
             minYear: 1700,
-            lastState: props.disabled,
             lastType: props.inputType,
+            lastUpdate: props?.lastUpdate
         }
         this.defaultSize = 13;
         this.heightIncrement = 6;
@@ -77,11 +78,11 @@ class TextBox extends BaseComponent {
             }, 0)
         }
     }
-    componentDidUpdate() {
-        if (this.props.disabled !== this.state.lastState) {
+    componentCheckValueUpdate() {
+        if (this.props.lastUpdate !== this.state.lastUpdate) {
             this.setState({
-                value: this.props.value,
-                lastState: this.props.disabled
+                value: this.props?.value ?? '',
+                lastUpdate: this.props.lastUpdate
             });
         }
 
@@ -93,11 +94,16 @@ class TextBox extends BaseComponent {
         }
     }
     renderComponent() {
+        this.componentCheckValueUpdate();
         const inputStyle = {
             width: `${this.props.width}px`,
         }
+        const CSSVariables = {
+            '--textBox-actionColor-border': this.props?.actionBorderColor ?? this._baseActionColorBorder,
+            '--textBox-actionColor-shadow': this.props?.actionShadowColor ?? this._baseActionColorShadow
+        };
         return (
-            <div className={`${this.props?.removeBaseCSS ? '' : 'component-baseformat-container '}textbox-container${this.props?.fullWidth ? ' textbox-full' : ''}`} style={this.props?.style?.container}>
+            <div className={`${this.props?.removeBaseCSS ? '' : 'component-baseformat-container '}textbox-container${this.props?.fullWidth ? ' textbox-full' : ''}`} style={{...this.props?.style?.container, ...CSSVariables}}>
                 {
                     this.props?.required || this.props?.caption ?
                         <span className="textbox-caption" style={{ fontSize: inputStyle.fontSize }}>{this.props?.required ? this._getRequiredSign() : null}{this.props?.caption ? this.props?.caption : null}</span>

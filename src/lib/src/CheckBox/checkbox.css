@@ -33,11 +33,11 @@
 
 .checkbox-box:hover {
     background: #f7f9ff;
-    border-color: #5eaac5;
+    border-color: var(--checkBox-actionColor-border); /* #5eaac5 */
 }
 
 .checkbox-box:active {
-    box-shadow: 0px 0px 5px 1px #c8e8f3;
+    box-shadow: 0px 0px 5px 1px var(--checkBox-actionColor-shadow);
 }
 
 .checkbox-box-filler {
@@ -50,7 +50,7 @@
 }
 
 .checked {
-    background: #66d775;
+    background: var(--checkBox-checkColor);
 }
 
 .disabled {
@@ -70,4 +70,6 @@
     height: 100%;
     background-color: white;
     cursor: pointer;
+    -webkit-mask-image: url(./Check.svg);
+	mask-image: url(./Check.svg);
 }

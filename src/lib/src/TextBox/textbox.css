@@ -40,12 +40,12 @@
 
 .textbox-inputbox:focus-within {
     outline: none;
-    border-color: var(--componentFocusColor);
-    box-shadow: 0px 0px 3px 1px var(--componentFocusShadowColor);
+    border-color: var(--textBox-actionColor-border);
+    box-shadow: 0px 0px 3px 1px var(--textBox-actionColor-shadow);
 }
 
 .textbox-inputbox:hover {
-    border-color: var(--componentHoverColor);
+    border-color: var(--textBox-actionColor-border);
 }
 
 .textbox-caption {

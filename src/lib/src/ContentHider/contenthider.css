@@ -25,11 +25,11 @@
 }
 
 .contenthider-hider:hover {
-    border-color: #5eaac5;
+    border-color: var(--contentHider-actionColor-border);
 }
 
 .contenthider-hider:active {
-    box-shadow: 0px 0px 5px 1px #c8e8f3;
+    box-shadow: 0px 0px 5px 1px var(--contentHider-actionColor-shadow);
 }
 
 .contenthider-hider-caption {
@@ -75,4 +75,6 @@
     height: 100%;
     background-color: #959595;
     transition: 0.3s transform;
+    -webkit-mask-image: url('ArrowDown.svg');
+    mask-image: url('ArrowDown.svg');
 }

@@ -1,7 +1,6 @@
 import { Component, createRef } from "react";
 import { Link } from 'react-router-dom';
 import Loupe from './Loupe.svg';
-import Check from './Check.svg';
 import './dgcomponents.css';
 
 
@@ -72,7 +71,7 @@ export class DGCheckBox extends Component {
                     {this.props?.caption ? <span className="dgcheckbox-caption">{this.props?.caption}</span> : null}
                     <div className={`dgcheckbox-box`} style={{ width: this.props?.size ? `${this.props.size}px` : null, height: this.props?.size ? `${this.props.size}px` : null }} onClick={() => this.setComponentData(this.state.value)}>
                         <div className={`dgcheckbox-box-filler${this.state.value ? " dgcheckbox-checked" : ''}`}>
-                            {this.state.value ? <img alt="" style={{ WebkitMaskImage: `url(${Check})`, maskImage: `url(${Check})` }} /> : null}
+                            {this.state.value ? <img alt="" /> : null}
                         </div>
                     </div>
                 </>
@@ -92,8 +91,8 @@ export class DGButton extends Component {
         return (
             <div className="dgbutton-container">
                 <div style={{ ...this.props?.style, '--datagridbuttonHoverColor': this.props?.hoverColor ?? this.baseHoverColor, flexDirection: this.props?.reverse ? "row-reverse" : null }} onClick={(event) => this.props?.onClickAction?.func({ event: event, ...this.props?.onClickAction?.params })} className="dgbutton-button">
-                    {this.props?.iconPath ? <div className="dgbutton-icon">
-                        <img alt="" className="dgbutton-icon-imgicon" style={{ WebkitMaskImage: `url(${this.props.iconPath}.svg)`, maskImage: `url(${this.props.iconPath}.svg)` }} />
+                    {this.props?.icon ? <div className="dgbutton-icon">
+                        <img alt="" className="dgbutton-icon-imgicon" style={{ WebkitMaskImage: `url(${this.props.icon})`, maskImage: `url(${this.props.icon})` }} />
                     </div> : null}
                     {this.props.caption}
                 </div>
@@ -138,7 +137,7 @@ export class DGSearchTool extends Component {
                     <div className="dgsearchtool-inputbox" style={{ flexDirection: this.props?.inputIconReverse ? "row-reverse" : "" }}>
                         <input placeholder={this.props?.placeholder} value={this.state.value} type="text" className="dgsearchtool-input" title={this.state.value} style={this.props?.style?.input ?? inputStyle} onChange={(event) => this.setComponentData(event.target.value)} />
                         <div className="dgsearchtool-inputbox-icon">
-                            <img alt="" style={{ WebkitMaskImage: `url(${Loupe})`, maskImage: `url(${Loupe})` }} />
+                            <img alt="" />
                         </div>
                     </div>
                 </div>

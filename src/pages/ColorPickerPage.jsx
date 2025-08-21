@@ -11,23 +11,30 @@ class ColorPickerPage extends BaseMethods {
         this.state = {
             caption: "Test caption :",
             disabled: false,
-            invalid: false
+            invalid: false,
+            borderColorAction: undefined,
+            shadowColorAction: undefined
         }
     }
     render() {
         return(<Playground title="ColorPicker"
-                pComponent={<ColorPicker caption={this.state.caption} disabled={this.state.disabled} invalid={this.state.invalid} />}
+                pComponent={<ColorPicker caption={this.state.caption} actionShadowColor={this.state.shadowColorAction} actionBorderColor={this.state.borderColorAction} disabled={this.state.disabled} invalid={this.state.invalid} />}
                 componentProps={<>
                     <TextBox caption="Caption :" value={this.state.caption} width={200} maxLength={255} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
                     <Switcher caption="Disabled :" value={this.state.disabled} onReturnData={{ func: this.setData, params: { propName: "disabled" } }} />
                     <Switcher caption="Invalid :" value={this.state.invalid} onReturnData={{ func: this.setData, params: { propName: "invalid" } }} />
+                    <ColorPicker caption="Border color action :" value={this.state.borderColorAction} onReturnData={{ func: this.setData, params: { propName: "borderColorAction" } }} />
+                    <ColorPicker caption="Shadow color action :" value={this.state.shadowColorAction} onReturnData={{ func: this.setData, params: { propName: "shadowColorAction" } }} />
                 </>}
                 componentDocumentation={[
                     {name: "caption", required: false, dataType: "string", description: "Caption by left side of component."},
                     {name: "value", required: false, dataType: "string", description: "Default component value."},
                     {name: "disabled", required: false, dataType: "boolean", description: "Component availability state. Default is 'false'."},
                     {name: "invalid", required: false, dataType: "boolean", description: "Sets the invalid state data. Default is 'false'."},
-                    {name: "onReturnData", required: false, dataType: "Object", description: "Object type of: { func: callbackFunc, params: { } }"},
+                    {name: "actionShadowColor", required: false, dataType: "string", description: "Color for shadow on action."},
+                    {name: "actionBorderColor", required: false, dataType: "string", description: "Color for border on action."},
+                    {name: "lastUpdate", required: false, dataType: "Date", description: "Used for check prop value and state value of component. And if not equal state value will be change on prop value. For value of this props can be any on data type, but recommended use Date type."},
+                    {name: "onReturnData", required: false, dataType: "CallbackObject", description: "Object type of: { func: callbackFunc, params: { } }. The callback arrow function in 'func' key will be return in  the first argument the component state and in the second passed params."}
                 ]}
                 example={`<ColorPicker caption="${this.state.caption}" disabled={${this.state.disabled}} invalid={${this.state.invalid}} />`}
             />);
