@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react-jsx-components/static/css/main.1eac93ef.css",
-    "main.js": "/react-jsx-components/static/js/main.767482e9.js",
+    "main.css": "/react-jsx-components/static/css/main.93e14171.css",
+    "main.js": "/react-jsx-components/static/js/main.8cb55875.js",
     "static/media/CrossCircle.svg": "/react-jsx-components/static/media/CrossCircle.3502c5873d61b2f4cfdd2e013753eb8e.svg",
     "static/media/Dots.svg": "/react-jsx-components/static/media/Dots.b4ed7c4250440eaca2f4.svg",
     "static/media/Resizer.svg": "/react-jsx-components/static/media/Resizer.5a8806d5484eea9c718f.svg",
@@ -9,21 +9,23 @@
     "static/media/EmptyBox.svg": "/react-jsx-components/static/media/EmptyBox.c01db19c2f55ab339553.svg",
     "static/media/Drop.svg": "/react-jsx-components/static/media/Drop.28309c643cf42019593955e0e156f7ac.svg",
     "static/media/CheckCircle.svg": "/react-jsx-components/static/media/CheckCircle.ae64bde2373d6e2836d612fa4e1148e1.svg",
+    "static/media/UncheckSquare.svg": "/react-jsx-components/static/media/UncheckSquare.a5b978855db46925406cfca84572a535.svg",
     "static/media/Close.svg": "/react-jsx-components/static/media/Close.91a0d487a1ddefd04e10.svg",
     "static/media/Loupe.svg": "/react-jsx-components/static/media/Loupe.8de3aca97572c7464781fcad1c7b2138.svg",
     "static/media/Filter.svg": "/react-jsx-components/static/media/Filter.cc1266011f207f9f12c2.svg",
+    "static/media/CheckSquare.svg": "/react-jsx-components/static/media/CheckSquare.ca01bf2b9bdccc5912abb13823493818.svg",
     "static/media/ArrowDown.svg": "/react-jsx-components/static/media/ArrowDown.aa37739e31054d2ce55f3a039c76bac6.svg",
-    "static/media/ShrinkArrow.svg": "/react-jsx-components/static/media/ShrinkArrow.77aaddbcc3d6e87c2eeba7f79276203e.svg",
-    "static/media/Question.svg": "/react-jsx-components/static/media/Question.bd2d74362906a7ec668e1f9eeeb691b1.svg",
+    "static/media/ShrinkArrow.svg": "/react-jsx-components/static/media/ShrinkArrow.77aaddbcc3d6e87c2eeb.svg",
+    "static/media/Question.svg": "/react-jsx-components/static/media/Question.bd2d74362906a7ec668e.svg",
     "static/media/Loading.svg": "/react-jsx-components/static/media/Loading.1b78c27664550523b1bdf6a06f52e43a.svg",
     "static/media/Sorter.svg": "/react-jsx-components/static/media/Sorter.ec988638d3a7d1728168.svg",
     "static/media/Check.svg": "/react-jsx-components/static/media/Check.103738e3831e948f698f270d46bc3139.svg",
     "index.html": "/react-jsx-components/index.html",
-    "main.1eac93ef.css.map": "/react-jsx-components/static/css/main.1eac93ef.css.map",
-    "main.767482e9.js.map": "/react-jsx-components/static/js/main.767482e9.js.map"
+    "main.93e14171.css.map": "/react-jsx-components/static/css/main.93e14171.css.map",
+    "main.8cb55875.js.map": "/react-jsx-components/static/js/main.8cb55875.js.map"
   },
   "entrypoints": [
-    "static/css/main.1eac93ef.css",
-    "static/js/main.767482e9.js"
+    "static/css/main.93e14171.css",
+    "static/js/main.8cb55875.js"
   ]
 }
