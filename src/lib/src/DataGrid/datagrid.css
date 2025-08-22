@@ -144,6 +144,8 @@ tr > th.datagrid-numcolumn {
 
 .datagrid-header-container {
 	min-width: 50px;
+	min-height: 22px;
+	max-height: 22px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -172,7 +174,7 @@ tr > th.datagrid-numcolumn {
 .datagrid-sorter img,
 .datagrid-filter img,
 .datagrid-parent-shrink img,
-.datagrid-item-icon img,
+/* .datagrid-item-icon img, */
 .datagrid-cell .datagrid-cell-img {
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;

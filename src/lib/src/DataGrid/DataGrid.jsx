@@ -29,7 +29,7 @@ import './datagrid.css';
 //                     byKey: {
 //                         key: "recordType",
 //                         icons: [
-//                             { typeName: "FOLDER", iconName: "Stack" },
+//                             { typeName: "FOLDER", iconPath: "./icons/", iconName: "Stack.svg" },
 //                             { typeName: "RECORD", iconName: "File" }
 //                         ]
 //                      }
@@ -84,7 +84,7 @@ class DataGrid extends BaseComponent {
                 ru: 'Снять отметки'
             }
         }
-        let convertedData = this.convertDataForGrid({ data: props?.data, idKey: props?.idKey, parentIdKey: props?.parentIdKey, iconsParams: props?.iconsParams });
+        let convertedData = this.convertDataForGrid({ data: props?.data, idKey: props?.idKey, parentIdKey: props?.parentIdKey, iconsParams: props?.iconsParams, iconsPath: props?.iconsPath });
         this.wrapperRef = createRef();
         this.defaultCellColor = "#ffd575";
         this.defaultRowColor = "#ffe7b1";
@@ -228,25 +228,26 @@ class DataGrid extends BaseComponent {
         });
     }
     returnIcon = (params) => {
-        const { iconsParams, data } = params;
-
+        const { iconsParams, iconsPath, data } = params;
+        
         if (!iconsParams) {
             return undefined;
         } else if (iconsParams?.eachItem) {
-
-            return iconsParams.eachItem;
+            return `${iconsParams.eachItem?.iconPath ?? iconsPath ?? '/'}${iconsParams.eachItem.iconName}`;
         } else if (iconsParams?.byKey) {
             const byKeyParams = iconsParams.byKey;
             if (byKeyParams?.key || byKeyParams?.icons || data || byKeyParams?.key in data) {
-                const icon = byKeyParams.icons?.find(el => el.typeName === data[byKeyParams?.key])?.iconName;
+                const icon = byKeyParams.icons?.find(el => el.value === data[byKeyParams?.key]);
                 if (icon) {
-                    return icon;
+                    return `${icon?.iconPath ?? iconsPath ?? '/'}${icon.iconName}`;
+                } else if(byKeyParams?.default) {
+                    return `${byKeyParams.default?.iconPath ?? iconsPath ?? '/'}${byKeyParams.default.iconName}`;
                 } return undefined;
             }
         } return undefined;
     }
     convertDataForGrid = (params) => {
-        const { data, idKey, parentIdKey, iconsParams } = params;
+        const { data, idKey, parentIdKey, iconsParams, iconsPath } = params;
 
         if ((idKey && parentIdKey) && data?.length > 0 && idKey in data[0] && parentIdKey in data[0]) {
             const recursData = (params) => {
@@ -256,9 +257,9 @@ class DataGrid extends BaseComponent {
                     const rootChilds = childs.filter(ch => ch[parentKey] === root[key]);
 
                     if (rootChilds.length === 0) {
-                        newRoots.push({ checked: false, hideBySearch: false, hideByFilter: false, hidden: false, level: level, icon: this.returnIcon({ iconsParams, data: root }), isParent: false, childsHidden: false, data: root });
+                        newRoots.push({ checked: false, hideBySearch: false, hideByFilter: false, hidden: false, level: level, icon: this.returnIcon({ iconsParams, iconsPath, data: root }), isParent: false, childsHidden: false, data: root });
                     } else {
-                        newRoots.push({ checked: false, hideBySearch: false, hideByFilter: false, hidden: false, level: level, icon: this.returnIcon({ iconsParams, data: root }), isParent: true, childsHidden: false, data: root });
+                        newRoots.push({ checked: false, hideBySearch: false, hideByFilter: false, hidden: false, level: level, icon: this.returnIcon({ iconsParams, iconsPath, data: root }), isParent: true, childsHidden: false, data: root });
                         recursData({ roots: rootChilds, childs: childs, key: key, parentKey: parentKey, newRoots: newRoots, level: level + 1 });
                     }
                 });
@@ -267,7 +268,7 @@ class DataGrid extends BaseComponent {
             return recursData({ roots: data.filter(el => el[parentIdKey] == null), childs: data.filter(el => el[parentIdKey] != null), key: idKey, parentKey: parentIdKey }).map((el, idx) => { return { ...el, rowId: idx } });
         }
         return data?.map((el, idx) => {
-            return { rowId: idx, checked: false, hideBySearch: false, hideByFilter: false, hidden: false, level: 0, icon: this.returnIcon({ iconsParams, data: el }), isParent: false, childsHidden: false, data: el }
+            return { rowId: idx, checked: false, hideBySearch: false, hideByFilter: false, hidden: false, level: 0, icon: this.returnIcon({ iconsParams, iconsPath, data: el }), isParent: false, childsHidden: false, data: el }
         });
     }
     switchLoading = (params) => {
@@ -389,11 +390,20 @@ class DataGrid extends BaseComponent {
 
         if (this.props?.idKey && this.props?.parentIdKey) {
             let hierarchySort = [];
-            for (let parent of data.filter(el => !el.data[this.props.parentIdKey])) {
-                hierarchySort.push(parent);
+
+            const filterChilds = (parent, data, hierarchySort) => {
                 for (let child of data.filter(el => el.data[this.props.parentIdKey] === parent.data[this.props.idKey])) {
                     hierarchySort.push(child);
+                    if (child.isParent) {
+                        filterChilds(child, data.filter(el => el.data[this.props.parentIdKey] === child.data[this.props.idKey]), hierarchySort);
+                    }
                 }
+                return hierarchySort;
+            };
+
+            for (let parent of data.filter(el => !el.data[this.props.parentIdKey])) {
+                hierarchySort.push(parent);
+                hierarchySort = filterChilds(parent, data, hierarchySort);
             }
             data = hierarchySort;
         }
@@ -411,39 +421,39 @@ class DataGrid extends BaseComponent {
         const { data, fields } = params;
         let gridFilters = {};
 
-        fields?.forEach(field => {
+        fields?.forEach((field, idx) => {
             if (field.filter) {
                 let columnData = new Set();
                 data?.forEach(el => { columnData.add(el.data[field.key]) });
                 columnData = Array.from(columnData).map((el, idx) => { return { rowId: idx, checked: true, hidden: false, value: el } });
-                gridFilters[field.key] = { data: columnData, hidden: true, queueNum: -1 };
+                gridFilters[field.key] = { id: idx, data: columnData, hidden: true, queueNum: -1 };
             }
         });
 
         return gridFilters;
     }
     // ---- UNDER METHODS IS NOT CONFIRM AND CHECKED ON BUGS ----
-    updateFilters = (params) => {
-        const { notHiddenData, filters, currentColumn } = params;
+    // updateFilters = (params) => {
+    //     const { notHiddenData, filters, currentColumn } = params;
 
-        let filtersOrder = [];
-        for (let filterKey of Object.keys(filters)) {
-            if (filters[filterKey].queueNum > 0) {
-                filtersOrder.push({ key: filterKey, order: filters[filterKey].queueNum });
-            }
-        }
+    //     let filtersOrder = [];
+    //     for (let filterKey of Object.keys(filters)) {
+    //         if (filters[filterKey].queueNum > 0) {
+    //             filtersOrder.push({ key: filterKey, order: filters[filterKey].queueNum });
+    //         }
+    //     }
 
-        console.log("gridFilters", notHiddenData, filters);
-        // filtersOrder.sort((a, b) => { return a.order - b.order })
-        if (filtersOrder.length > 0) {
-            let { resetedFilters } = this.returnReseted({ filters: filters });
-            console.log("resetedFilters", resetedFilters);
+    //     console.log("gridFilters", notHiddenData, filters);
+    //     // filtersOrder.sort((a, b) => { return a.order - b.order })
+    //     if (filtersOrder.length > 0) {
+    //         let { resetedFilters } = this.returnReseted({ filters: filters });
+    //         console.log("resetedFilters", resetedFilters);
 
 
-        } return filters;
+    //     } return filters;
 
         
-    }
+    // }
     returnQueueNumber = (params) => {
         const { columnKey, dataFridFilters, currentFilters } = params;
 
@@ -473,41 +483,22 @@ class DataGrid extends BaseComponent {
         if (this.state?.data) {
             let copyData = JSON.parse(JSON.stringify(this.state.data));
 
-            copyFilters[columnKey] = { data: filters, hidden: true, queueNum: this.returnQueueNumber({ columnKey: columnKey, dataFridFilters: copyFilters, currentFilters: filters }) };
+            copyFilters[columnKey] = { id: copyFilters[columnKey].id, data: filters, hidden: true, queueNum: this.returnQueueNumber({ columnKey: columnKey, dataFridFilters: copyFilters, currentFilters: filters }) };
 
             copyData = this.filterData({ rawData: copyData, filters: copyFilters });
-            /*if (filters.find(el => !el.checked)) {
-                //
-            } else {
-                copyFilters[columnKey] = { ...copyFilters[columnKey], hidden: true };
-            }*/
 
-
-            if (this.state.sorting.isSorting) {
-                copyData = this.sortData({ rowData: copyData, columnKey: this.state.sorting.sortingBy.columnKey, dataType: this.state.sorting.sortingBy.dataType });
-            }
-
-
-
-            this.updateFilters({ notHiddenData: copyData.filter(el => !el.hidden), filters: copyFilters, currentColumn: columnKey });
             this.setState((prevState) => ({
-                //filters: this.updateFilters({ data: copyData, filters: copyFilters }),
+                filters: copyFilters,
                 data: copyData
             }));
         }
     }
     filterData = (params) => {
         let { rawData, filters } = params;
-        //let skipRows = [];
-        console.log(1, rawData, filters);
-        //const { resetedData } = this.returnReseted({ data: rawData, filters: filters });
-        //console.log("filter1", resetedData);
-        // ---
-        let { resetedData } = this.returnReseted({ data: rawData });
-        console.log(2, resetedData);
+
+        rawData = rawData.map(el => { return { ...el, hideByFilter: false, } })
 
         let filtersOrder = [];
-        //console.log("filters[filterKey]", filters);
         for (let filterKey of Object.keys(filters)) {
             if (filters[filterKey].queueNum > 0) {
                 filtersOrder.push({ key: filterKey, order: filters[filterKey].queueNum });
@@ -515,50 +506,44 @@ class DataGrid extends BaseComponent {
         }
         
         if (filtersOrder.length > 0) {
-            //let nextSkip = [];
-            //let hiddenFilters = {}; // key: number, idxs []
             for (let filter of filtersOrder.sort((a, b) => { return a.order - b.order })) {
                 const uncheckFilters = filters[filter.key].data.filter(el => !el.checked);
                 let executedValues = uncheckFilters.map(el => { return el.value });
-                //let hiddenFilters = uncheckFilters.map(el => { return el.id });
 
-                //nextSkip = new Set([...nextSkip, ...hiddenFilters]);
-                resetedData = resetedData.map(el => {
+                rawData = rawData.map(el => {
                     if (!el.hidden && executedValues.includes(el.data[filter.key])) {
-                        //return { ...el, hidden: true }
                         return { ...el, hideByFilter: true, hidden: false }
                     } return el;
                 });
             }
         } else {
-            resetedData = resetedData.map(el => {
+            rawData = rawData.map(el => {
                 return { ...el, hideByFilter: false, hidden: false }
             });
         }
         
-        
-        return resetedData;
+        return rawData;
     }
-    returnReseted = (params) => {
-        const { data, filters } = params;
-        const resetedData = data ? data.map(el => { return { ...el, hidden: false } }) : undefined;
-        let resetedFilters = filters ? JSON.parse(JSON.stringify(filters)) : undefined;
+    // returnReseted = (params) => {
+    //     const { data, filters } = params;
+    //     const resetedData = data ? data.map(el => { return { ...el, hidden: false } }) : undefined;
+    //     let resetedFilters = filters ? JSON.parse(JSON.stringify(filters)) : undefined;
 
-        if (resetedFilters) {
-            for (let filterKey of Object.keys(filters)) {
-                resetedFilters[filterKey] = {
-                    ...resetedFilters[filterKey],
-                    data: resetedFilters[filterKey].data.map(el => { return { ...el, hidden: false } }),
-                    queueNum: -1
-                };
-            }
-        }
+    //     if (resetedFilters) {
+    //         for (let filterKey of Object.keys(filters)) {
+    //             resetedFilters[filterKey] = {
+    //                 ...resetedFilters[filterKey],
+    //                 data: resetedFilters[filterKey].data.map(el => { return { ...el, hidden: false } }),
+    //                 queueNum: -1
+    //             };
+    //         }
+    //     }
 
-        return { resetedData, resetedFilters };
-    }
+    //     return { resetedData, resetedFilters };
+    // }
     // ----  ----
     setDefaultGridState = () => {
-        let convertedData = this.convertDataForGrid({ data: this.props?.data, idKey: this.props?.idKey, parentIdKey: this.props?.parentIdKey, iconsParams: this.props?.iconsParams });
+        let convertedData = this.convertDataForGrid({ data: this.props?.data, idKey: this.props?.idKey, parentIdKey: this.props?.parentIdKey, iconsParams: this.props?.iconsParams, iconsPath: this.props?.iconsPath });
         const gridFilters = this.createFilters({ data: convertedData, fields: this.props?.fields });
 
         this.setState({
@@ -702,8 +687,8 @@ class DataGrid extends BaseComponent {
                                                         <div className="datagrid-cell" style={{ paddingLeft: fIdx === 0 ? `${rowData.level * 15}px` : '' }}>
                                                             {fIdx === 0 && this.props?.checkBoxes ? <div className="datagrid-checkbox-wrapper"><DGCheckBox value={rowData.checked} disabled={false} onReturnData={{ func: this.checkRow, params: { id: rowData.rowId } }} /></div> : null}
                                                             {rowData.isParent && fIdx === 0 ? <div className="datagrid-parent-shrink" onClick={() => this.shrinkChilds({ parentId: rowData.data[this.props.idKey], idKey: this.props.idKey, parentIdKey: this.props.parentIdKey, gridData: this.state.data })}><img alt="" style={{ transform: `rotate(${rowData.childsHidden ? -90 : 0}deg)` }} /></div> : null}
-                                                            {this.props?.parentIdKey && !rowData.isParent && fIdx === 0 ? <div className="datagrid-parent-shrink-plug"></div> : null}
-                                                            {rowData.icon && fIdx === 0 ? <div className="datagrid-item-icon"><img alt="" src={`/src/assets/${rowData.icon}.svg`} /></div> : null}
+                                                            {/* {this.props?.parentIdKey && !rowData.isParent && fIdx === 0 ? <div className="datagrid-parent-shrink-plug"></div> : null} */}
+                                                            {rowData.icon && fIdx === 0 ? <div className="datagrid-item-icon"><img alt="" src={rowData.icon} /></div> : null}
                                                             {field?.render && (typeof field?.render === "function") ? <div className="datagrid-cell-data" style={{ ...field?.style}}>{field?.render(rowData.data, this.props.data)}</div> ?? '' : <span>{this.toDefaultFormat(rowData.data[field?.key], field?.dataType)}</span>}
                                                         </div>
                                                     </td>)
@@ -807,7 +792,6 @@ class DGFilter extends Component {
     }
     checkFiltersHandler = (isChecked, params) => {
         const { rowId } = params;
-        console.log(222, this.state.data);
         const copyData = this.state?.data?.map(el => {
             if (el.rowId === rowId) {
                 return { ...el, checked: isChecked }

@@ -92,7 +92,7 @@ class App extends Component {
 						</div>
 						<div id="body-block-footer">
 							<div className="footer-info">
-								<div>Version: 0.1.2</div>
+								<div>Version: 0.1.3</div>
 								<div>Copyright © Sw0tty, 2025</div>
 							</div>
 						</div>

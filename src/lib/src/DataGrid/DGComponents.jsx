@@ -1,6 +1,5 @@
 import { Component, createRef } from "react";
 import { Link } from 'react-router-dom';
-import Loupe from './Loupe.svg';
 import './dgcomponents.css';
 
 

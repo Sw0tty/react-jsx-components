@@ -31,6 +31,7 @@ class DataGridPage extends BaseMethods {
                 { id: 6, parentId: null, mark: "Ford", colorName: null, colorValue: null, price: null, prodDate: null },
                 { id: 7, parentId: 6, mark: "Mustang", colorName: "Royal Blue", colorValue: "#4169E1", price: 32000, prodDate: 2020 },
                 { id: 8, parentId: 6, mark: "Focus", colorName: "Storm Grey", colorValue: "#808080", price: 20000, prodDate: 2021 },
+                { id: 15, parentId: 8, mark: "Focus GT", colorName: "Deep Blue", colorValue: "#2927c4ff", price: 23000, prodDate: 2021 },
                 { id: 9, parentId: 6, mark: "Explorer", colorName: "Desert Beige", colorValue: "#F5F5DC", price: 38000, prodDate: 2022 },
                 { id: 10, parentId: 6, mark: "Transit", colorName: "Snow White", colorValue: "#FFFFFF", price: 30000, prodDate: 2023 },
                 { id: 11, parentId: null, mark: "Audi", colorName: null, colorValue: null, price: null, prodDate: null },
@@ -41,7 +42,14 @@ class DataGridPage extends BaseMethods {
             contextMenu: [[{ caption: "Edit" }, { caption: "Add" }], [{ caption: "Delete", color: "red" }]], // func is priority on redirect
             tools: [{ caption: "Download" }, { caption: "Set default", color: "red" }],
             hoverColor: null,
-            reverse: false
+            reverse: false,
+            iconsParamsDG2: {
+                byKey: {
+                    key: "parentId",
+                    default: { iconName: "Car.svg" },
+                    icons: [{ value: null, iconName: "CarMark.svg" }]
+                }
+            }
         }
     }
     render() {
@@ -56,7 +64,7 @@ class DataGridPage extends BaseMethods {
                 </>}
             />
             <Playground
-                pComponent={<DataGrid idKey="id" parentIdKey="parentId" rowNum={this.state.rowNumDG2} searchTool={this.state.searchToolDG2} checkBoxes={this.state.checkBoxesDG2} toolbar={this.state.toolbarDG2} tools={this.state.tools} fields={[{ key: "mark", columnName: "Mark / model", width: 120, sorting: true }, { key: "price", columnName: "Price", dataType: "number", sorting: true, render: (rowData, data) => { return rowData?.price ? `$ ${rowData.price}` : `$ ${data.filter(el => el.parentId === rowData.id).reduce((sum, el) => sum + el.price, 0)}` }, style: { textAlign: "right"} }, { key: "colorName", width: 150, columnName: "Color", render: (rowData) => { return rowData?.parentId ? <div style={{ display: "flex", columnGap: "5px", alignItems: "center" }}><div style={{ minWidth: "15px", height: "15px", borderRadius: "3px", background: rowData.colorValue, boxShadow: "0px 0px 0px 1px #d9d9d9" }}></div><span>{rowData.colorName}</span></div> : null  } }]} data={this.state.carsData} />}
+                pComponent={<DataGrid iconsPath="./icons/" iconsParams={this.state.iconsParamsDG2} idKey="id" parentIdKey="parentId" rowNum={this.state.rowNumDG2} searchTool={this.state.searchToolDG2} checkBoxes={this.state.checkBoxesDG2} toolbar={this.state.toolbarDG2} tools={this.state.tools} fields={[{ key: "mark", columnName: "Mark / model", width: 120, sorting: true }, { key: "price", columnName: "Price", dataType: "number", width: 100, sorting: true, render: (rowData, data) => { return rowData?.price ? `$ ${rowData.price}` : `$ ${data.filter(el => el.parentId === rowData.id).reduce((sum, el) => sum + el.price, 0)}` }, style: { textAlign: "right"} }, { key: "colorName", width: 150, columnName: "Color", render: (rowData) => { return rowData?.parentId ? <div style={{ display: "flex", columnGap: "5px", alignItems: "center" }}><div style={{ minWidth: "15px", height: "15px", borderRadius: "3px", background: rowData.colorValue, boxShadow: "0px 0px 0px 1px #d9d9d9" }}></div><span>{rowData.colorName}</span></div> : null  } }]} data={this.state.carsData} />}
                 componentProps={<>
                     <Switcher caption="Row numbers :" value={this.state.rowNumDG2} onReturnData={{ func: this.setData, params: { propName: "rowNumDG2" } }} />
                     <Switcher caption="Checkboxes :" value={this.state.checkBoxesDG2} onReturnData={{ func: this.setData, params: { propName: "checkBoxesDG2" } }} />
@@ -67,6 +75,8 @@ class DataGridPage extends BaseMethods {
                     {name: "fields", required: true, dataType: "ArrayOfObjects", description: "This is complex prop with all rules to getting, render and working with passed data. Each object is the column of table and have next params: key, columnName, dataType, width, sorting, filter, render, style. Detailed information on the prop is described below."},
                     {name: "data", required: false, dataType: "ArrayOfObjects", description: "A array of data to process according to the rules described in 'fields' prop. Without data be render empty block."},
                     {name: "rowNum", required: false, dataType: "boolean", description: "Add row number for each row."},
+                    {name: "iconsPath", required: false, dataType: "string", description: "A common way to search for icons in tools and rows icons."},
+                    {name: "iconsParams", required: false, dataType: "ArrayOfObjects", description: "."},
                     {name: "checkBoxes", required: false, dataType: "boolean", description: "Add checkboxes for each row."},
                     {name: "toolbar", required: false, dataType: "boolean", description: "Add toolbar."},
                     {name: "searchTool", required: false, dataType: "boolean", description: "Disabled search in datagrid. By default is active."},
@@ -93,6 +103,10 @@ class DataGridPage extends BaseMethods {
                 <PropDetails propName="ContextMenu" propParams={[
                     { keyName: "caption", description: <div>Set a caption in button.</div> },
                     { keyName: "color", description: <div>Set a color on mouse hover.</div> }
+                ]} />
+                <PropDetails propName="IconsParams" propParams={[
+                    { keyName: "eachItem", description: <div>{`Is Object with two keys. iconPath - if not passed will be used iconsPath prop or default '/'. iconName - name of icon with extension. Example: { iconPath: "./assets/icons/", iconName: "Folder.svg" }`}</div> },
+                    { keyName: "byKey", description: <div>.</div> }
                 ]} />
             </div>
             

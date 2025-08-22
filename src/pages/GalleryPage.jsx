@@ -13,7 +13,7 @@ class GalleryPage extends BaseMethods {
             cWidth: "300px",
             iconsSize: 70,
             itemsSize: 70,
-            items: [{ iconName: "Excel.svg", data: "data", caption: "Excel icon" }, { iconName: "Progress.svg", data: "dropper" }, { iconName: "Rocket.svg", data: "dropper" }, { iconName: "Graph.svg", data: "dropper" }, { iconName: "Compas.svg", data: "dropper" }, { iconName: "Eyedropper.svg", data: "dropper" }, { iconName: "Box.svg", data: "dropper" }]
+            items: [{ iconName: "Car.svg", data: "data", caption: "Car icon" }, { iconName: "Excel.svg", data: "data", caption: "Excel icon" }, { iconName: "Progress.svg", data: "dropper" }, { iconName: "Rocket.svg", data: "dropper" }, { iconName: "Graph.svg", data: "dropper" }, { iconName: "Compas.svg", data: "dropper" }, { iconName: "Eyedropper.svg", data: "dropper" }, { iconName: "Box.svg", data: "dropper" }]
         }
     }
     render() {
