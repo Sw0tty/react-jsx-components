@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react-jsx-components/static/css/main.93e14171.css",
-    "main.js": "/react-jsx-components/static/js/main.8cb55875.js",
+    "main.css": "/react-jsx-components/static/css/main.2ab3a1bc.css",
+    "main.js": "/react-jsx-components/static/js/main.350ba5ab.js",
     "static/media/CrossCircle.svg": "/react-jsx-components/static/media/CrossCircle.3502c5873d61b2f4cfdd2e013753eb8e.svg",
     "static/media/Dots.svg": "/react-jsx-components/static/media/Dots.b4ed7c4250440eaca2f4.svg",
     "static/media/Resizer.svg": "/react-jsx-components/static/media/Resizer.5a8806d5484eea9c718f.svg",
@@ -21,11 +21,11 @@
     "static/media/Sorter.svg": "/react-jsx-components/static/media/Sorter.ec988638d3a7d1728168.svg",
     "static/media/Check.svg": "/react-jsx-components/static/media/Check.103738e3831e948f698f270d46bc3139.svg",
     "index.html": "/react-jsx-components/index.html",
-    "main.93e14171.css.map": "/react-jsx-components/static/css/main.93e14171.css.map",
-    "main.8cb55875.js.map": "/react-jsx-components/static/js/main.8cb55875.js.map"
+    "main.2ab3a1bc.css.map": "/react-jsx-components/static/css/main.2ab3a1bc.css.map",
+    "main.350ba5ab.js.map": "/react-jsx-components/static/js/main.350ba5ab.js.map"
   },
   "entrypoints": [
-    "static/css/main.93e14171.css",
-    "static/js/main.8cb55875.js"
+    "static/css/main.2ab3a1bc.css",
+    "static/js/main.350ba5ab.js"
   ]
 }
