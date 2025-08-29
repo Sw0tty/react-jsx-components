@@ -1,0 +1,55 @@
+.censorcontent-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.censorcontent-background {
+    display: flex;
+    position: absolute;
+    z-index: 9998;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.censorcontent-actions {
+    position: absolute;
+    z-index: 9999;
+    width: 110px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.censorcontent-caption {
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: white;
+    font-family: Helvetica, sans-serif;
+    text-shadow: 0px 2px 4px #303030;
+}
+
+.censorcontent-buttons-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.censorcontent-button {
+    font-size: 11px;
+    background: white;
+    border: 1px solid gray;
+    font-family: Helvetica, sans-serif;
+    cursor: pointer;
+    padding: 0px 4px;
+    border-radius: 4px;
+    transition: 0.1s background;
+}
+
+.censorcontent-button:hover {
+    background: #e4e4e4;
+}

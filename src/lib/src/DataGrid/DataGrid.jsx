@@ -594,6 +594,12 @@ class DataGrid extends BaseComponent {
                 } else if ("fromSelected" in ruleParams) {
                     newPath += new DataRender().selectFromDictionary({ data: selectedData, chainKeys: ruleParams.fromSelected.split('.') });
                 }
+            } else if (ruleParams.rule === "REPLACE") {
+                if ("str" in ruleParams) {
+                    newPath = newPath.replace(ruleParams.old, ruleParams.str);
+                } else if ("fromSelected" in ruleParams) {
+                    newPath = newPath.replace(ruleParams.old, new DataRender().selectFromDictionary({ data: selectedData, chainKeys: ruleParams.fromSelected.split('.') }));
+                }
             }
         }
 
@@ -604,9 +610,9 @@ class DataGrid extends BaseComponent {
 
         return contextParams.map(group => {
             return group.map(groupElement => {
-                const redirect = selectedData && groupElement?.redirectUpdateRules && groupElement?.onClick?.redirect ? this.updateRedirectPath({ defaultPath: groupElement?.onClick?.redirect, updateRules: groupElement.redirectUpdateRules, selectedData: selectedData }) : groupElement?.onClick?.redirect;
-                const func = (typeof groupElement?.onClick?.func) === "function" ? groupElement?.onClick?.func : (typeof groupElement?.onClick?.func) === "string" && groupElement?.onClick?.func in thisClass ? thisClass[groupElement?.onClick?.func] : undefined;
-                const params = { ...groupElement?.onClick?.params, selectedData: selectedData };
+                const redirect = selectedData && groupElement?.redirectRules && groupElement?.redirect ? this.updateRedirectPath({ defaultPath: groupElement?.redirect, updateRules: groupElement.redirectRules, selectedData: selectedData }) : groupElement?.redirect;
+                const func = (typeof groupElement?.func) === "function" ? groupElement?.func : (typeof groupElement?.func) === "string" && groupElement?.func in thisClass ? thisClass[groupElement?.func] : undefined;
+                const params = { ...groupElement?.params, _selectedData: selectedData };
 
                 return {
                     ...groupElement,
@@ -642,7 +648,7 @@ class DataGrid extends BaseComponent {
                     <div className="datagrid-container">
                         {/* {this.state.isLoading ? <Loading size={60} speed="1s" icon="Loading_3" blurStrong={3} /> : null} */}
                         <div className="datagrid-elements-container">
-                            {this.props?.contextMenu && this ? <DGContextMenu onHide={this.hideContext} hidden={this.state.contextHidden} contextPos={this.state.contextPos} contextActions={this.updateContextMenu({ thisClass: this, contextParams: this.props?.contextMenu, selectedData: this.state?.selectedData })} /> : null}
+                            {this.props?.contextMenu && this ? <DGContextMenu onHide={this.hideContext} hidden={this.state.contextHidden} contextPos={this.state.contextPos} iconsPath={this.props?.iconsPath} contextActions={this.updateContextMenu({ thisClass: this, contextParams: this.props?.contextMenu, selectedData: this.state?.selectedData })} /> : null}
                             <table id="datagrid">
                                 <thead>
                                     <tr>

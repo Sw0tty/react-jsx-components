@@ -103,7 +103,14 @@ class BaseComponent extends Component {
                     }
                     break;
                 case 'Object':
-                    //
+                    if (this.props[prop.name].constructor !== Object) {
+                        return this._getErrorBlock(`Prop '${prop.name}' must be type of 'Object'.`);
+                    }
+                    break;
+                case 'function':
+                    if (typeof(this.props[prop.name]) !== 'function') {
+                        return this._getErrorBlock(`Prop '${prop.name}' must be type of 'function'.`);
+                    }
                     break;
                 case 'CallbackObject':
                     if ((this.props[prop.name].constructor !== Object) || !('func' in this.props[prop.name]) || (typeof(this.props[prop.name].func) !== 'function')) {

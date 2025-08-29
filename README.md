@@ -13,3 +13,5 @@ To explore components: https://sw0tty.github.io/react-jsx-components/
 0.1.2 - Fix bug with variables CSS colors. Add 'lastUpdate' prop for CheckBox, TextArea, Switcher, TextBox, ColorPicker. Add color actions props for TextBox, CheckBox, ColorPicker, ComboBox, Switcher, TextArea, ContentHider
 
 0.1.3 - Fix filters bug for DataGrid. Fix nested sorting for DataGrid.
+
+0.1.4 - New components Tabs and CensorContent. Refactoring contextMenu for DataGrid and adding new rule for redirect.

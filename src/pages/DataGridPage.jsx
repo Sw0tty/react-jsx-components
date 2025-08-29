@@ -102,7 +102,13 @@ class DataGridPage extends BaseMethods {
                 ]} />
                 <PropDetails propName="ContextMenu" propParams={[
                     { keyName: "caption", description: <div>Set a caption in button.</div> },
-                    { keyName: "color", description: <div>Set a color on mouse hover.</div> }
+                    { keyName: "color", description: <div>Set a color on mouse hover.</div> },
+                    { keyName: "icon", description: <div>Name of icon. Icons only with SVG extension.</div> },
+                    { keyName: "iconPath", description: <div>Path for icon if iconsPath prop not passed or need unique path.</div> },
+                    { keyName: "redirect", description: <div>Path to redirect on click.</div> },
+                    { keyName: "redirectRules", description: <div>ArrayOfObjects with rules to update redirect path. Each object must have 'rule' key and rules params. 1. Rule 'ADD' must have 'str' key for adding any string to path. Or 'fromSelected' - this is chain strings with '.' (dot) separator (like 'country.id'). 2. Rule 'REPLACE' - must have 'old' key with string for replace. And one of other keys like in 'ADD' rule.</div> },
+                    { keyName: "func", description: <div>Function to callback on click. If you need callback DataGrid method, pass name of method in string format.</div> },
+                    { keyName: "params", description: <div>Params for passed function. By default always passed selected data in '_selectedData' key.</div> }
                 ]} />
                 <PropDetails propName="IconsParams" propParams={[
                     { keyName: "eachItem", description: <div>{`Is Object with two keys. iconPath - if not passed will be used iconsPath prop or default '/'. iconName - name of icon with extension. Example: { iconPath: "./assets/icons/", iconName: "Folder.svg" }`}</div> },

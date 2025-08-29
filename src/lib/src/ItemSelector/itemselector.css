@@ -20,7 +20,7 @@
 }
 
 .itemselector-item {
-	border: 1px solid var(--componentBorderColor);
+	border: 1px solid #959595;
 	min-width: 60px;
 	border-radius: 3px;
 	display: flex;
@@ -64,7 +64,7 @@
 
 .itemselector-modal-button {
 	align-items: center;
-	border: 1px solid var(--componentBorderColor);
+	border: 1px solid #959595;
 	border-radius: 3px;
 	transition: 0.3s background, 0.2s border-color, 0.2s box-shadow;
 	height: 22px;
@@ -176,10 +176,6 @@
 	height: 25px;
 	-webkit-mask-image: url('./Close.svg');
 	mask-image: url('./Close.svg');
-}
-
-.itemselector-modalform-content {
-
 }
 
 .itemselector-modalform-buttons {

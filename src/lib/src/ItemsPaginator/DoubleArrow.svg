@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="195"
+   height="205"
+   fill="none"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="g1"
+     transform="rotate(90,54.754864,57.338332)">
+    <title
+       id="title1">Layer 1</title>
+    <g
+       stroke-width="0"
+       id="SVGRepo_bgCarrier" />
+    <g
+       stroke-linejoin="round"
+       stroke-linecap="round"
+       id="SVGRepo_tracerCarrier" />
+    <g
+       stroke="null"
+       id="SVGRepo_iconCarrier">
+      <path
+         d="m 4.635282,26.33929 73.869141,73.86914 c 11.83607,11.83607 31.087747,11.83607 42.923827,0 L 195.29544,26.33929 C 204.84986,16.64212 198.00488,0.1010085 184.31497,0.1010085 H 143.64309 L 195.62356,-51.87946 c 9.55442,-9.69717 2.70944,-26.238281 -10.98047,-26.238281 H 15.799344 c -13.6899195,0 -20.5349201,16.541111 -10.8378901,26.238281 L 56.941923,0.1010085 h -41.46875 c -13.914734,0 -20.3545205,16.7215135 -10.837891,26.2382815 z"
+         style="fill:#000000"
+         id="path1" />
+    </g>
+  </g>
+</svg>

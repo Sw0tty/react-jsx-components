@@ -18,6 +18,8 @@ import MultiSelect from './MultiSelect/MultiSelect.jsx';
 import ItemSelector from './ItemSelector/ItemSelector.jsx';
 import ProgressBar from './ProgressBar/ProgressBar.jsx';
 import Menu from './Menu/Menu.jsx';
+import Tabs from './Tabs/Tabs.jsx';
+import CensorContent from './CensorContent/CensorContent.jsx';
 import BaseComponent from './BaseComponent/BaseComponent.jsx';
 
 
@@ -26,5 +28,6 @@ module.exports = {
 	CheckBox, ProgressBar, ItemSelector, MultiSelect,
 	Gallery, DataGrid, StepsList, Container,
 	ContextMenu, TextArea, Splitter, ComboBox,
-	Loading, IconItem, ColorPicker, Menu, BaseComponent
+	Loading, IconItem, ColorPicker, Menu, BaseComponent,
+	Tabs, CensorContent
 }

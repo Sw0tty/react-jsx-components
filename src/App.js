@@ -77,6 +77,15 @@ class App extends Component {
 							id: undefined, name: "ProgressBar", icon: "Progress", to: ROOT_PATH + "/ProgressBar"
 						},
 						{
+							id: undefined, name: "Tabs", icon: "Tabs", to: ROOT_PATH + "/Tabs"
+						},
+						{
+							id: undefined, name: "CensorContent", icon: "CensorContent", to: ROOT_PATH + "/CensorContent"
+						},
+						{
+							id: undefined, name: "ItemsPaginator", icon: "ItemsPaginator", to: ROOT_PATH + "/ItemsPaginator"
+						},
+						{
 							id: "sub2", name: "Modals", icon: "Modals", to: undefined, childs: [
 								{ name: "InfoModal", to: `${ROOT_PATH}/InfoModal` },
 								{ name: "ErrorModal", accessRoles: [], to: `${ROOT_PATH}/ErrorModal` }
@@ -92,7 +101,7 @@ class App extends Component {
 						</div>
 						<div id="body-block-footer">
 							<div className="footer-info">
-								<div>Version: 0.1.3</div>
+								<div>Version: 0.1.4</div>
 								<div>Copyright © Sw0tty, 2025</div>
 							</div>
 						</div>

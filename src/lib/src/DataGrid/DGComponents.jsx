@@ -184,7 +184,7 @@ export class DGContextMenu extends Component {
                                         return (
                                             <Link key={idx} title={item.caption} style={{ '--dgcontextMenuHoverColor': item?.color ?? baseHoverColor }} className="dgcontextmenu-element" onClick={(event) => item?.onClick?.func ? item.onClick?.func({ event: event, ...item.onClick?.params }) : this.props.onHide()} to={!(item?.onClick?.func) && item?.onClick?.redirect ? `/${item?.onClick?.redirect}` : ''} >
                                                 <div className="dgcontextmenu-element-icon">
-                                                    <img alt="" style={{ WebkitMaskImage: `url(/src/assets/${item.icon}.svg)`, maskImage: `url(/src/assets/${item.icon}.svg)` }} />
+                                                    <img alt="" style={{ WebkitMaskImage: `url(${item?.iconPath ?? this.props?.iconsPath ?? './'}${item.icon}.svg)`, maskImage: `url(${item?.iconPath ?? this.props?.iconsPath ?? './'}${item.icon}.svg)` }} />
                                                 </div>
                                                 <div className="dgcontextmenu-element-caption">{item.caption}</div>
                                             </Link>

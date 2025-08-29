@@ -105,7 +105,7 @@
     width: 100px;
     height: 100px;
     background: white;
-    border: 1px solid var(--componentBorderColor);
+    border: 1px solid #959595;
     border-radius: 6px;
     display: flex;
     flex-direction: column;

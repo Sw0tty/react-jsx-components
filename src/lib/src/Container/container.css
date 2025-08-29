@@ -17,7 +17,7 @@
     padding: 0 5px;
     background: white;
     font-size: 13px;
-    font-family: var(--componentBaseFontFamily);
+    font-family: Helvetica, sans-serif;
     color: black;
 }
 

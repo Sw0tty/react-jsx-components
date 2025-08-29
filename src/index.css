@@ -27,7 +27,7 @@ body {
 	--componentHoverColor: #5eaac5;
 	--componentFocusColor: #7ea7b5;
 	--componentFocusShadowColor: #c8e8f3;
-	--componentBorderColor: #959595;
+	/* --componentBorderColor: #959595; */
 	--componentErrorColor: #e13329;
 	--componentWarningColor: #ffab1d;
 	--iconRedColor: #FF2400;

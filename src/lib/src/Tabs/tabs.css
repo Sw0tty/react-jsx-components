@@ -1,0 +1,81 @@
+.tabs-container {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+}
+
+.tabs {
+    display: flex;
+    height: 70px;
+    overflow: hidden;
+    transition: 0.2s height;
+}
+
+.tabs:hover {
+    /* height: 70px; */
+    overflow: auto;
+    overflow-y: hidden;
+}
+
+.tabs li:not(:last-child) {
+    margin-right: 7px;
+}
+.tabs li {
+    list-style: none;
+    cursor: pointer;
+}
+
+.tabs li div {
+    display: block;
+    position: relative;
+    top: 4px;
+    min-width: 10px;
+    max-width: 200px;
+    overflow: hidden;
+    padding: 10px 15px;
+    border-radius: 3px 3px 0 0;
+    background: white;
+    /* opacity: 0.7; */
+    transition: all 0.1s ease-in-out;
+    border: 1px solid #959595;
+    background: #b3b3b3;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #4e4e4e;
+    font-family: system-ui;
+    border-color: var(--tabs-actionColor-baseColor);
+    color: var(--tabs-actionColor-baseColor);
+}
+
+.tabs li div span {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
+}
+
+.tabs li.active div,
+.tabs li div:hover {
+    opacity: 1;
+    top: 0;
+    background: white;
+}
+
+.tabs-content {
+    position: relative;
+    z-index: 2;
+    border-radius: 0 3px 3px 3px;
+    background: white;
+    border: 1px solid;
+    width: 100%;
+    overflow: auto;
+}
+
+.tabs-panel {
+    display: block;
+    height: 100%;
+    overflow: auto;
+}

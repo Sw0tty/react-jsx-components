@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="115"
+   height="205"
+   fill="none"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="Sorter.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
+    <inkscape:page
+       x="0"
+       y="0"
+       width="115"
+       height="205"
+       id="page2"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
+  <g
+     id="g1"
+     transform="rotate(90,54.754864,57.338332)">
+    <title
+       id="title1">Layer 1</title>
+    <g
+       stroke-width="0"
+       id="SVGRepo_bgCarrier" />
+    <g
+       stroke-linejoin="round"
+       stroke-linecap="round"
+       id="SVGRepo_tracerCarrier" />
+    <g
+       stroke="null"
+       id="SVGRepo_iconCarrier">
+      <path
+         stroke="null"
+         id="svg_1"
+         fill="#000000"
+         d="M 184.31574,0.10084 H 95.47388 15.473 c -13.68992,0 -20.53488,16.54198 -10.83785,26.23915 l 73.86894,73.86851 c 11.83607,11.83607 31.08752,11.83607 42.9236,0 L 149.52054,72.11565 195.2962,26.33999 c 9.55442,-9.69717 2.70946,-26.23915 -10.98045,-26.23915 z" />
+    </g>
+  </g>
+</svg>
