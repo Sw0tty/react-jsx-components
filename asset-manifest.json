@@ -1,12 +1,13 @@
 {
   "files": {
-    "main.css": "/react-jsx-components/static/css/main.2ab3a1bc.css",
-    "main.js": "/react-jsx-components/static/js/main.350ba5ab.js",
+    "main.css": "/react-jsx-components/static/css/main.4cbad0b8.css",
+    "main.js": "/react-jsx-components/static/js/main.26d15c70.js",
     "static/media/CrossCircle.svg": "/react-jsx-components/static/media/CrossCircle.3502c5873d61b2f4cfdd2e013753eb8e.svg",
     "static/media/Dots.svg": "/react-jsx-components/static/media/Dots.b4ed7c4250440eaca2f4.svg",
     "static/media/Resizer.svg": "/react-jsx-components/static/media/Resizer.5a8806d5484eea9c718f.svg",
     "static/media/Arrow.svg": "/react-jsx-components/static/media/Arrow.fa0cd2550426d0764448847b878045c9.svg",
     "static/media/EmptyBox.svg": "/react-jsx-components/static/media/EmptyBox.c01db19c2f55ab339553.svg",
+    "static/media/DoubleArrow.svg": "/react-jsx-components/static/media/DoubleArrow.e7594fc31e0c5d93a212.svg",
     "static/media/Drop.svg": "/react-jsx-components/static/media/Drop.28309c643cf42019593955e0e156f7ac.svg",
     "static/media/CheckCircle.svg": "/react-jsx-components/static/media/CheckCircle.ae64bde2373d6e2836d612fa4e1148e1.svg",
     "static/media/UncheckSquare.svg": "/react-jsx-components/static/media/UncheckSquare.a5b978855db46925406cfca84572a535.svg",
@@ -21,11 +22,11 @@
     "static/media/Sorter.svg": "/react-jsx-components/static/media/Sorter.ec988638d3a7d1728168.svg",
     "static/media/Check.svg": "/react-jsx-components/static/media/Check.103738e3831e948f698f270d46bc3139.svg",
     "index.html": "/react-jsx-components/index.html",
-    "main.2ab3a1bc.css.map": "/react-jsx-components/static/css/main.2ab3a1bc.css.map",
-    "main.350ba5ab.js.map": "/react-jsx-components/static/js/main.350ba5ab.js.map"
+    "main.4cbad0b8.css.map": "/react-jsx-components/static/css/main.4cbad0b8.css.map",
+    "main.26d15c70.js.map": "/react-jsx-components/static/js/main.26d15c70.js.map"
   },
   "entrypoints": [
-    "static/css/main.2ab3a1bc.css",
-    "static/js/main.350ba5ab.js"
+    "static/css/main.4cbad0b8.css",
+    "static/js/main.26d15c70.js"
   ]
 }
