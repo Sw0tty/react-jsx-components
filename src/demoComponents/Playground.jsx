@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import Container from '../lib/src/Container/Container.jsx';
 import IconItem from '../lib/src/IconItem/IconItem.jsx';
+import Tip from '../lib/src/Tip/Tip.jsx';
 import './playground.css';
 
 
@@ -11,7 +12,7 @@ class Playground extends Component {
 
         return (
             <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", rowGap: "40px" }}>
-                {this.props?.title ? <h1 className="playground-main-title">{this.props.title}</h1> : null}
+                {this.props?.title ? <h1 className="playground-main-title">{this.props?.titleTip ? <Tip caption={this.props.titleTip} type="text" destroyCaptionSpace>{this.props.title}</Tip> : this.props.title }</h1> : null}
                 {this.props?.description ?? null}
                 <div style={{ display: "flex", flexDirection: "column", rowGap: "80px" }}>
                     <div style={{ display: "flex" }}>

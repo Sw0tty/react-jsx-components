@@ -1,14 +1,14 @@
 import { StrictMode, Component } from 'react';
 import AppRoutes from './AppRoutes.jsx';
 import Menu from './lib/src/Menu/Menu.jsx';
-import { ROOT_PATH } from './AppConts.js';
+import { ROOT_PATH } from './AppConsts.js';
 
 
 class App extends Component {
 	render() {
 		return (
 			<>
-				<Menu fullWidth={250} title="React Components" currentUserRole={null} iconsPath="./icons/" items={
+				<Menu fullWidth={250} shrinkedWidth={45} title="React Components" currentUserRole={null} iconsPath="./icons/" items={
 					[
 						{
 							id: undefined, name: "BaseComponent", icon: "BaseComponent", to: ROOT_PATH + "/BaseComponent"
@@ -91,6 +91,12 @@ class App extends Component {
 								{ name: "ErrorModal", accessRoles: [], to: `${ROOT_PATH}/ErrorModal` }
 							]
 						},
+						{
+							id: undefined, name: "Menu", icon: "Menu", to: ROOT_PATH + "/Menu"
+						},
+						{
+							id: undefined, name: "Slider", short: true, to: ROOT_PATH + "/Slider"
+						},
 					]
 				} />
 				<div id="body-block">
@@ -101,8 +107,8 @@ class App extends Component {
 						</div>
 						<div id="body-block-footer">
 							<div className="footer-info">
-								<div>Version: 0.1.4</div>
-								<div>Copyright © Sw0tty, 2025</div>
+								<div>Version: 0.1.5</div>
+								<div>Copyright © Sw0tty, 2025-2026</div>
 							</div>
 						</div>
 				</div>

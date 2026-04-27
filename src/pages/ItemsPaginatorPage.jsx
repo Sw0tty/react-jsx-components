@@ -31,7 +31,7 @@ class ItemsPaginatorPage extends BaseMethods {
         return items;
     }
     render() {
-        return(<Playground title={<div style={{ display: "flex", justifyContent: "center", position: "relative" }}><div>ItemsPaginator</div><div><span style={{ fontSize: "12px", padding: "0 5px", position: "absolute", borderRadius: "5px", fontWeight: "bolder", color: "white", background: "gray"  }}>BETA</span></div></div>}
+        return(<Playground title="ItemsPaginator" titleTip="v0.1.5"
                 pComponent={<ItemsPaginator height={this.state.height} items={this.createItems(50)} itemsOnPage={this.state.itemsOnPage} />}
                 componentProps={<>
                     <div style={{ display: "flex", flexDirection: "column", width: "max-content", alignItems: "end", rowGap: "5px" }}>

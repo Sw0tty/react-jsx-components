@@ -1,6 +1,5 @@
 import BaseComponent from '../BaseComponent/BaseComponent.jsx';
 import './contenthider.css';
-import ArrowDown from './ArrowDown.svg';
 
 
 class ContentHider extends BaseComponent {

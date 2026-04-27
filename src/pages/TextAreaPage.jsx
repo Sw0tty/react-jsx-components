@@ -10,14 +10,14 @@ class TextAreaPage extends BaseMethods {
     constructor() {
         super();
         this.state = {
-            caption: "Test caption :",
+            caption: 'Test caption :',
             required: true,
             disabled: false,
             readOnly: false,
             invalid: false,
             defaultHeight: 30,
             maxHeight: 200,
-            width: "250px",
+            width: '250px',
             borderColorAction: undefined,
             shadowColorAction: undefined
         }

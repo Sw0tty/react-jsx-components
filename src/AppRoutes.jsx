@@ -25,7 +25,9 @@ import TabsPage from './pages/TabsPage.jsx';
 import CensorContentPage from './pages/CensorContentPage.jsx';
 import ItemsPaginatorPage from './pages/ItemsPaginatorPage.jsx';
 import BaseComponentPage from './pages/BaseComponentPage.jsx';
-import { ROOT_PATH } from './AppConts.js';
+import MenuPage from './pages/MenuPage.jsx';
+import SliderPage from './pages/SliderPage.jsx';
+import { ROOT_PATH } from './AppConsts.js';
 
 
 function AppRoutes() {
@@ -58,6 +60,8 @@ function AppRoutes() {
             <Route path={`${ROOT_PATH}/ItemsPaginator`} element={<ItemsPaginatorPage />} />
             <Route path={`${ROOT_PATH}/InfoModal`} element={<InfoModalPage />} />
             <Route path={`${ROOT_PATH}/BaseComponent`} element={<BaseComponentPage />} />
+            <Route path={`${ROOT_PATH}/Menu`} element={<MenuPage />} />
+            <Route path={`${ROOT_PATH}/Slider`} element={<SliderPage />} />
         </Routes>
     );
 }

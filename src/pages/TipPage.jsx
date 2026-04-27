@@ -1,9 +1,10 @@
-import BaseMethods from "../demoComponents/BaseMethods.jsx";
+import BaseMethods from '../demoComponents/BaseMethods.jsx';
 import TextBox from '../lib/src/TextBox/TextBox.jsx';
 import Tip from '../lib/src/Tip/Tip.jsx';
 import ColorPicker from '../lib/src/ColorPicker/ColorPicker.jsx';
 import Playground from '../demoComponents/Playground.jsx';
-import Switcher from "../lib/src/Switcher/Switcher.jsx";
+import Switcher from '../lib/src/Switcher/Switcher.jsx';
+import ComboBox from '../lib/src/ComboBox/ComboBox.jsx';
 
 
 class TipPage extends BaseMethods {
@@ -11,6 +12,7 @@ class TipPage extends BaseMethods {
         super();
         this.state = {
             caption: 'Some tip caption',
+            type: 'icon',
             iconPath: './icons/Warning',
             iconName: null,
             iconColor: '#ffab1d',
@@ -21,10 +23,14 @@ class TipPage extends BaseMethods {
     render() {
         return (
             <Playground title="Tip"
-                pComponent={<Tip caption={this.state.caption} iconPath={this.state?.iconPath} iconName={this.state?.iconName} iconColor={this.state?.iconColor} addGlow={this.state?.addGlow} glowColor={this.state?.glowColor}><div>Some Block</div></Tip>}
+                pComponent={<Tip caption={this.state.caption} iconPath={this.state?.iconPath} type={this.state.type} iconName={this.state?.iconName} iconColor={this.state?.iconColor} addGlow={this.state?.addGlow} glowColor={this.state?.glowColor}><div>Some Block</div></Tip>}
                 componentProps={<>
+                    <Tip caption="Allowed icons: Warning, Error" type="icon" iconColor="#25cf8f" addGlow={true}>                            
+                        <TextBox width={200} maxLength={100} caption="IconPath :" placeholder="Test icons in './icons/'" value={this.state?.iconPath} onReturnData={{ func: this.setData, params: { propName: "iconPath" } }} />
+                    </Tip>
                     <ColorPicker caption="IconColor" value={this.state.iconColor} disabled={false} onReturnData={{ func: this.setData, params: { propName: "iconColor" } }} />
                     <TextBox width={200} maxLength={255} caption="Tip caption :" value={this.state?.caption} onReturnData={{ func: this.setData, params: { propName: "caption" } }} />
+                    <ComboBox caption="Type :" valueKey="value" captionKey="caption" selectedItem="icon" items={[{value: "icon", caption: "icon"}, {value: "text", caption: "text"}]} onReturnData={{ func: this.setData, params: { propName: "type" } }} />
                     <Switcher caption="AddGlow to tip" onReturnData={{ func: this.setData, params: { propName: "addGlow" } }} />
                     <ColorPicker caption="GlowColor" disabled={false} onReturnData={{ func: this.setData, params: { propName: "glowColor" } }} />
                 </>}

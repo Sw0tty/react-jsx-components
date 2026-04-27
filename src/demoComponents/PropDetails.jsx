@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import Tip from '../lib/src/Tip/Tip.jsx';
 import './propdetails.css';
 
 
@@ -14,7 +15,7 @@ class PropDetails extends Component {
                     {this.props.propParams.map((param, idx) => {
                         return (
                             <div key={idx}>
-                                <div className="propdetails-keyname">{param.keyName}</div>
+                                <div className="propdetails-keyname">{param?.tip ? <Tip caption={param.tip} type="text">{param.keyName}</Tip> : param.keyName}</div>
                                 <div className="propdetails-description">{param.description}</div>
                             </div>
                         );

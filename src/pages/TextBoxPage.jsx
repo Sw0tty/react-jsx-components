@@ -1,9 +1,9 @@
-import BaseMethods from "../demoComponents/BaseMethods.jsx";
+import BaseMethods from '../demoComponents/BaseMethods.jsx';
 import TextBox from '../lib/src/TextBox/TextBox.jsx';
-import Playground from "../demoComponents/Playground";
-import Switcher from "../lib/src/Switcher/Switcher.jsx";
-import ComboBox from "../lib/src/ComboBox/ComboBox.jsx";
-import ColorPicker from "../lib/src/ColorPicker/ColorPicker.jsx";
+import Playground from '../demoComponents/Playground';
+import Switcher from '../lib/src/Switcher/Switcher.jsx';
+import ComboBox from '../lib/src/ComboBox/ComboBox.jsx';
+import ColorPicker from '../lib/src/ColorPicker/ColorPicker.jsx';
 
 
 class TextBoxPage extends BaseMethods {
@@ -16,8 +16,8 @@ class TextBoxPage extends BaseMethods {
             maxLength: 255,
             invalidData: false,
             disabled: false,
-            value: "Some value",
-            placeholder: "Input something",
+            value: 'Some value',
+            placeholder: 'Input something',
             inputIconReverse: false,
             invalid: false,
             inputType: undefined,
@@ -64,7 +64,7 @@ class TextBoxPage extends BaseMethods {
                     {name: "lastUpdate", required: false, dataType: "Date", description: "Used for check prop value and state value of component. And if not equal state value will be change on prop value. For value of this props can be any on data type, but recommended use Date type."},
                     {name: "onReturnData", required: false, dataType: "CallbackObject", description: "Object type of: { func: callbackFunc, params: { } }. The callback arrow function in 'func' key will be return in  the first argument the component state and in the second passed params."}
                 ]}
-                example={`<TextBox ${this.state?.inputType ? `inputType={${this.state.inputType}}` : ''} invalid={${this.state.invalid}} inputIconPath="./icons/Warning" inputIconReverse={${this.state.inputIconReverse}} required={${this.state.required}} ${this.state?.caption ? `caption="${this.state.caption}"` : ''} width={${this.state.width}} maxLength={${this.state.maxLength}} ${this.state?.placeholder ? `placeholder="${this.state.placeholder}"` : ''} invalid={${this.state.invalid}} onReturnData={{ func: this.setAddress, params: { settledParamName: "address" } }} disabled={${this.state.disabled}} />`}
+                example={`<TextBox ${this.state?.inputType ? `inputType="${this.state.inputType}"` : ''} invalid={${this.state.invalid}} inputIconPath="./icons/Warning" inputIconReverse={${this.state.inputIconReverse}} required={${this.state.required}} ${this.state?.caption ? `caption="${this.state.caption}"` : ''} width={${this.state.width}} maxLength={${this.state.maxLength}} ${this.state?.placeholder ? `placeholder="${this.state.placeholder}"` : ''} invalid={${this.state.invalid}} onReturnData={{ func: this.setAddress, params: { settledParamName: "address" } }} disabled={${this.state.disabled}} />`}
             />
         );
     }

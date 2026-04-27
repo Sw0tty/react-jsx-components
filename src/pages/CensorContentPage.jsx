@@ -16,7 +16,7 @@ class CensorContentPage extends BaseMethods {
     render() {
         return(
             <>
-                <Playground title="CensorContent"
+                <Playground title="CensorContent" titleTip="v0.1.5"
                     pComponent={<>
                     {
                         this.state.showAltBlock ?

@@ -19,6 +19,8 @@ class BaseComponentPage extends BaseMethods {
                     { keyName: "required", description: <div>Optional. Boolean value if 'true', then prop not must be 'undefined'.</div> },
                     { keyName: "constStrings", description: <div>Optional. Object type of ArrayOfString. When passed, the prop must match one of the array values.</div> },
                     { keyName: "interval", description: <div>Optional. Object type of Array with two values of numbers, where first greaten, then second. When passed, the prop value must be greaten or equal first, or less or equal second.</div> },
+                    { keyName: "minimum", tip: "v0.1.5", description: <div>Optional. Value type of number. When passed, the prop must be greaten or equal of this value.</div> },
+                    { keyName: "maximum", tip: "v0.1.5", description: <div>Optional. Value type of number. When passed, the prop must be less or equal of this value.</div> },
                 ]}/>
             </>
         );

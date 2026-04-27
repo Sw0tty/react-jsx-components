@@ -1,4 +1,4 @@
-.basecomponent-error-container {
+.jsxrc-basecomponent-error-container {
 	display: flex;
 	width: max-content;
 	border: 1px solid red;
@@ -8,13 +8,13 @@
 	max-width: 280px;
 }
 
-.basecomponent-error-container span {
+.jsxrc-basecomponent-error-container span {
 	font-size: 13px;
 	font-family: Helvetica, sans-serif;
 	color: red;
 }
 
-.basecomponent-required-sign {
+.jsxrc-basecomponent-required-sign {
 	color: red;
 	margin-right: 2px;
 	user-select: none;

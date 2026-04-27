@@ -1,7 +1,7 @@
-import BaseMethods from "../demoComponents/BaseMethods.jsx";
+import BaseMethods from '../demoComponents/BaseMethods.jsx';
 import Playground from '../demoComponents/Playground.jsx';
-import Tabs from "../lib/src/Tabs/Tabs.jsx";
-import PropDetails from "../demoComponents/PropDetails.jsx";
+import Tabs from '../lib/src/Tabs/Tabs.jsx';
+import PropDetails from '../demoComponents/PropDetails.jsx';
 
 
 class TabsPage extends BaseMethods {
@@ -20,7 +20,7 @@ class TabsPage extends BaseMethods {
     render() {
         return(
             <>
-                <Playground title="Tabs"
+                <Playground title="Tabs" titleTip="v0.1.5"
                     pComponent={<Tabs panels={this.state.panels} style={this.state.style} />}
                     componentDocumentation={[
                         {name: "panels", required: true, dataType: "ArrayOfObjects", description: "Rules of rendering tabs. Description under below."},

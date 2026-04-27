@@ -9,6 +9,7 @@
 .playground-main-title {
     border-bottom: 1px solid;
     margin: 0 50px;
+    justify-items: center;
 }
 
 .playground-play-block-title, .playground-main-title {
