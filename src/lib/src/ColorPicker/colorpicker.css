@@ -1,4 +1,4 @@
-.colorpicker-container {
+.jsxrc-colorpicker-container {
     height: 21px;
     display: flex;
     width: max-content;
@@ -6,14 +6,14 @@
     align-items: center;
 }
 
-.colorpicker-caption {
+.jsxrc-colorpicker-caption {
     font-size: 13px;
     color: black;
     font-family: Helvetica, sans-serif;
     white-space: nowrap;
 }
 
-.colorpicker {
+.jsxrc-colorpicker {
     display: flex;
     height: 100%;
     border: 1px solid #959595;
@@ -23,18 +23,22 @@
     transition: 0.3s border-color, 0.3s box-shadow;
 }
 
-.colorpicker:hover {
-    border-color: var(--colorPicker-actionColor-border);
+.jsxrc-colorpicker:hover {
+    border-color: var(--jsxrc-colorPicker-actionColor-border);
 }
 
-.colorpicker:active {
-    box-shadow: 0px 0px 5px 1px var(--colorPicker-actionColor-shadow);
+.jsxrc-colorpicker:active {
+    box-shadow: 0px 0px 5px 1px var(--jsxrc-colorPicker-actionColor-shadow);
 }
 
-.colorpicker::-webkit-color-swatch-wrapper {
+.jsxrc-colorpicker::-webkit-color-swatch-wrapper {
     padding: 0;
 }
 
-.colorpicker::-webkit-color-swatch {
+.jsxrc-colorpicker::-webkit-color-swatch {
     border: 0;
+}
+
+.jsxrc-colorpicker-invalid {
+    border-color: red;
 }

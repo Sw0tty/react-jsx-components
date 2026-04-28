@@ -1,6 +1,6 @@
-import BaseMethods from "../demoComponents/BaseMethods.jsx";
+import BaseMethods from '../demoComponents/BaseMethods.jsx';
 import Playground from '../demoComponents/Playground.jsx';
-import PropDetails from "../demoComponents/PropDetails.jsx";
+import PropDetails from '../demoComponents/PropDetails.jsx';
 
 
 class BaseComponentPage extends BaseMethods {

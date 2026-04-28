@@ -1,15 +1,15 @@
-import BaseMethods from "../demoComponents/BaseMethods.jsx";
+import BaseMethods from '../demoComponents/BaseMethods.jsx';
 import Playground from '../demoComponents/Playground.jsx';
-import ColorPicker from "../lib/src/ColorPicker/ColorPicker.jsx";
-import Switcher from "../lib/src/Switcher/Switcher.jsx";
-import TextBox from "../lib/src/TextBox/TextBox.jsx";
+import ColorPicker from '../lib/src/ColorPicker/ColorPicker.jsx';
+import Switcher from '../lib/src/Switcher/Switcher.jsx';
+import TextBox from '../lib/src/TextBox/TextBox.jsx';
 
 
 class ColorPickerPage extends BaseMethods {
     constructor() {
         super();
         this.state = {
-            caption: "Test caption :",
+            caption: 'Test caption :',
             disabled: false,
             invalid: false,
             borderColorAction: undefined,

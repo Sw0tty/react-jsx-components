@@ -21,7 +21,7 @@ class CustomButtonPage extends BaseMethods {
         console.log("Some text...");
     }
     render() {
-        return(<Playground title="CustomButton"
+        return(<Playground title="CustomButton" titleTip="v0.1.5"
                 pComponent={<CustomButton disabled={true} caption={this.state.caption} type={this.state.type} hoverColor={this.state.hoverColor} isImage={true} iconPath="./icons/Excel.svg" reverse={this.state.reverse} onClickAction={{ func: this.consoleType }} />}
                 componentProps={<>
                     <ComboBox caption="Button type :" valueKey="keyVal" captionKey="keyVal" width={150} selectedItem={this.state.type} items={[{ keyVal: "hollow" }, { keyVal: "fill" }]} onReturnData={{ func: this.setData, params: { propName: "type" } }} />

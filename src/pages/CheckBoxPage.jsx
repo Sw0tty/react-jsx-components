@@ -1,16 +1,16 @@
-import BaseMethods from "../demoComponents/BaseMethods.jsx";
+import BaseMethods from '../demoComponents/BaseMethods.jsx';
 import Playground from '../demoComponents/Playground.jsx';
-import CheckBox from "../lib/src/CheckBox/CheckBox.jsx";
-import Switcher from "../lib/src/Switcher/Switcher.jsx";
-import TextBox from "../lib/src/TextBox/TextBox.jsx";
-import ColorPicker from "../lib/src/ColorPicker/ColorPicker.jsx";
+import CheckBox from '../lib/src/CheckBox/CheckBox.jsx';
+import Switcher from '../lib/src/Switcher/Switcher.jsx';
+import TextBox from '../lib/src/TextBox/TextBox.jsx';
+import ColorPicker from '../lib/src/ColorPicker/ColorPicker.jsx';
 
 
 class CheckBoxPage extends BaseMethods {
     constructor() {
         super();
         this.state = {
-            caption: "Test caption :",
+            caption: 'Test caption :',
             disabled: false,
             checkColor: undefined,
             borderColorAction: undefined,

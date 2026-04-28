@@ -20,12 +20,15 @@
 	user-select: none;
 }
 
-.enable {
+.jsxrc-enable {
 	background: white;
 }
 
-.disabled {
+.jsxrc-disabled {
 	pointer-events: none;
 	background: #e7e7e7;
 }
 
+.jsxrc-invalid {
+    border-color: red;
+}

@@ -11,7 +11,7 @@ class ColorPicker extends BaseComponent {
             { name: 'onReturnData', type: 'CallbackObject' }
         ];
         this.state = {
-            value: props?.value ?? "#ffffff",
+            value: props?.value ?? '#ffffff',
             lastUpdate: props?.lastUpdate
         }
     }
@@ -30,7 +30,7 @@ class ColorPicker extends BaseComponent {
     componentCheckValueUpdate() {
         if (this.props.lastUpdate !== this.state.lastUpdate) {
             this.setState({
-                value: this.props?.value ?? "#ffffff",
+                value: this.props?.value ?? '#ffffff',
                 lastUpdate: this.props.lastUpdate
             });
         }
@@ -38,13 +38,13 @@ class ColorPicker extends BaseComponent {
     renderComponent() {
         this.componentCheckValueUpdate();
         const CSSVariables = {
-            '--colorPicker-actionColor-border': this.props?.actionBorderColor ?? this._baseActionColorBorder,
-            '--colorPicker-actionColor-shadow': this.props?.actionShadowColor ?? this._baseActionColorShadow
+            '--jsxrc-colorPicker-actionColor-border': this.props?.actionBorderColor ?? this._baseActionColorBorder,
+            '--jsxrc-colorPicker-actionColor-shadow': this.props?.actionShadowColor ?? this._baseActionColorShadow
         };
         return (
-            <div className="colorpicker-container" style={{...this.props?.style, ...CSSVariables}}>
-                {this.props?.caption ? <span className="colorpicker-caption">{this.props.caption}</span> : null}
-                <input type="color" className={`colorpicker${this.props.disabled ? ' disabled' : ' enable'}${this.props?.invalid ? ' invalid' : ''}`} value={this.state.value} onChange={(event) => { this.setComponentData(event.target.value) }} />
+            <div className="jsxrc-colorpicker-container" style={{...this.props?.style, ...CSSVariables}}>
+                {this.props?.caption ? <span className="jsxrc-colorpicker-caption">{this.props.caption}</span> : null}
+                <input type="color" className={`jsxrc-colorpicker${this.props.disabled ? ' jsxrc-disabled' : ' jsxrc-enable'}${this.props?.invalid ? ' jsxrc-colorpicker-invalid' : ''}`} value={this.state.value} onChange={(event) => { this.setComponentData(event.target.value) }} />
             </div>
         );
     }
