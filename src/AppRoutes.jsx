@@ -27,6 +27,7 @@ import ItemsPaginatorPage from './pages/ItemsPaginatorPage.jsx';
 import BaseComponentPage from './pages/BaseComponentPage.jsx';
 import MenuPage from './pages/MenuPage.jsx';
 import SliderPage from './pages/SliderPage.jsx';
+import FlipCardPage from './pages/FlipCardPage.jsx';
 import { ROOT_PATH } from './AppConsts.js';
 
 
@@ -62,6 +63,7 @@ function AppRoutes() {
             <Route path={`${ROOT_PATH}/BaseComponent`} element={<BaseComponentPage />} />
             <Route path={`${ROOT_PATH}/Menu`} element={<MenuPage />} />
             <Route path={`${ROOT_PATH}/Slider`} element={<SliderPage />} />
+            <Route path={`${ROOT_PATH}/FlipCard`} element={<FlipCardPage />} />
         </Routes>
     );
 }

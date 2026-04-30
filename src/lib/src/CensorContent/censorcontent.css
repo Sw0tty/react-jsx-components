@@ -74,7 +74,6 @@
     -webkit-mask-position: center;
     mask-position: center;
     background-color: white;
-    
 }
 
 .jsxrc-censorcontent-button-left > img {
@@ -85,8 +84,6 @@
     mask-image: url(./Alt.svg);
 }
 
-
-
 .jsxrc-censorcontent-button-right {
     bottom: -25px;
     right: -25px;
@@ -94,10 +91,6 @@
     -webkit-filter: drop-shadow(0px 0px 5px white);
     filter: drop-shadow(0px 0px 5px white);
 }
-
-/* .jsxrc-censorcontent-button:hover {
-    background: #e4e4e4;
-} */
 
 .jsxrc-censorcontent-container:hover > .jsxrc-censorcontent-button-left {
     bottom: 10px;

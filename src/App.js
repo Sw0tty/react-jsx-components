@@ -95,7 +95,10 @@ class App extends Component {
 							id: undefined, name: "Menu", icon: "Menu", to: ROOT_PATH + "/Menu"
 						},
 						{
-							id: undefined, name: "Slider", short: true, to: ROOT_PATH + "/Slider"
+							id: undefined, name: "Slider", icon: "Slider", to: ROOT_PATH + "/Slider"
+						},
+						{
+							id: undefined, name: "FlipCard", icon: "Card", to: ROOT_PATH + "/FlipCard"
 						},
 					]
 				} />

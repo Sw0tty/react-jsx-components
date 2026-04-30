@@ -23,7 +23,6 @@ class ContainerPage extends BaseMethods {
                 componentDocumentation={[
                     {name: "caption", required: false, dataType: "string", description: "Caption by left side of component."},
                     {name: "children", required: true, dataType: "HTMLContent", description: "Default component value."},
-                    {name: "borderWeight", required: false, dataType: "number", description: "Weight of border container."},
                     {name: "boxStyles", required: false, dataType: "Object", description: "CSS styles for container border."},
                     {name: "bodyStyles", required: false, dataType: "Object", description: "CSS styles for container body."},
                 ]}

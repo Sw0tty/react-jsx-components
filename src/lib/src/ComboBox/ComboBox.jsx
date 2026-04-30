@@ -1,8 +1,5 @@
 import { createRef, Component } from 'react';
 import BaseComponent from '../BaseComponent/BaseComponent.jsx';
-import Arrow from './Arrow.svg';
-import Drop from './Drop.svg';
-import Loupe from './Loupe.svg';
 import './combobox.css';
 
 
@@ -13,8 +10,10 @@ class ComboBox extends BaseComponent {
             { name: 'valueKey', required: true, type: 'string' },
             { name: 'width', type: 'number'},
             { name: 'captionKey', required: true, type: 'string'},
+            { name: 'selectedItem', type: 'any' },
             { name: 'required', type: 'boolean' },
             { name: 'disabled', type: 'boolean' },
+            { name: 'invalid', type: 'boolean' },
             { name: 'items', required: true, type: 'Array' },
             { name: 'onReturnData', type: 'CallbackObject' }
         ];
@@ -94,10 +93,10 @@ class ComboBox extends BaseComponent {
         }
     }
     componentDidMount() {
-        document.addEventListener("mousedown", this.handleClickOutside);
+        document.addEventListener('mousedown', this.handleClickOutside);
     }
     componentWillUnmount() {
-        document.removeEventListener("mousedown", this.handleClickOutside);
+        document.removeEventListener('mousedown', this.handleClickOutside);
     }
     handleClickOutside(event) {
         if ((this.wrapperRef && !this.wrapperRef.current.contains(event.target)) || !this) {
@@ -108,24 +107,23 @@ class ComboBox extends BaseComponent {
         const boxFontSize = this.props?.fontSize ? `${this.props.fontSize}px` : `${this.defaultSize}px`;
         const boxHeight = this.props?.fontSize ? `${this.props.fontSize + this.heightIncrement}px` : `${this.defaultSize + this.heightIncrement}px`;
         const CSSVariables = {
-            '--comboBox-actionColor-border': this.props?.actionBorderColor ?? this._baseActionColorBorder,
-            '--comboBox-actionColor-shadow': this.props?.actionShadowColor ?? this._baseActionColorShadow
+            '--jsxrc-comboBox-actionColor-border': this.props?.actionBorderColor ?? this._baseActionColorBorder,
+            '--jsxrc-comboBox-actionColor-shadow': this.props?.actionShadowColor ?? this._baseActionColorShadow
         };
         return (
-            <div title={this.state?.selectedItem?.caption ?? ''} className="combobox-container" style={{...this.props?.style, ...CSSVariables}}>
-                {this.props?.required || this.props?.caption ? <span className="combobox-caption">{this.props?.required ? this._getRequiredSign() : null}{this.props?.caption ? this.props.caption : null}</span> : null}
+            <div title={this.state?.selectedItem?.caption ?? ''} className="jsxrc-combobox-container" style={{...this.props?.style, ...CSSVariables}}>
+                {this.props?.required || this.props?.caption ? <span className="jsxrc-combobox-caption">{this.props?.required ? this._getRequiredSign() : null}{this.props?.caption ? this.props.caption : null}</span> : null}
                 <div ref={this.wrapperRef}>
-                    <div style={{ position: "relative" }} onMouseLeave={() => { if (this.state.selectedItem) { this.setState({ showClear: false }) } }}>
-                        <span className="combobox-clearitem" style={{ display: this.state.showClear ? "flex" : "none", }} onClick={() => this.clear()}><img alt="" src={Drop} /></span>
-                        <div className={`combobox-selector ${this.props?.disabled ? "disabled" : "enable"} ${this.state.focused ? "focused" : ''}`} onMouseEnter={() => { this.state.selectedItem ? this.setState({ showClear: true }) : this.setState({ showClear: false }) }} onClick={(event) => { if (!this.state.disabled) { this.setState({ listItemsHidden: false, focused: true, inputPos: event.target.getBoundingClientRect() }) } }} style={{ height: boxHeight, fontSize: boxFontSize, width: `${this.props.width}px`, borderColor: this.props.invalidData ? "red" : undefined }}>
-                            <input className="combobox-input" style={{ height: boxHeight, fontSize: boxFontSize, width: `${this.props.width - 24}px` }} value={this.state.listItemsHidden ? '' : this.state.searchingBy} onChange={(event) => this.search(event?.target?.value)} />
-                            <span style={{ fontSize: boxFontSize, color: this.state.listItemsHidden ? "black" : "#bfbfbf" }} className="combobox-value">{this.state.searching ? '' : this.state?.selectedItem?.caption}</span>
-                            <span onClick={() => this.clear()} className="combobox-icon"><img alt="" style={{ opacity: this.state.showClear ? 0 : 1 }} src={`${this.state.listItemsHidden ? Arrow : Loupe}`} /></span>
+                    <div className="jsxrc-combobox-selector-container" onMouseLeave={() => { if (this.state.selectedItem) { this.setState({ showClear: false }) } }}>
+                        <div className={`jsxrc-combobox-selector ${this.props?.disabled ? "jsxrc-combobox-disabled" : "jsxrc-combobox-enable"} ${this.props.invalid ? "jsxrc-combobox-invalid" : ''} ${this.state.focused ? "jsxrc-combobox-focused" : ''}`} onMouseEnter={() => { this.state.selectedItem ? this.setState({ showClear: true }) : this.setState({ showClear: false }) }} style={{ height: boxHeight, fontSize: boxFontSize, width: `${this.props.width}px` }}>
+                            <input className="jsxrc-combobox-input" style={{ height: boxHeight, fontSize: boxFontSize, width: `${this.props.width - 24}px` }} value={this.state.listItemsHidden ? '' : this.state.searchingBy} onChange={(event) => this.search(event?.target?.value)} onClick={(event) => { if (!this.state.disabled) { this.setState({ listItemsHidden: false, focused: true, inputPos: event.target.getBoundingClientRect() }) } }} />
+                            <span className="jsxrc-combobox-value" style={{ fontSize: boxFontSize, color: this.state.listItemsHidden ? "black" : "#bfbfbf" }}>{this.state.searching ? '' : this.state?.selectedItem?.caption}</span>
+                            <span className={`jsxrc-combobox-icon ${this.state.showClear ? "jsxrc-combobox-icon-drop" : this.state.listItemsHidden ? "jsxrc-combobox-icon-arrow" : "jsxrc-combobox-icon-loupe"}`} onClick={() => { if (this.state.showClear) { this.clear() } }}><img alt="" /></span>
                         </div>
                     </div>
                     <CBListWrapper hidden={this.state.listItemsHidden}>
-                        <ul style={{ maxHeight: this.state.listItemsHidden ? 0 : "150px" }} className="combobox-items-container">
-                            {this.state?.listData.map((el, idx) => { return <li title={el[this.props.captionKey]} className="combobox-item" style={{ fontSize: boxFontSize }} key={idx} onClick={() => this.selectItem(idx, el[this.props.valueKey], el[this.props.captionKey])}>{el[this.props.captionKey]}</li> })}
+                        <ul style={{ maxHeight: this.state.listItemsHidden ? 0 : "150px" }} className="jsxrc-combobox-items-container">
+                            {this.state?.listData.map((el, idx) => { return <li title={el[this.props.captionKey]} className="jsxrc-combobox-item" style={{ fontSize: boxFontSize }} key={idx} onClick={() => this.selectItem(idx, el[this.props.valueKey], el[this.props.captionKey])}>{el[this.props.captionKey]}</li> })}
                         </ul>
                     </CBListWrapper>
                 </div>
@@ -142,7 +140,7 @@ class CBListWrapper extends Component {
             hidden: props.hidden,
             bindingElement: {
                 willShow: false,
-                display: "none"
+                display: 'none'
             }
         }
     }
@@ -198,7 +196,7 @@ class CBListWrapper extends Component {
     render() {
         return (
             this.state.bindingElement.display === "none" ? null :
-                <div className="combobox-listwrapper" style={{ display: this.state.bindingElement.display, opacity: this.state?.bindingElement?.willShow ? 1 : 0 }}>
+                <div className="jsxrc-combobox-listwrapper" style={{ display: this.state.bindingElement.display, opacity: this.state?.bindingElement?.willShow ? 1 : 0 }}>
                     {this.props.children}
                 </div>
         );

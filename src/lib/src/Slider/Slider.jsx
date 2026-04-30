@@ -14,7 +14,7 @@ class Slider extends BaseComponent {
 
         this.baseTransition = 'transform 0.3s ease-in-out';
         this.state = {
-            currentSlide: props?.startSlide ?? 0,
+            currentSlide: props?.startSlide ? props?.startSlide - 1 : 0,
             slides_: props?.slides,
             sliderTransition: this.baseTransition,
             sliderTranslate: props?.startSlide ? (props.startSlide - 1) * -100 : 0,
@@ -89,9 +89,6 @@ class Slider extends BaseComponent {
             <div className="jsxrc-slider-container" style={{ height: `${this.props.height}px`, width: `${this.props.width}px` }}>
                 <div className="jsxrc-slider">
                     <div style={{ flexDirection: this.props.direction === 'horizontal' ? 'row' : 'column', transition: this.state.sliderTransition, transform: `translate${this.props.direction === 'horizontal' ? 'X' : 'Y'}(${this.state.sliderTranslate}%)` }} className="jsxrc-slider-slides-container">
-                        {/* {
-                            this.props?.slides?.map((slide, idx) => { return <div key={idx} style={{ transform: this.state.currentSlide }} className="jsxrc-slider-slide">{slide.data}</div> })
-                        } */}
                         {
                             this.state?.slidesQueue.map(slideIdx => { return <div key={slideIdx} style={{ transform: this.state.currentSlide }} className="jsxrc-slider-slide">{this.props.slides[slideIdx].data}</div> })
                         }

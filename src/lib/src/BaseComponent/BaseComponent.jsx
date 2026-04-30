@@ -125,6 +125,8 @@ class BaseComponent extends Component {
                         return this._getErrorBlock("Prop with type of 'CallbackObject' must be Object with required key 'func' and value type of 'function'.");
                     }
                     break;
+                case 'any':
+                    break;
                 default:
                     return this._getErrorBlock(`ERROR! Unexpected type '${prop.type}' for rule 'type'.`);
             }
