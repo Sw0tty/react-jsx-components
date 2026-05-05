@@ -18,23 +18,23 @@ class ContentHider extends BaseComponent {
     }
     renderComponent() {
         const CSSVariables = {
-            '--contentHider-actionColor-border': this.props?.actionBorderColor ?? this._baseActionColorBorder,
-            '--contentHider-actionColor-shadow': this.props?.actionShadowColor ?? this._baseActionColorShadow
+            '--jsxrc-contentHider-actionColor-border': this.props?.actionBorderColor ?? this._baseActionColorBorder,
+            '--jsxrc-contentHider-actionColor-shadow': this.props?.actionShadowColor ?? this._baseActionColorShadow
         };
         return (
-            <div className="contenthider-container" style={{ width: this.props?.width ?? null, ...CSSVariables }}>
-               <div className="contenthider-hider-container" title={this.props.caption} onClick={() => this.setState({ shrinked: !this.state.shrinked })}>
-                    <div className="contenthider-hider">
-                        <div className="contenthider-hider-caption">
+            <div className="jsxrc-contenthider-container" style={{ width: this.props?.width ?? null, ...CSSVariables }}>
+               <div className="jsxrc-contenthider-hider-container" title={this.props.caption} onClick={() => this.setState({ shrinked: !this.state.shrinked })}>
+                    <div className="jsxrc-contenthider-hider">
+                        <div className="jsxrc-contenthider-hider-caption">
                             {this.props.caption}
                         </div>
-                        <div className="contenthider-hider-icon">
+                        <div className="jsxrc-contenthider-hider-icon">
                             <img alt="" style={{ transform: `rotate(${this.state.shrinked ? 0 : -180}deg)` }} />
                         </div>
                     </div>
                 </div>
-                <div className="contenthider-body-container" style={{ height: this.state.shrinked ? "0px" : this.state.maxHeight ?? "100px" }}>
-                    <div className="contenthider-body">
+                <div className="jsxrc-contenthider-body-container" style={{ height: this.state.shrinked ? "0px" : this.state.maxHeight ?? "100px" }}>
+                    <div className="jsxrc-contenthider-body">
                         {this.props.children}
                     </div>
                 </div>

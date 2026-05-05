@@ -1,4 +1,8 @@
-.contextmenu-container {
+.jsxrc-contextmenu-children-container {
+	position: relative;
+}
+
+.jsxrc-contextmenu-container {
 	position: absolute;
 	background: white;
 	border-radius: 2px;
@@ -11,12 +15,12 @@
 	z-index: 200;
 }
 
-.contextmenu-separator {
+.jsxrc-contextmenu-separator {
 	background: gray;
 	height: 1px;
 }
 
-.contextmenu-element {
+.jsxrc-contextmenu-element {
 	display: flex;
 	align-items: center;
 	width: 100%;
@@ -30,7 +34,7 @@
     text-decoration: none;
 }
 
-.contextmenu-element-caption {
+.jsxrc-contextmenu-element-caption {
 	font-size: 11px;
 	font-family: Helvetica, sans-serif;
 	white-space: nowrap;
@@ -39,16 +43,16 @@
     padding: 0 5px;
 }
 
-.contextmenu-element:hover {
-	color: var(--contextMenuHoverColor);
+.jsxrc-contextmenu-element:hover {
+	color: var(--jsxrc-contextMenuHoverColor);
 	background: #f3f3f3;
 }
 
-.contextmenu-element:hover img {
-	background-color: var(--contextMenuHoverColor);
+.jsxrc-contextmenu-element:hover img {
+	background-color: var(--jsxrc-contextMenuHoverColor);
 }
 
-.contextmenu-element-icon img {
+.jsxrc-contextmenu-element-icon img {
 	display: block;
 	mask-size: 100%;
 	-webkit-mask-repeat: no-repeat;
@@ -58,11 +62,11 @@
 	width: 13px;
 	height: 13px;
 	background-color: black;
-	transition: 0.3s background-color;
+	transition: background-color 0.3s;
 	margin-right: 5px;
 	margin: 0 5px;
 }
 
-.contextmenuwrapper-container {
+.jsxrc-contextmenu-wrapper-container {
     transition: opacity 0.1s ease-in-out;
 }

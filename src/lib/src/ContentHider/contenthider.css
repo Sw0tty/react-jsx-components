@@ -1,4 +1,4 @@
-.contenthider-container {
+.jsxrc-contenthider-container {
     display: flex;
     flex-direction: column;
     position: relative;
@@ -6,13 +6,13 @@
     min-width: 150px;
 }
 
-.contenthider-hider-container {
+.jsxrc-contenthider-hider-container {
     width: 100%;
     cursor: pointer;
     user-select: none;
 }
 
-.contenthider-hider {
+.jsxrc-contenthider-hider {
     display: flex;
     background: white;
     align-items: center;
@@ -24,15 +24,15 @@
     transition: 0.3s border-color, 0.1s box-shadow ease-in;
 }
 
-.contenthider-hider:hover {
-    border-color: var(--contentHider-actionColor-border);
+.jsxrc-contenthider-hider:hover {
+    border-color: var(--jsxrc-contentHider-actionColor-border);
 }
 
-.contenthider-hider:active {
-    box-shadow: 0px 0px 5px 1px var(--contentHider-actionColor-shadow);
+.jsxrc-contenthider-hider:active {
+    box-shadow: 0px 0px 5px 1px var(--jsxrc-contentHider-actionColor-shadow);
 }
 
-.contenthider-hider-caption {
+.jsxrc-contenthider-hider-caption {
     font-family: Helvetica, sans-serif;
     font-size: 13px;
     color: black;
@@ -41,14 +41,14 @@
     text-overflow: ellipsis;
 }
 
-.contenthider-body-container {
+.jsxrc-contenthider-body-container {
     width: 100%;
     display: flex;
     transition: height 0.3s;
     overflow: hidden;
 }
 
-.contenthider-body {
+.jsxrc-contenthider-body {
     flex: 1 0;
     margin: 0px 5px 0px 5px;
     border: 1px solid #959595;
@@ -59,12 +59,12 @@
     overflow-y: auto;
 }
 
-.contenthider-hider-icon {
+.jsxrc-contenthider-hider-icon {
     min-width: 20px;
     height: 20px;
 }
 
-.contenthider-hider-icon img {
+.jsxrc-contenthider-hider-icon img {
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-position: center;

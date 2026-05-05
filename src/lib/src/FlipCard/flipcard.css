@@ -30,12 +30,12 @@
 
 .jsxrc-flipcard {
     position: relative;
-    perspective: var(--jsxec-cardflip-perspective);
+    perspective: var(--jsxrc-cardflip-perspective);
 }
 
 .jsxrc-flipcard, .jsxrc-flipcard-front, .jsxrc-flipcard-back {
-    height: var(--jsxec-cardflip-height);
-    width: var(--jsxec-cardflip-width);
+    height: var(--jsxrc-cardflip-height);
+    width: var(--jsxrc-cardflip-width);
 }
 
 .jsxrc-flipcard-front, .jsxrc-flipcard-back {

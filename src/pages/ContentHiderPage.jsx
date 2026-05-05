@@ -1,9 +1,9 @@
-import BaseMethods from "../demoComponents/BaseMethods.jsx";
+import BaseMethods from '../demoComponents/BaseMethods.jsx';
 import Playground from '../demoComponents/Playground.jsx';
-import ContentHider from "../lib/src/ContentHider/ContentHider.jsx";
-import TextBox from "../lib/src/TextBox/TextBox.jsx";
-import TextArea from "../lib/src/TextArea/TextArea.jsx";
-import ColorPicker from "../lib/src/ColorPicker/ColorPicker.jsx";
+import ContentHider from '../lib/src/ContentHider/ContentHider.jsx';
+import TextBox from '../lib/src/TextBox/TextBox.jsx';
+import TextArea from '../lib/src/TextArea/TextArea.jsx';
+import ColorPicker from '../lib/src/ColorPicker/ColorPicker.jsx';
 
 
 class ContentHiderPage extends BaseMethods {

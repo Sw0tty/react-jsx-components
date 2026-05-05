@@ -1,7 +1,6 @@
-import { createRef } from 'react';
-import BaseComponent from '../BaseComponent/BaseComponent.jsx';
-import { Component } from 'react';
+import { createRef, Component } from 'react';
 import { Link } from 'react-router-dom';
+import BaseComponent from '../BaseComponent/BaseComponent.jsx';
 import './contextmenu.css';
 
 
@@ -13,7 +12,7 @@ class ContextMenu extends BaseComponent {
             { name: 'contextActions', required: true, type: 'ArrayOfObjects' },
             { name: 'iconsPath', type: 'string' }
         ];
-        this.baseHoverColor = "#13b3eb";
+        this._baseHoverColor = '#13b3eb';
         this.wrapperRef = createRef();
         this.childrenRef = createRef();
         this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -24,11 +23,11 @@ class ContextMenu extends BaseComponent {
     }
     componentDidMount() {
         if (this.childrenRef.current) {
-            document.addEventListener("mousedown", this.handleClickOutside);
+            document.addEventListener('mousedown', this.handleClickOutside);
         }
     }
     componentWillUnmount() {
-        document.removeEventListener("mousedown", this.handleClickOutside);
+        document.removeEventListener('mousedown', this.handleClickOutside);
     }
     handleClickOutside(event) {
         if ((this.childrenRef && !this.childrenRef.current?.contains(event.target)) || event.button === 0) {
@@ -50,43 +49,42 @@ class ContextMenu extends BaseComponent {
             }
         }
     }
-    showContext = (event) => {
-        
+    showContext(event) {
         event.preventDefault();
-
+        const contextMenuRect = this.wrapperRef.current.getBoundingClientRect();
         this.setState({
             hidden: false,
             contextPos: {
-                x: event.nativeEvent.offsetX,
-                y: event.nativeEvent.offsetY
+                x: event.pageX + contextMenuRect.width > event.view.innerWidth ? event.nativeEvent.offsetX - contextMenuRect.width : event.nativeEvent.offsetX,
+                y: event.pageY + contextMenuRect.height > event.view.innerHeight ? event.nativeEvent.offsetY - contextMenuRect.height : event.nativeEvent.offsetY
             }
-         })
+        });
     }
     renderComponent() {
         return (
-            <div style={{ position: "relative" }}>
+            <div className="jsxrc-contextmenu-children-container">
                 <div ref={this.childrenRef} onContextMenu={(event) => { this.showContext(event) } }>{this.props.children}</div>
                 <CMWrapper hidden={this.state.hidden}>
-                    <div ref={this.wrapperRef} style={{ left: `${this.state?.contextPos?.x}px`, top: `${this.state?.contextPos?.y - (this.state?.contextHeight + this.state?.contextPos?.y > window.innerHeight ? this.state?.contextHeight : 0)}px` }} className="contextmenu-container">
+                    <div className="jsxrc-contextmenu-container" ref={this.wrapperRef} style={{ left: `${this.state?.contextPos?.x}px`, top: `${this.state?.contextPos?.y - (this.state?.contextHeight + this.state?.contextPos?.y > window.innerHeight ? this.state?.contextHeight : 0)}px` }} onContextMenu={(event) => { event.preventDefault() }}>
                         {
                             this.props.contextActions.map((itemsGroup, groupIdx) => {
                                 return (
                                     <div key={groupIdx}>
                                         {itemsGroup.map((item, idx) => {
                                             return (
-                                                <Link key={idx} title={item.caption} style={{ '--contextMenuHoverColor': item?.color ?? this.baseHoverColor }} className="contextmenu-element" onClick={(event) => item?.onClick?.func ? item.onClick?.func({ event: event, ...item.onClick?.params }) : this.setState({ hidden: true })} to={!(item?.onClick?.func) && item?.onClick?.redirect ? `/${item?.onClick?.redirect}` : ''} >
+                                                <Link key={idx} className="jsxrc-contextmenu-element" style={{ '--jsxrc-contextMenuHoverColor': item?.color ?? this._baseHoverColor }} title={item.caption} onClick={(event) => { item?.onClick?.func && typeof(item.onClick.func) === 'function' ? item.onClick.func({ event: event, ...item.onClick?.params }) : this.setState({ hidden: true }) }} to={(!(item?.onClick?.func) && !!(item?.onClick?.redirect)) ? `/${item?.onClick?.redirect}` : ''}>
                                                     {
                                                         item?.icon ? 
-                                                            <div className="contextmenu-element-icon">
+                                                            <div className="jsxrc-contextmenu-element-icon">
                                                                 <img alt="" style={{ WebkitMaskImage: `url(${item?.iconPath ?? this.props?.iconsPath ?? './'}${item.icon}.svg)`, maskImage: `url(${item?.iconPath ?? this.props?.iconsPath ?? './'}${item.icon}.svg)` }} />
                                                             </div>
                                                         : null
                                                     }
-                                                    <div className="contextmenu-element-caption">{item.caption}</div>
+                                                    <div className="jsxrc-contextmenu-element-caption">{item.caption}</div>
                                                 </Link>
                                             );
                                         })}
-                                        {groupIdx + 1 !== this.props.contextActions.length ? <div className="contextmenu-separator"></div> : null}
+                                        {groupIdx + 1 !== this.props.contextActions.length ? <div className="jsxrc-contextmenu-separator"></div> : null}
                                     </div>
                                 );
                             })
@@ -106,12 +104,12 @@ class CMWrapper extends Component {
             hidden: props.hidden,
             bindingElement: {
                 willShow: false,
-                display: "none"
+                display: 'none'
             }
         }
     }
     hideModalHandler = () => {
-        const CSSTransitionTime = 100;
+        const CSSTransitionTime = 150;
 
         this.setState({
             hidden: this.props.hidden
@@ -129,7 +127,7 @@ class CMWrapper extends Component {
                 this.setState(prevState => ({
                     bindingElement: {
                         ...prevState.bindingElement,
-                        display: "none"
+                        display: 'none'
                     }
                 }));
             }, CSSTransitionTime);
@@ -137,7 +135,7 @@ class CMWrapper extends Component {
             this.setState(prevState => ({
                 bindingElement: {
                     ...prevState.bindingElement,
-                    display: "flex"
+                    display: 'flex'
                 }
             }));
 
@@ -162,7 +160,7 @@ class CMWrapper extends Component {
     render() {
         return (
             this.state.bindingElement.display === "none" ? null :
-                <div className="contextmenuwrapper-container" style={{ display: this.state.bindingElement.display, opacity: this.state?.bindingElement?.willShow ? 1 : 0 }}>
+                <div className="jsxrc-contextmenu-wrapper-container" style={{ display: this.state.bindingElement.display, opacity: this.state?.bindingElement?.willShow ? 1 : 0 }}>
                     {this.props.children}
                 </div>
         );

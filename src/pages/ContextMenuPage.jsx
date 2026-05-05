@@ -1,18 +1,16 @@
-import BaseMethods from "../demoComponents/BaseMethods.jsx";
+import BaseMethods from '../demoComponents/BaseMethods.jsx';
 import Playground from '../demoComponents/Playground.jsx';
-import ContextMenu from "../lib/src/ContextMenu/ContextMenu.jsx";
-import PropDetails from "../demoComponents/PropDetails.jsx";
+import ContextMenu from '../lib/src/ContextMenu/ContextMenu.jsx';
+import PropDetails from '../demoComponents/PropDetails.jsx';
 
 
 class ContextMenuPage extends BaseMethods {
     constructor() {
         super();
         this.state = {
-            caption: "My secret info",
-            width: "250px",
             actions: [
                 [
-                    { caption: "Print in console", onClick: { func: () => { console.log('Some func to call...') } } }
+                    { caption: "Print in console", onClick: { func: (data) => { const { event } = data; console.log(event.target, 'Some func to call...') } } }
                 ],
                 [
                     { caption: "Redirect to StepsList", color: "green", icon: "StepsList", onClick: { redirect: "react-jsx-components/StepsList" } },

@@ -17,32 +17,26 @@ class FlipCard extends BaseComponent {
     }
     renderComponent() {
         const CSSVariables = {
-            '--jsxec-cardflip-width': `${this.props?.width}px`,
-            '--jsxec-cardflip-height': `${this.props?.height}px`,
-            '--jsxec-cardflip-perspective': `${this.props?.width + 100}px`
+            '--jsxrc-cardflip-width': `${this.props?.width}px`,
+            '--jsxrc-cardflip-height': `${this.props?.height}px`,
+            '--jsxrc-cardflip-perspective': `${this.props?.width + 100}px`
         };
 
         return (
             <div className="jsxrc-flipcard-container">
-
-
-                <div class="jsxrc-flipcard" style={CSSVariables}>
+                <div className="jsxrc-flipcard" style={CSSVariables}>
                     <input name="jsxrc-flipcard-state" id="jsxrc-flipcard-state" type="checkbox"/>
-                    
-                    <div class="jsxrc-flipcard-inner">
-                    
-                        <div class="jsxrc-flipcard-front" style={this.props?.frontSurfaceStyles}>
-                            {this.props?.selfFlippers ? null : <label class="jsxrc-flipcard-flipper" for="jsxrc-flipcard-state">Flip</label>}
+                    <div className="jsxrc-flipcard-inner">
+                        <div className="jsxrc-flipcard-front" style={this.props?.frontSurfaceStyles}>
+                            {this.props?.selfFlippers ? null : <label className="jsxrc-flipcard-flipper" htmlFor="jsxrc-flipcard-state">Flip</label>}
                             {this.props?.front}
                         </div>
-                        
-                        <div class="jsxrc-flipcard-back" style={this.props?.backSurfaceStyles}>
-                            {this.props?.selfFlippers ? null : <label class="jsxrc-flipcard-flipper" for="jsxrc-flipcard-state">Flip</label>}
+                        <div className="jsxrc-flipcard-back" style={this.props?.backSurfaceStyles}>
+                            {this.props?.selfFlippers ? null : <label className="jsxrc-flipcard-flipper" htmlFor="jsxrc-flipcard-state">Flip</label>}
                             {this.props?.back}
                         </div>
                     </div>
                 </div>
-
             </div>
         );
     }

@@ -1,8 +1,8 @@
-import BaseMethods from "../demoComponents/BaseMethods.jsx";
+import BaseMethods from '../demoComponents/BaseMethods.jsx';
 import Playground from '../demoComponents/Playground.jsx';
-import Container from "../lib/src/Container/Container.jsx";
-import TextBox from "../lib/src/TextBox/TextBox.jsx";
-import TextArea from "../lib/src/TextArea/TextArea.jsx";
+import Container from '../lib/src/Container/Container.jsx';
+import TextBox from '../lib/src/TextBox/TextBox.jsx';
+import TextArea from '../lib/src/TextArea/TextArea.jsx';
 
 
 class ContainerPage extends BaseMethods {
