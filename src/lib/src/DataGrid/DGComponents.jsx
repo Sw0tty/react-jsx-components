@@ -1,4 +1,4 @@
-import { Component, createRef } from "react";
+import { Component, createRef } from 'react';
 import { Link } from 'react-router-dom';
 import './dgcomponents.css';
 
@@ -175,14 +175,14 @@ export class DGContextMenu extends Component {
         const baseHoverColor = "#13b3eb";
         return (
             <DGContextMenuWrapper hidden={this.props.hidden}>
-                <div ref={this.wrapperRef} style={{ left: `${this.props?.contextPos?.x}px`, top: `${this.props?.contextPos?.y - (this.state?.contextHeight + this.props?.contextPos?.y > window.innerHeight ? this.state?.contextHeight : 0)}px` }} className="dgcontextmenu-container">
+                <div ref={this.wrapperRef} className="dgcontextmenu-container" style={{ left: `${this.props?.contextPos?.x}px`, top: `${this.props?.contextPos?.y - (this.state?.contextHeight + this.props?.contextPos?.y > window.innerHeight ? this.state?.contextHeight : 0)}px` }} onContextMenu={(event) => { event.preventDefault() }}>
                     {
                         this.props.contextActions.map((itemsGroup, groupIdx) => {
                             return (
                                 <div key={groupIdx}>
                                     {itemsGroup.map((item, idx) => {
                                         return (
-                                            <Link key={idx} title={item.caption} style={{ '--dgcontextMenuHoverColor': item?.color ?? baseHoverColor }} className="dgcontextmenu-element" onClick={(event) => item?.onClick?.func ? item.onClick?.func({ event: event, ...item.onClick?.params }) : this.props.onHide()} to={!(item?.onClick?.func) && item?.onClick?.redirect ? `/${item?.onClick?.redirect}` : ''} >
+                                            <Link key={idx} title={item.caption} style={{ '--dgcontextMenuHoverColor': item?.color ?? baseHoverColor }} className="dgcontextmenu-element" onClick={(event) => item?.onClick?.func ? item.onClick?.func({ event: event, ...item.onClick?.params }) : this.props.onHide()} to={!(item?.onClick?.func) && !(item?.onClick?.redirect) ? `/${item?.onClick?.redirect}` : ''} >
                                                 <div className="dgcontextmenu-element-icon">
                                                     <img alt="" style={{ WebkitMaskImage: `url(${item?.iconPath ?? this.props?.iconsPath ?? './'}${item.icon}.svg)`, maskImage: `url(${item?.iconPath ?? this.props?.iconsPath ?? './'}${item.icon}.svg)` }} />
                                                 </div>
@@ -213,7 +213,7 @@ class DGContextMenuWrapper extends Component {
         }
     }
     hideModalHandler = () => {
-        const CSSTransitionTime = 100;
+        const CSSTransitionTime = 150;
 
         this.setState({
             hidden: this.props.hidden

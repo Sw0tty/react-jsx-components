@@ -1,0 +1,78 @@
+.modal-product-card-container {
+    width: 400px;
+    background: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    height: 500px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-product-card-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #dbdbdb;
+}
+
+.modal-product-card-header-caption {
+    margin-left: 10px;
+    font-size: 13px;
+    font-family: monospace;
+    user-select: none;
+}
+
+.modal-product-card-header-close-btn {
+    display: flex;
+    background: #f01919;
+    height: 100%;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.modal-product-card-header-close-btn:hover {
+    background: #c70f0f;
+}
+
+.modal-product-card-header-close-btn > span {
+    transform: rotate(45deg);
+    font-family: monospace;
+    color: white;
+    user-select: none;
+    font-size: 16px;
+}
+
+.model-product-card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 0 0%;
+}
+
+.model-product-card-body-price {
+    text-align: center;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.model-product-card-body-down-price {
+    color: #11c011;
+    transform: rotate(180deg);
+    text-shadow: 0 0 10px #38ff00;
+    font-size: 60px;
+}
+
+.model-product-card-body-up-price {
+    color: #c01111;
+    text-shadow: 0 0 10px #ff0000;
+    font-size: 60px;
+}

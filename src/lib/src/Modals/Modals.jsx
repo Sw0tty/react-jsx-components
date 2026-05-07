@@ -1,4 +1,5 @@
-import { Component } from "react";
+import { Component } from 'react';
+import BaseComponent from '../BaseComponent/BaseComponent.jsx';
 import CustomButton from "../CustomButton/CustomButton.jsx";
 import './modals.css';
 
@@ -37,6 +38,50 @@ export class InfoModalForm extends Component {
             </ModalWrapper>
 		);
 	}
+}
+
+
+export class EmptyModalForm extends BaseComponent {
+    constructor(props) {
+        super();
+        this._propsRules = [
+            { name: 'children', required: true },
+            { name: 'hidden', required: true, type: 'boolean' }
+        ];
+    }
+    renderComponent() {
+        return (
+            <ModalWrapper hidden={this.props.hidden}>
+                {this.props.children}
+            </ModalWrapper>
+        );
+    }
+}
+
+
+export class CustomModalForm extends BaseComponent {
+    constructor(props) {
+        super();
+        this._propsRules = [
+            { name: 'children', required: true },
+            { name: 'hidden', required: true, type: 'boolean' },
+            { name: 'buttons', type: 'ArrayOfObjects' }
+        ];
+    }
+    renderComponent() {
+        return (
+            <ModalWrapper hidden={this.props.hidden}>
+                <div className="jsxrc-custommodalform-container">
+                    <div className="jsxrc-custommodalform-body-container">{this.props.children}</div>
+                    <div className="jsxrc-custommodalform-buttons-container">
+                        {this.props?.buttons?.map(button => {
+                            return <CustomButton caption={button?.caption} type={button?.type} onClickAction={{ func: button?.onClickAction?.func, params: button?.onClickAction?.params }} style={button?.style} />
+                        })}
+                    </div>
+                </div>
+            </ModalWrapper>
+        );
+    }
 }
 
 

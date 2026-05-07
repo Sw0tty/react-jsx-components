@@ -1,9 +1,13 @@
-import BaseMethods from "../demoComponents/BaseMethods.jsx";
-import DataGrid from "../lib/src/DataGrid/DataGrid.jsx";
+import BaseMethods from '../demoComponents/BaseMethods.jsx';
+import DataGrid from '../lib/src/DataGrid/DataGrid.jsx';
 import Playground from '../demoComponents/Playground.jsx';
-import PropDetails from "../demoComponents/PropDetails.jsx";
-import IconItem from "../lib/src/IconItem/IconItem.jsx";
-import Switcher from "../lib/src/Switcher/Switcher.jsx";
+import PropDetails from '../demoComponents/PropDetails.jsx';
+import IconItem from '../lib/src/IconItem/IconItem.jsx';
+import Switcher from '../lib/src/Switcher/Switcher.jsx';
+import ColorPicker from '../lib/src/ColorPicker/ColorPicker.jsx';
+import ComboBox from '../lib/src/ComboBox/ComboBox.jsx';
+import { EmptyModalForm } from '../lib/src/Modals/Modals.jsx';
+import '../pagesStyles/datagrid-page.css';
 
 
 const IN_STOCK = <IconItem iconPath="./icons/CheckCircle" iconColor="#4ce317" shadowColor="#54f71b" addGlow={true} shadowStrong="5px" size="18px" />;
@@ -12,8 +16,22 @@ const SOLD_OUT = <IconItem iconPath="./icons/CrossCircle" iconColor="#e33a17" sh
 class DataGridPage extends BaseMethods {
     constructor() {
         super();
+        this._productDetailsModalName = 'product-details';
         this.state = {
-            data: [{ id: 1, caption: "Apple", price: 1.25, quant: 100, lastOrder: '2025-02-06 12:07:31' }, { id: 2, caption: "Banana", price: 0.89, quant: 23, lastOrder: '2025-02-06 05:25:19' }, { id: 3, caption: "Grapes", price: 2.49, quant: 64, lastOrder: '2025-02-06 05:27:56' }, { id: 4, caption: "Kiwi", price: 3.50, quant: 0, lastOrder: '2025-02-03 15:45:40' }, { id: 5, caption: "Lemon", price: 1.75, quant: 87, lastOrder: '2025-02-06 05:25:19' }, { id: 6, caption: "Peach", price: 2.99, quant: 2, lastOrder: '2025-02-06 05:25:19' }, { id: 7, caption: "Orange", price: 1.49, quant: 55, lastOrder: '2025-02-06 05:25:19' }],
+            data: [
+                { id: 1, caption: "Apple", price: 1.25, quant: 100, priceDown: true, lastOrder: '2025-02-06 12:07:31' },
+                { id: 2, caption: "Banana", price: 0.89, quant: 23, priceDown: true, lastOrder: '2025-02-06 05:25:19' },
+                { id: 3, caption: "Grapes", price: 2.49, quant: 64, priceDown: false, lastOrder: '2025-02-06 05:27:56' },
+                { id: 4, caption: "Kiwi", price: 3.50, quant: 0, priceDown: false, lastOrder: '2025-02-03 15:45:40' },
+                { id: 5, caption: "Lemon", price: 1.75, quant: 87, priceDown: true, lastOrder: '2025-02-06 05:25:19' },
+                { id: 6, caption: "Peach", price: 2.99, quant: 2, priceDown: false, lastOrder: '2025-02-06 05:25:19' },
+                { id: 7, caption: "Orange", price: 1.49, quant: 55, priceDown: true, lastOrder: '2025-02-06 05:25:19' }
+            ],
+            productsGridRowColor: '#b3dbff',
+            productsGridCellColor: '#9cb9f2',
+            productsGridSorterShadowColor: '#70c6ff',
+            productsGridSorterActionColor: '#077be1',
+            productsDataGridLanguage: 'en',
             rowNumDG1: true,
             checkBoxesDG1: false,
             toolbarDG1: true,
@@ -39,7 +57,14 @@ class DataGridPage extends BaseMethods {
                 { id: 13, parentId: 11, mark: "Q7", colorName: "Platinum Silver", colorValue: "#C0C0C0", price: 65000, prodDate: 2022 },
                 { id: 14, parentId: 11, mark: "R8", colorName: "Ruby Red", colorValue: "#DC143C", price: 150000, prodDate: 2023 }
             ],
-            contextMenu: [[{ caption: "Edit" }, { caption: "Add" }], [{ caption: "Delete", color: "red" }]], // func is priority on redirect
+            contextMenu: [
+                [
+                    { caption: "View", func: (params) => { this.setProductDetails(params._selectedData); this.openModal({modalName: this._productDetailsModalName}); } },
+                    { caption: "Add" }
+                ],
+                [
+                    { caption: "Delete", color: "red" }
+                ]], // func is priority on redirect
             tools: [{ caption: "Download" }, { caption: "Set default", color: "red" }],
             hoverColor: null,
             reverse: false,
@@ -49,18 +74,76 @@ class DataGridPage extends BaseMethods {
                     default: { iconName: "Car.svg" },
                     icons: [{ value: null, iconName: "CarMark.svg" }]
                 }
+            },
+            modalsHideState: {
+                [this._productDetailsModalName]: true,
+            },
+            productCardDetails: {
+                name: undefined,
+                count: undefined,
+                price: undefined,
+                priceDown: undefined
             }
         }
     }
+    setProductDetails = (data) => {
+        this.setState({
+            productCardDetails: {
+                name: data.caption,
+                count: data.quant,
+                price: data.price,
+                priceDown: data.priceDown
+            }
+        });
+    }
+    openModal = (params) => {
+        const { modalName } = params;
+
+        const modalsStates = this.state.modalsHideState;
+        modalsStates[modalName] = false;
+        this.setState({
+            modalsHideState: modalsStates
+        });
+    }
+    closeModal = (params) => {
+        const { modalName } = params;
+
+        const modalsStates = this.state.modalsHideState;
+        modalsStates[modalName] = true;
+        this.setState({
+            modalsHideState: modalsStates
+        });
+    }
     render() {
         return(<>
-            <Playground title={<div style={{ display: "flex", justifyContent: "center", position: "relative" }}><div>DataGrid</div><div><span style={{ fontSize: "12px", padding: "0 5px", position: "absolute", borderRadius: "5px", fontWeight: "bolder", color: "white", background: "gray"  }}>BETA</span></div></div>}
-                pComponent={<DataGrid language="ru" rowNum={this.state.rowNumDG1} searchTool={this.state.searchToolDG1} checkBoxes={this.state.checkBoxesDG1} styles={{ height: "400px" }} searchByColumns={["caption"]} toolbar={this.state.toolbarDG1} tools={this.state.tools} contextMenu={this.state.contextMenu} fields={[{ key: "caption", columnName: "Name", width: 120, sorting: true, filter: true }, { key: "price", columnName: "Price", dataType: "number", sorting: true, render: (rowData) => { return `$ ${rowData.price}` }, style: { textAlign: "right"} }, { key: "quant", columnName: "Quantity in stock", filter: true }, { key: "inStock", columnName: "In stock", style: { display: "flex", justifyContent: "center" }, render: (rowData) => { return rowData.quant === 0 ? SOLD_OUT : IN_STOCK } }, { key: "lastOrder", columnName: "Last order", width: 150, dataType: "datetime" }]} data={this.state.data} />}
+            <EmptyModalForm children={<div className="modal-product-card-container">
+                <div className="modal-product-card-header">
+                    <span className="modal-product-card-header-caption">Product card</span>
+                    <div className="modal-product-card-header-close-btn" onClick={() => {this.closeModal({ modalName: 'product-details' })}}><span>+</span></div>
+                </div>
+                <div className="model-product-card-body">
+                    <div>
+                        <div className="model-product-card-body-name">{this.state.productCardDetails?.name}</div>
+                        <div className="model-product-card-body-quant">{this.state.productCardDetails?.name}</div>
+                    </div>
+                    <div className="model-product-card-body-price">
+                        <span className={this.state.productCardDetails?.priceDown ? "model-product-card-body-down-price" : "model-product-card-body-up-price"}>^</span>
+                        <span className="model-product-card-body-price-caption">$ {this.state.productCardDetails?.price}</span>
+                    </div>
+                </div>
+            </div>} hidden={this.state.modalsHideState[this._productDetailsModalName]} />
+            <Playground title="DataGrid" titleTip="BETA"
+                pComponent={<DataGrid language={this.state.productsDataGridLanguage} cellColor={this.state.productsGridCellColor} rowColor={this.state.productsGridRowColor} sorterShadowColor={this.state.productsGridSorterShadowColor} sorterActionColor={this.state.productsGridSorterActionColor} rowNum={this.state.rowNumDG1} searchTool={this.state.searchToolDG1} checkBoxes={this.state.checkBoxesDG1} styles={{ height: "400px" }} searchByColumns={[{ name: 'caption' }, { name: 'price', useRender: true }]} onDoubleClick={{ func: (obj) => { console.log(obj); this.setProductDetails(obj.data); this.openModal({modalName: this._productDetailsModalName}); }, params: { isDoubleClick: true } }}toolbar={this.state.toolbarDG1} tools={this.state.tools} contextMenu={this.state.contextMenu} fields={[{ key: "caption", columnName: "Name", width: 120, sorting: true, filter: true }, { key: "price", columnName: "Price", dataType: "number", sorting: true, render: (rowData) => { return `$ ${rowData.price.toFixed(2)}` }, style: { textAlign: "right"} }, { key: "quant", columnName: "Quantity in stock", filter: true }, { key: "inStock", columnName: "In stock", style: { display: "flex", justifyContent: "center" }, render: (rowData) => { return rowData.quant === 0 ? SOLD_OUT : IN_STOCK } }, { key: "lastOrder", columnName: "Last order", width: 150, dataType: "datetime" }]} data={this.state.data} />}
                 componentProps={<>
+                    <ComboBox caption="Language :" captionKey="caption" valueKey="value" selectedItem="en" items={[{ caption: 'en', value: 'en' }, { caption: 'ru', value: 'ru' }]} onReturnData={{ func: this.setData, params: { propName: "productsDataGridLanguage" } }} />
                     <Switcher caption="Row numbers :" value={this.state.rowNumDG1} onReturnData={{ func: this.setData, params: { propName: "rowNumDG1" } }} />
                     <Switcher caption="Checkboxes :" value={this.state.checkBoxesDG1} onReturnData={{ func: this.setData, params: { propName: "checkBoxesDG1" } }} />
                     <Switcher caption="Toolbar :" value={this.state.toolbarDG1} onReturnData={{ func: this.setData, params: { propName: "toolbarDG1" } }} />
                     <Switcher caption="Search tool :" value={this.state.searchToolDG1} onReturnData={{ func: this.setData, params: { propName: "searchToolDG1" } }} />
+                    <ColorPicker caption="Row color :" value={this.state.productsGridRowColor} onReturnData={{ func: this.setData, params: { propName: "productsGridRowColor" } }} />
+                    <ColorPicker caption="Cell color :" value={this.state.productsGridCellColor} onReturnData={{ func: this.setData, params: { propName: "productsGridCellColor" } }} />
+                    <ColorPicker caption="Sorter shadow color :" value={this.state.productsGridSorterShadowColor} onReturnData={{ func: this.setData, params: { propName: "productsGridSorterShadowColor" } }} />
+                    <ColorPicker caption="Sorter action color :" value={this.state.productsGridSorterActionColor} onReturnData={{ func: this.setData, params: { propName: "productsGridSorterActionColor" } }} />
                 </>}
             />
             <Playground
@@ -80,9 +163,14 @@ class DataGridPage extends BaseMethods {
                     {name: "checkBoxes", required: false, dataType: "boolean", description: "Add checkboxes for each row."},
                     {name: "toolbar", required: false, dataType: "boolean", description: "Add toolbar."},
                     {name: "searchTool", required: false, dataType: "boolean", description: "Disabled search in datagrid. By default is active."},
-                    {name: "searchByColumns", required: false, dataType: "ArrayOfStrings", description: "In array may be passed columns name of DataGrid where search data. By default search in all table."},
+                    {name: "searchByColumns", required: false, dataType: "ArrayOfObjects", description: "In array may be passed objects with required string type key 'name', name of column of DataGrid where search data. And optional boolean type key 'useRender', on search gets rendered value of custom render function. By default search in all table."},
+                    {name: "onDoubleClick", required: false, dataType: "CallbackObject", description: "Object with required 'func' key and optional 'params' key. Sets action on double click by DataGrid cell. Func key must be arrow function. In first arg pass object with 'event', 'data' (row data) and 'params' (passed params with func)."},
                     {name: "tools", required: false, dataType: "ArrayOfObjects", description: "This is complex prop with display rules and user interaction (toolbar prop is required for activate). Detailed information about the parameters included in each object is described below."},
                     {name: "contextMenu", required: false, dataType: "ArrayOfArraysOfObjects", description: "This is complex prop with display rules and user interaction. Detailed information about the parameters included in each object is described below."},
+                    {name: "cellColor", required: false, dataType: "string", description: "Overwrites default cell action color."},
+                    {name: "rowColor", required: false, dataType: "string", description: "Overwrites default row action color."},
+                    {name: "sorterShadowColor", required: false, dataType: "string", description: "Overwrites default sorter shadow color."},
+                    {name: "sorterActionColor", required: false, dataType: "string", description: "Overwrites default sorter action color."},
                 ]}
             />
             <div style={{display: "flex", flexDirection: "column", rowGap: "50px" }}>

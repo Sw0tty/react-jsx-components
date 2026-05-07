@@ -4,10 +4,7 @@ import CheckCircle from './CheckCircle.svg';
 import CrossCircle from './CrossCircle.svg';
 import CheckSquare from './CheckSquare.svg';
 import UncheckSquare from './UncheckSquare.svg';
-
-
 import { DGCheckBox, DGSearchTool, DGTool, DGContextMenu, DGButton } from './DGComponents.jsx';
-
 import './datagrid.css';
 
 
@@ -48,10 +45,6 @@ import './datagrid.css';
 //                              { caption: "Detele item", icon: "Delete", color: "red", accessRoles: ["admin"], onClick: { func: function(), params: { a: "some", b: 22181 } } }   // func was passed from parent of DataGrid component
 //                            ],
 //                          ]
-// rowNum          ?  (bool)                - add row number for each row
-// checkBoxes      ?  (bool)                - add checkboxes for each row
-// toolbar         ?  (bool)                - add toolbar
-// searchTool      ?  (bool)                - add search in datagrid (toolbar is required for activate)
 // tools           ?  (Array(Dictionaries)) - rules to build tools
 //                 Example: [
 //                            { caption: "Create", icon: "Create", isImage: true, redirect: { path: 'Items/Create' } },
@@ -63,8 +56,11 @@ class DataGrid extends BaseComponent {
         super();
         this._propsRules = [
             { name: 'fields', type: 'Array' },
-            { name: 'searchByColumns', type: 'ArrayOfStrings' },
-            { name: 'language', constStrings: ['en', 'ru'] }
+            { name: 'searchByColumns', type: 'ArrayOfObjects' },
+            { name: 'language', constStrings: ['en', 'ru'] },
+            { name: 'rowColor', type: 'string' },
+            { name: 'cellColor', type: 'string' },
+            { name: 'onDoubleClick', type: 'CallbackObject' }
         ];
         this._captions = {
             searchTool: {
@@ -86,8 +82,11 @@ class DataGrid extends BaseComponent {
         }
         let convertedData = this.convertDataForGrid({ data: props?.data, idKey: props?.idKey, parentIdKey: props?.parentIdKey, iconsParams: props?.iconsParams, iconsPath: props?.iconsPath });
         this.wrapperRef = createRef();
-        this.defaultCellColor = "#ffd575";
-        this.defaultRowColor = "#ffe7b1";
+        this._defaultCellColor = '#ffd575';
+        this._defaultRowColor = '#ffe7b1';
+        this._defaultSorterShadow = '#faac59';
+        this._defaultSorterActiveColor = '#d67711';
+        this._globalMethods = [];
         this.state = {
             data: convertedData,
             lastDataUpdate: props.lastDataUpdate,
@@ -359,11 +358,12 @@ class DataGrid extends BaseComponent {
                 row.hideBySearch = false;
                 return row;
             }
-            for (let columnName of (this.state.searching?.columns ?? this.props.fields.map(el => el.key))) {
-                if (!row.data[columnName]) {
+            for (let column of (this.state.searching?.columns ?? this.props.fields.map(el => { return { name: el.key } }))) {
+                const columnRender = this.props.fields.find(el => el.key === column?.name)?.render;
+                if (!row.data[column?.name]) {
                     continue;
                 }
-                if (((row.data[columnName].toString().toLowerCase()).indexOf(this.state.searching.value.toLowerCase()) > -1)) {
+                if ((((column?.useRender && columnRender ? columnRender(row.data) : row.data[column?.name]).toString().toLowerCase()).indexOf(this.state.searching.value.toLowerCase()) > -1)) {
                     row.hideBySearch = false;
                     return row;
                 }
@@ -557,7 +557,7 @@ class DataGrid extends BaseComponent {
                 rowData: undefined
             },
             searching: {
-                columns: this.props?.searchToolColumns,
+                columns: this.props?.searchByColumns,
                 value: undefined
             },
             sorting: {
@@ -627,8 +627,12 @@ class DataGrid extends BaseComponent {
     }
     renderComponent() {
         try {
+            const CSSVariables = {
+                '--jsxrc-datagrid-sorter-active-shadow-color': this.props?.sorterShadowColor ?? this._defaultSorterShadow,
+                '--jsxrc-datagrid-sorter-active-color': this.props?.sorterActionColor ?? this._defaultSorterActiveColor
+            };
             return (
-                <div id="datagrid-element-block" style={this.props?.styles}>
+                <div className="datagrid-element-block" style={{...CSSVariables, ...this.props?.styles}}>
                     {
                         this.props?.toolbar ? 
                             <div className="datagrid-toolbar">
@@ -649,7 +653,7 @@ class DataGrid extends BaseComponent {
                         {/* {this.state.isLoading ? <Loading size={60} speed="1s" icon="Loading_3" blurStrong={3} /> : null} */}
                         <div className="datagrid-elements-container">
                             {this.props?.contextMenu && this ? <DGContextMenu onHide={this.hideContext} hidden={this.state.contextHidden} contextPos={this.state.contextPos} iconsPath={this.props?.iconsPath} contextActions={this.updateContextMenu({ thisClass: this, contextParams: this.props?.contextMenu, selectedData: this.state?.selectedData })} /> : null}
-                            <table id="datagrid">
+                            <table className="datagrid">
                                 <thead>
                                     <tr>
                                         {this.props?.rowNum ? <th className="datagrid-numcolumn"></th> : null}
@@ -657,12 +661,15 @@ class DataGrid extends BaseComponent {
                                             return (<th key={idx} className="datagrid-header">
                                                 <div className="datagrid-header-container" style={{ width: field?.width ? `${field?.width}px` : null }}>
                                                     <div className="datagrid-header-left-handlers">
-                                                        <div className="datagrid-header-title" title={field?.columnName ?? ''}>{field.columnName}</div>
+                                                        <div className="datagrid-header-title" title={field?.columnName ?? ''}>{field?.columnName}</div>
                                                         <div className="datagrid-header-handlers">
                                                             <div className="datagrid-thead-buttons">
+                                                                {/* drop-shadow(0px 0px 2px #70c6ffff)" */}
+                                                                {/* #077be1 */}
                                                                 {field.sorting ?
-                                                                    <div className="datagrid-sorter" style={{ filter: field.key === this.state.sorting?.sortingBy?.columnKey ? "drop-shadow(0px 0px 2px #70c6ffff)" : null }} onClick={() => { this.sortData({ data: this.state?.data, columnKey: field.key, dataType: field.dataType }) }}>
-                                                                    <img alt="" style={{ background: field.key === this.state.sorting?.sortingBy?.columnKey ? '#077be1' : '#666666', transform: `rotate(${field.key === this.state.sorting?.sortingBy?.columnKey && this.state.sorting?.increasing ? '180' : '0'}deg)` }} /></div>
+                                                                    <div className={`datagrid-sorter${field.key === this.state.sorting?.sortingBy?.columnKey ? " jsxrc-datagrid-sorter-active" : ""}`} onClick={() => { this.sortData({ data: this.state?.data, columnKey: field.key, dataType: field.dataType }) }}>
+                                                                        <img alt="" style={{ transform: `rotate(${field.key === this.state.sorting?.sortingBy?.columnKey && this.state.sorting?.increasing ? '180' : '0'}deg)` }} />
+                                                                    </div>
                                                                 : null}
                                                             </div>
                                                         </div>
@@ -689,7 +696,7 @@ class DataGrid extends BaseComponent {
                                             return (<tr key={rowData.rowId}>
                                                 {this.props?.rowNum ? <td className="datagrid-numcolumn"><div>{rowIdx + 1}</div></td> : null}
                                                 {this.props.fields.map((field, fIdx) => {
-                                                    return (<td key={fIdx} style={{ background: rowData.rowId === this.state.selected?.row && fIdx === this.state.selected?.cell ? this.props?.cellColor ?? this.defaultCellColor : rowData.rowId === this.state.selected?.row ? this.props?.rowColor ?? this.defaultRowColor : 'white', }} onClick={() => { this.setState({ selected: { row: rowData.rowId, cell: fIdx, currentData: rowData.data[field?.key], rowData: rowData.data } }) }} onDoubleClick={(event) => { this.props?.onDoubleClick?.func({ event: event, data: rowData.data, params: { ...this.props?.onDoubleClick?.params } }) }} onContextMenu={this.props?.contextMenu ? (event) => { this.setState({ selected: { row: rowData.rowId, cell: fIdx }, selectedData: rowData.data }); this.showContext(event); } : null}>
+                                                    return (<td key={fIdx} style={{ background: rowData.rowId === this.state.selected?.row && fIdx === this.state.selected?.cell ? this.props?.cellColor ?? this._defaultCellColor : rowData.rowId === this.state.selected?.row ? this.props?.rowColor ?? this._defaultRowColor : 'white', }} onClick={() => { this.setState({ selected: { row: rowData.rowId, cell: fIdx, currentData: rowData.data[field?.key], rowData: rowData.data } }) }} onDoubleClick={(event) => { this.props?.onDoubleClick?.func({ event: event, data: rowData.data, params: { ...this.props?.onDoubleClick?.params } }) }} onContextMenu={this.props?.contextMenu ? (event) => { this.setState({ selected: { row: rowData.rowId, cell: fIdx }, selectedData: rowData.data }); this.showContext(event); } : null}>
                                                         <div className="datagrid-cell" style={{ paddingLeft: fIdx === 0 ? `${rowData.level * 15}px` : '' }}>
                                                             {fIdx === 0 && this.props?.checkBoxes ? <div className="datagrid-checkbox-wrapper"><DGCheckBox value={rowData.checked} disabled={false} onReturnData={{ func: this.checkRow, params: { id: rowData.rowId } }} /></div> : null}
                                                             {rowData.isParent && fIdx === 0 ? <div className="datagrid-parent-shrink" onClick={() => this.shrinkChilds({ parentId: rowData.data[this.props.idKey], idKey: this.props.idKey, parentIdKey: this.props.parentIdKey, gridData: this.state.data })}><img alt="" style={{ transform: `rotate(${rowData.childsHidden ? -90 : 0}deg)` }} /></div> : null}
@@ -712,8 +719,9 @@ class DataGrid extends BaseComponent {
         } catch (error) {
             //const errorStack = error.stack.split('\n');
             //error.stack.map((el, idx) => console.log(idx, el))
-            console.log("Error", error);
-            return JSON.stringify(error.stack.split('\n'));
+            console.log("Error", error, error?.stack);
+            //return error;JSON.stringify(this.state.returnedData, null, 4)
+            return JSON.stringify(error?.stack?.split('\n'), null, 4);
             /*return (<div>
                 {errorStack[1, errorStack.length].map((el, idx) => { return })}
             </div>);*/
@@ -868,13 +876,13 @@ class NonData extends Component {
 
 
 class DataRender {
-    toDateFormat(jsDate) {
+    toDateFormat = (jsDate) => {
         return `${jsDate.getDate() < 10 ? '0' : ''}${jsDate.getDate()}.${(jsDate.getMonth() + 1) < 10 ? '0' : ''}${jsDate.getMonth() + 1}.${jsDate.getFullYear()}`;
     }
-    toDateTimeFormat(jsDateTime) {
+    toDateTimeFormat = (jsDateTime) => {
         return `${jsDateTime.getDate() < 10 ? '0' : ''}${jsDateTime.getDate()}.${(jsDateTime.getMonth() + 1) < 10 ? '0' : ''}${jsDateTime.getMonth() + 1}.${jsDateTime.getFullYear()} ${jsDateTime.getHours()}:${jsDateTime.getMinutes() < 10 ? `0${jsDateTime.getMinutes()}` : jsDateTime.getMinutes() }`;
     }
-    selectFromDictionary(params) {
+    selectFromDictionary = (params) => {
         const { data, chainKeys } = params;
         const executedData = chainKeys[0] in data ? data[chainKeys[0]] : undefined;
         const newChainKeys = chainKeys.length > 1 ? chainKeys.slice(1, chainKeys.length) : [];

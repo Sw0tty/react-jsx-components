@@ -1,4 +1,4 @@
-#datagrid-element-block {
+.datagrid-element-block {
 	width: 100%;
 	min-height: 100px;
 	display: flex;
@@ -29,36 +29,38 @@
 	width: max-content;
 }
 
-#datagrid {
+.datagrid {
 	border-collapse: collapse;
+	table-layout: fixed;
+	cursor: default;
 }
 
-#datagrid td, #datagrid tbody tr {
+.datagrid td, .datagrid tbody tr {
 	border: 1px solid #959595;
 	border-collapse: collapse;
 	font-size: 14px;
 }
 
-#datagrid tbody td:first-child,
-#datagrid tbody tr,
-#datagrid thead th,
-#datagrid thead tr {
+.datagrid tbody td:first-child,
+.datagrid tbody tr,
+.datagrid thead th,
+.datagrid thead tr {
 	border-left: none;
 }
 
-#datagrid thead th {
+.datagrid thead th {
 	border-left: 1px solid #d7d7d7;
 }
 
-#datagrid tbody tr:first-child, #datagrid tbody tr:first-child td {
+.datagrid tbody tr:first-child, .datagrid tbody tr:first-child td {
 	border-top: none;
 }
 
-#datagrid thead tr {
+.datagrid thead tr {
 	box-shadow: 2px 2px 8px rgb(0 0 0 / 50%);
 }
 
-#datagrid tbody td:first-child .datagrid-cell {
+.datagrid tbody td:first-child .datagrid-cell {
 	margin-left: 5px;
 }
 
@@ -81,35 +83,31 @@
 	width: 100%;
 }
 
-#datagrid tbody td:not(.datagrid-numcolumn) {
+.datagrid tbody td:not(.datagrid-numcolumn) {
 	max-width: 0px;
 	background: white;
 }
-#datagrid tbody td {
+
+.datagrid tbody td {
 	color: black;
 	overflow: hidden;
 }
 
-#datagrid td, #datagrid thead th {
+.datagrid td, .datagrid thead th {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
-#datagrid thead th {
+.datagrid thead th {
 	background: #d7d7d7;
 }
 
-#datagrid thead {
+.datagrid thead {
 	position: -webkit-sticky;
 	position: sticky;
 	top: 0;
 	background: white;
 	z-index: 10;
-}
-
-#datagrid {
-	table-layout: fixed;
-	cursor: default;
 }
 
 .datagrid-checkbox-wrapper {
@@ -198,6 +196,10 @@ tr > th.datagrid-numcolumn {
 	align-items: center;
 }
 
+.jsxrc-datagrid-sorter-active {
+	filter: drop-shadow(0px 0px 2px var(--jsxrc-datagrid-sorter-active-shadow-color));
+}
+
 .datagrid-sorter img {
 	mask-size: 80%;
 	width: 14px;
@@ -205,6 +207,11 @@ tr > th.datagrid-numcolumn {
 	cursor: pointer;
 	-webkit-mask-image: url(./Sorter.svg);
 	mask-image: url(./Sorter.svg);
+	background: #666666;
+}
+
+.jsxrc-datagrid-sorter-active img {
+	background: var(--jsxrc-datagrid-sorter-active-color);
 }
 
 .datagrid-filter {
