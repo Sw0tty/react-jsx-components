@@ -66,14 +66,12 @@ export class DGCheckBox extends Component {
     render() {
         return (
             <div className="dgcheckbox-container">
-                <>
-                    {this.props?.caption ? <span className="dgcheckbox-caption">{this.props?.caption}</span> : null}
-                    <div className={`dgcheckbox-box`} style={{ width: this.props?.size ? `${this.props.size}px` : null, height: this.props?.size ? `${this.props.size}px` : null }} onClick={() => this.setComponentData(this.state.value)}>
-                        <div className={`dgcheckbox-box-filler${this.state.value ? " dgcheckbox-checked" : ''}`}>
-                            {this.state.value ? <img alt="" /> : null}
-                        </div>
+                {this.props?.caption ? <span className="dgcheckbox-caption">{this.props?.caption}</span> : null}
+                <div className={this.props?.simple ? 'dgcheckbox-simple-box' : 'dgcheckbox-box'} style={{ width: this.props?.size ? `${this.props.size}px` : null, height: this.props?.size ? `${this.props.size}px` : null }} onClick={() => this.setComponentData(this.state.value)}>
+                    <div className={`${this.props?.simple ? 'dgcheckbox-box-simple-filler' : 'dgcheckbox-box-filler'}${this.state.value ? " dgcheckbox-checked" : ''}`}>
+                        {this.state.value && !this.props?.simple ? <img alt="" /> : null}
                     </div>
-                </>
+                </div>
             </div>
         );
     }
@@ -95,6 +93,18 @@ export class DGButton extends Component {
                     </div> : null}
                     {this.props.caption}
                 </div>
+            </div>
+        );
+    }
+}
+
+
+export class DGNonData extends Component {
+    render() {
+        return (
+            <div className="jsxrc-dgnondata-container">
+                <div className="jsxrc-dgnondata-icon"><img alt="" /></div>
+                <div className="jsxrc-dgnondata-caption">{this.props.caption}</div>
             </div>
         );
     }
@@ -200,6 +210,7 @@ export class DGContextMenu extends Component {
         );
     }
 }
+
 
 class DGContextMenuWrapper extends Component {
     constructor(props) {

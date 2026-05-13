@@ -15,6 +15,7 @@
     border: 1px solid #959595;
     border-radius: 3px;
     overflow: hidden;
+    background: white;
     transition: 0.3s background, 0.3s border-color, 0.3s box-shadow;
 }
 
