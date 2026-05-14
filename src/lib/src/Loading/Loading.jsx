@@ -16,11 +16,11 @@ class Loading extends BaseComponent {
     renderComponent() {
         const blur = this.props?.blurStrong ? `blur(${this.props.blurStrong}px)` : "blur(5px)";
         return (
-            <div className="loading-container" style={this.props?.containerStyles}>
-                <div className="loading-background" style={{ WebkitBackdropFilter: this.props?.isLoading ? blur : null, backdropFilter: this.props.isLoading ? blur : null, background: this.props.isLoading ? "#00000024" : null }}></div>
+            <div className="jsxrc-loading-container" style={this.props?.containerStyles}>
+                <div className="jsxrc-loading-background" style={{ WebkitBackdropFilter: this.props?.isLoading ? blur : null, backdropFilter: this.props.isLoading ? blur : null, background: this.props.isLoading ? "#00000024" : null }}></div>
                 {
                     this.props.isLoading ?
-                        <div className="loading-icon-container">
+                        <div className="jsxrc-loading-icon-container">
                             <img alt="" src={this.props?.iconPath ?? LoadingIcon} style={{ width: `${this.props?.size}px`, animationDuration: this.props?.speed }} />
                         </div>
                     : null

@@ -17,12 +17,12 @@ class ProgressBar extends BaseComponent {
     }
     renderComponent() {
         return (
-            <div className="progressbar-container" style={{ flexDirection: this.props?.reverseCaption ? 'column-reverse' : 'column', ...this.props?.style }}>
-                { this.props?.caption ? <div className="progressbar-caption">{this.props.caption}</div> : null }
-                <div className={this.props?.vertical ? 'progressbar-bar-vertical' : 'progressbar-bar'} style={{ width: this.props?.vertical ? (this.props?.width ?? '20px') : (this.props?.length ?? ''), height: this.props?.vertical ? (this.props?.length ?? '') : (this.props?.width ?? '20px') }}>
-                    <div className="progressbar-bar-progress-mask" style={{ width: this.props?.vertical ? '100%' : `${100 - this.props.progress}%`, height: this.props?.vertical ? `${100 - this.props.progress}%` : '100%'}}></div>
-                    <div className="progressbar-bar-progress" style={{ background: this.props?.color ?? '#42d642' }}>
-                        {(100 - this.props.progress) !== 0 ? <div className={this.props?.vertical ? 'progressbar-bar-progress-vertical-flow' : 'progressbar-bar-progress-flow'}></div> : null}
+            <div className="jsxrc-progressbar-container" style={{ flexDirection: this.props?.reverseCaption ? 'column-reverse' : 'column', ...this.props?.style }}>
+                { this.props?.caption ? <div className="jsxrc-progressbar-caption">{this.props.caption}</div> : null }
+                <div className={this.props?.vertical ? 'jsxrc-progressbar-bar-vertical' : 'jsxrc-progressbar-bar'} style={{ width: this.props?.vertical ? (this.props?.width ?? '20px') : (this.props?.length ?? ''), height: this.props?.vertical ? (this.props?.length ?? '') : (this.props?.width ?? '20px') }}>
+                    <div className="jsxrc-progressbar-bar-progress-mask" style={{ width: this.props?.vertical ? '100%' : `${100 - this.props.progress}%`, height: this.props?.vertical ? `${100 - this.props.progress}%` : '100%'}}></div>
+                    <div className="jsxrc-progressbar-bar-progress" style={{ background: this.props?.color ?? '#42d642' }}>
+                        {(100 - this.props.progress) !== 0 ? <div className={this.props?.vertical ? 'jsxrc-progressbar-bar-progress-vertical-flow' : 'jsxrc-progressbar-bar-progress-flow'}></div> : null}
                     </div>
                 </div>
             </div>

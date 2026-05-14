@@ -30,15 +30,15 @@ class Switcher extends BaseComponent {
             '--switcher-actionColor-shadow': this.props?.actionShadowColor ?? this._baseActionColorShadow
         };
         return (
-            <div className="switcher-container" style={CSSVariables}>
-                {this.props?.caption ? <div className="switcher-caption">{this.props.caption}</div> : null}
-                <div className={`switcher-switch-block${this.props?.disabled ? ' disabled' : ''}`}>
-                    <div className="switcher-inset-shadow"></div>
-                    <div className="switcher-on-back" style={{ width: this.state.value ? "100%" : "10px" }}></div>
-                    <div className="switcher-button-container" onClick={() => { if (!this.props?.disabled) {this.setComponentData('value', !this.state.value)} }}>
-                        <div className="switcher-button"></div>
+            <div className="jsxrc-switcher-container" style={CSSVariables}>
+                {this.props?.caption ? <div className="jsxrc-switcher-caption">{this.props.caption}</div> : null}
+                <div className={`jsxrc-switcher-switch-block${this.props?.disabled ? ' jsxrc-switcher-disabled' : ''}`}>
+                    <div className="jsxrc-switcher-inset-shadow"></div>
+                    <div className="jsxrc-switcher-on-back" style={{ width: this.state.value ? "100%" : "10px" }}></div>
+                    <div className="jsxrc-switcher-button-container" onClick={() => { if (!this.props?.disabled) {this.setComponentData('value', !this.state.value)} }}>
+                        <div className="jsxrc-switcher-button"></div>
                     </div>
-                    <div className="switcher-off-back"></div>
+                    <div className="jsxrc-switcher-off-back"></div>
                 </div>
             </div>
         );

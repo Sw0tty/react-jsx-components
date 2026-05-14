@@ -1,4 +1,4 @@
-.switcher-container {
+.jsxrc-switcher-container {
     display: flex;
     align-items: center;
     white-space: nowrap;
@@ -6,13 +6,13 @@
     width: max-content;
 }
 
-.switcher-caption {
+.jsxrc-switcher-caption {
     font-size: 13px;
     color: black;
     font-family: Helvetica, sans-serif;
 }
 
-.switcher-switch-block {
+.jsxrc-switcher-switch-block {
     border: 1px solid #959595;
     border-radius: 50px;
     width: 50px;
@@ -25,7 +25,7 @@
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.switcher-inset-shadow {
+.jsxrc-switcher-inset-shadow {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -33,23 +33,22 @@
     box-shadow: inset 0px 0px 4px 0px #525252;
 }
 
-.switcher-switch-block:hover {
+.jsxrc-switcher-switch-block:hover {
     border-color: var(--switcher-actionColor-border);
     box-shadow: 0px 0px 3px 0px var(--switcher-actionColor-shadow);
 }
 
-.switcher-switch-block:hover .switcher-button {
+.jsxrc-switcher-switch-block:hover .switcher-button {
     border-color: var(--switcher-actionColor-border);
     box-shadow: 0px 0px 3px 0px var(--switcher-actionColor-shadow);
 }
 
-.switcher-button-container {
-    background: rgb(202, 160, 241);
+.jsxrc-switcher-button-container {
     position: relative;
     height: 100%;
 }
 
-.switcher-button {
+.jsxrc-switcher-button {
     border: 1px solid #959595;
     border-radius: 50px;
     width: 20px;
@@ -62,17 +61,22 @@
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.switcher-on-back {
+.jsxrc-switcher-on-back {
     background: #71ff1c;
     width: 10px;
     min-width: 10px;
     transition: width 0.3s;
 }
 
-.switcher-off-back {
+.jsxrc-switcher-off-back {
     background: #e70a0a;
     height: 100%;
     width: 100%;
     flex: 1 0 0%;
     min-width: 10px;
+}
+
+.jsxrc-switcher-disabled {
+    pointer-events: none;
+	background: #e7e7e7;
 }

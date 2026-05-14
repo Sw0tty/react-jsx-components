@@ -2,35 +2,35 @@
     --multiSelect-height: 20px;
 }
 
-.multiselect-item-caption, .multiselect-caption {
+.jsxrc-multiselect-item-caption, .jsxrc-multiselect-caption {
     color: black;
     font-size: 13px;
 }
 
-.multiselect-container {
+.jsxrc-multiselect-container {
     display: flex;
     flex-direction: column;
 }
 
-.multiselect-caption {
+.jsxrc-multiselect-caption {
     width: 100%;
     border-bottom: 1px solid #959595;
     margin-bottom: 3px;
     white-space: nowrap;
 }
 
-.multiselect-items-container {
+.jsxrc-multiselect-items-container {
     border: 1px solid #959595;
     background: white;
     border-radius: 3px;
     transition: 0.2s border-color, 0.3s background;
 }
 
-.multiselect-items-container:hover {
+.jsxrc-multiselect-items-container:hover {
     cursor: pointer;
 }
 
-.multiselect-item {
+.jsxrc-multiselect-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,31 +40,31 @@
     transition: 0.2s background;
 }
 
-.multiselect-item:hover {
+.jsxrc-multiselect-item:hover {
     background: #e7e7e7;
 }
 
-.multiselect-item:last-child {
+.jsxrc-multiselect-item:last-child {
     border-bottom: none;
 }
 
-.multiselect-item-caption {
+.jsxrc-multiselect-item-caption {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     user-select: none;
 }
 
-.multiselect-caption:hover {
+.jsxrc-multiselect-caption:hover {
     cursor: default;
 }
 
-.multiselect-item-icon img {
+.jsxrc-multiselect-item-icon img {
     width: 20px;
     transition: 0.2s opacity;
 }
 
-.multiselect-item-icon {
+.jsxrc-multiselect-item-icon {
     user-select: none;
     height: var(--multiSelect-height);
     display: flex;

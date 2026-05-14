@@ -1,65 +1,89 @@
-.splitter-vertical {
+.jsxrc-splitter-container {
+	width: 100%;
+	height: 100%;
+}
+
+.jsxrc-splitter-vertical {
 	display: flex;
 	width: 100%;
 	height: 100%;
 }
 
-.splitter-vertical-first {
+.jsxrc-splitter-vertical-reversed {
+	flex-direction: row-reverse;
+}
+
+.jsxrc-splitter-vertical-row {
+	flex-direction: row;
+}
+
+.jsxrc-splitter-vertical-first {
 	min-width: 30px;
 }
 
-.splitter-horizontal-first {
+.jsxrc-splitter-horizontal-first {
 	min-height: 30px;
 }
 
-.splitter-vertical-second {
+.jsxrc-splitter-vertical-second {
 	flex: 1 0 0%;
 }
 
-.splitter-horizontal {
+.jsxrc-splitter-horizontal {
 	display: flex;
 	width: 100%;
 	height: 100%;
 }
 
-.splitter-horizontal-first, .splitter-horizontal-second, .splitter-vertical-first, .splitter-vertical-second {
+.jsxrc-splitter-horizontal-reversed {
+	flex-direction: column-reverse;
+}
+
+.jsxrc-splitter-horizontal-column {
+	flex-direction: column;
+}
+
+.jsxrc-splitter-horizontal-first,
+.jsxrc-splitter-horizontal-second,
+.jsxrc-splitter-vertical-first,
+.jsxrc-splitter-vertical-second {
 	background: white;
 }
 
-.splitter-horizontal-first, .splitter-horizontal-second {
+.jsxrc-splitter-horizontal-first, .jsxrc-splitter-horizontal-second {
 	width: 100%;
 }
 
-.splitter-vertical-second {
+.jsxrc-splitter-vertical-second {
 	overflow: hidden;
 }
 
-.splitter-horizontal-second {
+.jsxrc-splitter-horizontal-second {
 	flex: 1 0 0%;
 }
 
-.splitter-vertical-resizer, .splitter-horizontal-resizer {
+.jsxrc-splitter-vertical-resizer, .jsxrc-splitter-horizontal-resizer {
 	background: #bbbbbb;
 }
 
-.splitter-vertical-resizer {
+.jsxrc-splitter-vertical-resizer {
 	min-width: 3px;
 	max-width: 3px;
 }
 
-.splitter-horizontal-resizer {
+.jsxrc-splitter-horizontal-resizer {
 	max-height: 3px;
 	min-height: 3px;
 }
 
-.splitter-verticalresize-active {
+.jsxrc-splitter-verticalresize-active {
 	cursor: e-resize;
 }
 
-.splitter-horizontalresize-active {
+.jsxrc-splitter-horizontalresize-active {
 	cursor: n-resize;
 }
 
-.splitter-verticalresize-active:hover, .splitter-horizontalresize-active:hover {
+.jsxrc-splitter-verticalresize-active:hover, .jsxrc-splitter-horizontalresize-active:hover {
 	background: #939393;
 }

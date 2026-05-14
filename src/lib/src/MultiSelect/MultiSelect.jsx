@@ -42,18 +42,18 @@ class MultiSelect extends BaseComponent {
     }
     renderComponent() {
         return (
-            <div className="multiselect-container" style={{ width: `${this.props.width}px` }}>
-                <span className="multiselect-caption">
+            <div className="jsxrc-multiselect-container" style={{ width: `${this.props.width}px` }}>
+                <span className="jsxrc-multiselect-caption">
                     {this.props?.required ? this._getRequiredSign() : null}{this.props.caption}
                 </span>
-                <div className={`multiselect-items-container ${this.props?.disabled ? "disabled" : "enable"}`} style={{ borderColor: this.props.invalid ? "red" : undefined }}>
+                <div className={`jsxrc-multiselect-items-container ${this.props?.disabled ? "disabled" : "enable"}`} style={{ borderColor: this.props.invalid ? "red" : undefined }}>
                     {this.props.items.map((el, idx) => {
                         return (
-                            <div key={idx} className="multiselect-item" onClick={() => this.change(el[this.props.valueKey])}>
-                                <div className="multiselect-item-caption">
+                            <div key={idx} className="jsxrc-multiselect-item" onClick={() => this.change(el[this.props.valueKey])}>
+                                <div className="jsxrc-multiselect-item-caption">
                                     {el[this.props.captionKey]}
                                 </div>
-                                <div className="multiselect-item-icon">
+                                <div className="jsxrc-multiselect-item-icon">
                                     <img alt="" src={Check} style={{ opacity: (this.state.selectedItems && this.findItem(el[this.props.valueKey])) ? 1 : 0 }} />
                                 </div>
                             </div>

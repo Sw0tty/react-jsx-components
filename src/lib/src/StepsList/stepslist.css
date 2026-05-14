@@ -1,19 +1,19 @@
-.stepslist-container {
+.jsxrc-stepslist-container {
 	min-width: 200px;
 }
 
-.stepslist-step-container {
+.jsxrc-stepslist-step-container {
 	display: flex;
 	flex-direction: column;
 }
 
-.stepslist-step-header {
+.jsxrc-stepslist-step-header {
 	display: flex;
 	align-items: center;
 	column-gap: 10px;
 }
 
-.stepslist-step-num {
+.jsxrc-stepslist-step-num {
   	border: 2px solid black;
 	border-radius: 100%;
 	min-width: 35px;
@@ -29,24 +29,24 @@
 	user-select: none;
 }
 
-.stepslist-step-title {
+.jsxrc-stepslist-step-title {
 	font-weight: bold;
 	font-size: 18px;
 	font-family: Helvetica, sans-serif;
 }
 
-.stepslist-step-body {
+.jsxrc-stepslist-step-body {
 	display: flex;
 	column-gap: 10px;
 }
 
-.stepslist-step-body-description {
+.jsxrc-stepslist-step-body-description {
 	font-size: 13px;
 	font-family: Helvetica, sans-serif;
 	padding-bottom: 20px;
 }
 
-.stepslist-step-body-line-container {
+.jsxrc-stepslist-step-body-line-container {
 	min-width: 39px;
 	max-width: 39px;
 	display: flex;
@@ -54,7 +54,7 @@
 	justify-content: center;
 }
 
-.stepslist-step-body-line {
+.jsxrc-stepslist-step-body-line {
 	border-right: 1px solid #cecece;
 	height: 100%;
 }

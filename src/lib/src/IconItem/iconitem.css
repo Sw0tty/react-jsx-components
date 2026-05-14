@@ -1,9 +1,9 @@
-.itemicon-container {
+.jsxrc-itemicon-container {
 	display: flex;
 	width: max-content;
 }
 
-.iconitem-iconbox img {
+.jsxrc-iconitem-iconbox img {
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
 	-webkit-mask-position: center;

@@ -1,11 +1,11 @@
-.loading-container {
+.jsxrc-loading-container {
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
 }
 
-.loading-background {
+.jsxrc-loading-background {
     display: flex;
     position: absolute;
     z-index: 9998;
@@ -15,21 +15,21 @@
     align-items: center;
 }
 
-.loading-icon-container {
+.jsxrc-loading-icon-container {
     position: absolute;
     display: flex;
     z-index: 9999;
 }
 
-.loading-icon-container img {
+.jsxrc-loading-icon-container img {
     width: 60px;
-    animation-name: iconRotation;
+    animation-name: jsxrc-iconRotation;
     animation-duration: 2s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
 
-@keyframes iconRotation {
+@keyframes jsxrc-iconRotation {
     0% {
         transform: rotate(0deg);
     }

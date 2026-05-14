@@ -32,6 +32,7 @@ class SplitterPage extends BaseMethods {
                     {name: "addResize", required: false, dataType: "boolean", description: "Adding func for resize blocks."},
                     {name: "mainBlockWidth", required: false, dataType: "string", description: "Start width for main block in CSS style. Main block is 'firstBlockContent' prop. Default value is 200px"},
                     {name: "removeResizeBlock", required: false, dataType: "boolean", description: "Removed the resize/split block."},
+                    {name: "containerStyles", required: false, dataType: "Object", description: "Object with CSS styles for splitter container."},
                     {name: "style", required: false, dataType: "Object", description: "Object with keys 'firstBlock' AND/OR 'secondBlock'. And thats keys contains objects with CSS styles for blocks."},
                 ]}
                 example={`<Splitter reverse={${this.state.reverse}} removeResizeBlock={${this.state.removeResizeBlock}} addResize={${this.state.addResize}} splitRule="${this.state.splitRule}" firstBlockContent={<div>First block</div>} secondBlockContent={<div>Second block</div>} />`}

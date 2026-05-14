@@ -26,19 +26,19 @@ class Gallery extends BaseComponent {
     }
     renderComponent() {
         return (
-            <div className="gallery-container" style={{ width: this.props?.cWidth, height: this.props?.cHeight}}>
-                <div className="gallery-items-container">
+            <div className="jsxrc-gallery-container" style={{ width: this.props?.cWidth, height: this.props?.cHeight}}>
+                <div className="jsxrc-gallery-items-container">
                     {
                         this.props?.items ?
                             this.props.items.map((item, idx) => {
                                 return (
-                                    <div key={idx} className="gallery-item" title={`${item?.caption ?? ''}`} style={{ width: `${this.props?.itemsSize}px`, height: `${this.props?.itemsSize}px`, boxShadow: this.state.selectedItemIdx === idx ? "0px 0px 3px 3px var(--componentFocusShadowColor)" : null, borderColor: this.state.selectedItemIdx === idx ? "var(--componentHoverColor)" : null, transform: this.state.selectedItemIdx === idx ? "scale(1.02)" : null }} onClick={() => { this.setState({ selectedItemIdx: idx }); if (this.props?.onClickAction) { this.props.onClickAction.func(item.data, { ...this.props.onClickAction?.params }) } }}>
-                                        <div className="gallery-item-icon">
+                                    <div key={idx} className="jsxrc-gallery-item" title={`${item?.caption ?? ''}`} style={{ width: `${this.props?.itemsSize}px`, height: `${this.props?.itemsSize}px`, boxShadow: this.state.selectedItemIdx === idx ? "0px 0px 3px 3px var(--componentFocusShadowColor)" : null, borderColor: this.state.selectedItemIdx === idx ? "var(--componentHoverColor)" : null, transform: this.state.selectedItemIdx === idx ? "scale(1.02)" : null }} onClick={() => { this.setState({ selectedItemIdx: idx }); if (this.props?.onClickAction) { this.props.onClickAction.func(item.data, { ...this.props.onClickAction?.params }) } }}>
+                                        <div className="jsxrc-gallery-item-icon">
                                             <img alt="" style={{ height: this.props?.iconsSize ? `${this.props?.iconsSize}%` : null, width: this.props?.iconsSize ? `${this.props?.iconsSize}%` : null }} src={`${item?.iconPath ?? this.props?.iconsPath ?? '/'}${item.iconName}`} />
                                         </div>
                                         {
                                             item?.caption ?
-                                                <div className="gallery-item-caption">{item.caption}</div>
+                                                <div className="jsxrc-gallery-item-caption">{item.caption}</div>
                                             : null
                                         }
                                     </div>
