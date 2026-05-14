@@ -16,7 +16,7 @@ export class DGTool extends Component {
 
         return (
             this.checkRequiredProps(['caption']) ??
-            <Link style={{ '--dgtoolHoverColor': this.props?.hoverColor ?? baseHoverColor }} onClick={(event) => this.props?.onClickAction?.action ? this.props.onClickAction.action?.func({ event: event, ...this.props.onClickAction.action?.params }) : null} to={this.props?.onClickAction?.redirect ? `/${this.props?.onClickAction?.redirect?.path}` : window.location.href} className={`dgtool-button${this.props?.disabled ? " disabled" : ''}`} >
+            <Link style={{ '--dgtoolHoverColor': this.props?.hoverColor ?? baseHoverColor }} onClick={(event) => this.props?.onClickAction?.action ? this.props.onClickAction.action?.func({ event: event, ...this.props.onClickAction.action?.params }) : null} to={this.props?.onClickAction?.redirect ? `/${this.props?.onClickAction?.redirect?.path}` : window.location.href} className={`dgtool-button${this.props?.disabled ? " jsxrc-dgtool-disabled" : ''}`} >
                 {
                     this.props?.icon ?
                         <div className="dgtool-button-icon">
@@ -111,6 +111,21 @@ export class DGNonData extends Component {
 }
 
 
+export class DGLoading extends Component {
+    render() {
+        const blur = this.props?.blurStrong ? `blur(${this.props.blurStrong}px)` : "blur(5px)";
+        return (
+            <div className="jsxrc-dgloading-container" style={this.props?.containerStyles}>
+                <div className="jsxrc-dgloading-background" style={{ WebkitBackdropFilter: blur, backdropFilter: blur, background: '#00000024' }}></div>
+                <div className="jsxrc-dgloading-icon-container">
+                    <div className="jsxrc-dgloading-circle"></div>
+                </div>
+            </div>
+        );
+    }
+}
+
+
 export class DGSearchTool extends Component {
     constructor(props) {
         super();
@@ -143,8 +158,8 @@ export class DGSearchTool extends Component {
         return (
             <div className="dgsearchtool-container">
                 <div className="dgsearchtool-inputcontainer">
-                    <div className="dgsearchtool-inputbox" style={{ flexDirection: this.props?.inputIconReverse ? "row-reverse" : "" }}>
-                        <input placeholder={this.props?.placeholder} value={this.state.value} type="text" className="dgsearchtool-input" title={this.state.value} style={this.props?.style?.input ?? inputStyle} onChange={(event) => this.setComponentData(event.target.value)} />
+                    <div className={`dgsearchtool-inputbox${this.props?.disabled ? ' jsxrc-dgsearchtool-disabled' : ''}`} style={{ flexDirection: this.props?.inputIconReverse ? "row-reverse" : "" }}>
+                        <input className={`dgsearchtool-input${this.props?.disabled ? ' jsxrc-dgsearchtool-disabled' : ''}`} placeholder={this.props?.placeholder} value={this.state.value} type="text" title={this.state.value} style={this.props?.style?.input ?? inputStyle} onChange={(event) => { if (!this.props?.disabled) {this.setComponentData(event.target.value)} }} />
                         <div className="dgsearchtool-inputbox-icon">
                             <img alt="" />
                         </div>

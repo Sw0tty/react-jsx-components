@@ -110,8 +110,8 @@ class TextBox extends BaseComponent {
                     : null
                 }
                 <div className="textbox-inputcontainer">
-                    <div className={`textbox-inputbox${this.props?.disabled ? " disabled" : " enable"}${this.props?.invalid ? ' invalid' : ''}`} style={{ flexDirection: this.props?.inputIconReverse ? "row-reverse" : "" }}>
-                        <input placeholder={this.props?.placeholder} onBlur={() => { if (this.props?.inputType === "yearOnly") { this.testShortDate() } }} spellCheck="true" value={this.props?.inputType === "yearOnly" ? this.returnShortDate() : this.state.value} type={this.props.inputType === "date" ? "date" : this.props.inputType === "password" ? "password" : "text"} className={`textbox-input${this.props.disabled ? " disabled" : " enable"}`} title={this.state.lastType === "password" ? '' : this.state.value} style={this.props?.style?.input ?? inputStyle} onChange={(event) => { if (!this.props?.disabled) {this.setComponentData(event.target.value)} }} />
+                    <div className={`textbox-inputbox${this.props?.disabled ? " jsxrc-textbox-disabled" : " enable"}${this.props?.invalid ? ' jsxrc-textbox-invalid' : ''}`} style={{ flexDirection: this.props?.inputIconReverse ? "row-reverse" : "" }}>
+                        <input placeholder={this.props?.placeholder} onBlur={() => { if (this.props?.inputType === "yearOnly") { this.testShortDate() } }} spellCheck="true" value={this.props?.inputType === "yearOnly" ? this.returnShortDate() : this.state.value} type={this.props.inputType === "date" ? "date" : this.props.inputType === "password" ? "password" : "text"} className={`textbox-input${this.props.disabled ? " jsxrc-textbox-disabled" : " jsxrc-textbox-enable"}`} title={this.state.lastType === "password" ? '' : this.state.value} style={this.props?.style?.input ?? inputStyle} onChange={(event) => { if (!this.props?.disabled) {this.setComponentData(event.target.value)} }} />
                         {
                             this.props.inputIconPath ?
                                 <div className="textbox-inputbox-icon">

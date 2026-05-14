@@ -104,3 +104,16 @@
 .invalid {
 	border-color: red;
 }
+
+.jsxrc-textbox-enable {
+	background: white;
+}
+
+.jsxrc-textbox-disabled {
+	pointer-events: none;
+	background: #e7e7e7;
+}
+
+.jsxrc-textbox-invalid {
+    border-color: red;
+}

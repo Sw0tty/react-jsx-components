@@ -6,7 +6,9 @@ import IconItem from '../lib/src/IconItem/IconItem.jsx';
 import Switcher from '../lib/src/Switcher/Switcher.jsx';
 import ColorPicker from '../lib/src/ColorPicker/ColorPicker.jsx';
 import ComboBox from '../lib/src/ComboBox/ComboBox.jsx';
+import CustomButton from '../lib/src/CustomButton/CustomButton.jsx';
 import { EmptyModalForm } from '../lib/src/Modals/Modals.jsx';
+import { createRef } from 'react';
 import '../pagesStyles/datagrid-page.css';
 
 
@@ -17,6 +19,7 @@ class DataGridPage extends BaseMethods {
     constructor() {
         super();
         this._productDetailsModalName = 'product-details';
+        this.productsGridRef = createRef();
         this.state = {
             data: [
                 { id: 1, caption: "Apple", price: 1.25, quant: 100, priceDown: true, lastOrder: '2025-02-06 12:07:31' },
@@ -133,7 +136,7 @@ class DataGridPage extends BaseMethods {
                 </div>
             </div>} hidden={this.state.modalsHideState[this._productDetailsModalName]} />
             <Playground title="DataGrid" titleTip="BETA"
-                pComponent={<DataGrid language={this.state.productsDataGridLanguage} cellColor={this.state.productsGridCellColor} rowColor={this.state.productsGridRowColor} sorterShadowColor={this.state.productsGridSorterShadowColor} sorterActionColor={this.state.productsGridSorterActionColor} rowNum={this.state.rowNumDG1} searchTool={this.state.searchToolDG1} checkBoxes={this.state.checkBoxesDG1} styles={{ height: "400px" }} searchByColumns={[{ name: 'caption' }, { name: 'price', useRender: true }]} onDoubleClick={{ func: (obj) => { console.log(obj); this.setProductDetails(obj.data); this.openModal({modalName: this._productDetailsModalName}); }, params: { isDoubleClick: true } }}toolbar={this.state.toolbarDG1} tools={this.state.tools} contextMenu={this.state.contextMenu} fields={[{ key: "caption", columnName: "Name", width: 120, sorting: true, filter: true }, { key: "price", columnName: "Price", dataType: "number", sorting: true, render: (rowData) => { return `$ ${rowData.price.toFixed(2)}` }, style: { textAlign: "right"} }, { key: "quant", columnName: "Quantity in stock", filter: true }, { key: "inStock", columnName: "In stock", style: { display: "flex", justifyContent: "center" }, render: (rowData) => { return rowData.quant === 0 ? SOLD_OUT : IN_STOCK } }, { key: "lastOrder", columnName: "Last order", width: 150, dataType: "datetime" }]} data={this.state.data} />}
+                pComponent={<DataGrid ref={this.productsGridRef} language={this.state.productsDataGridLanguage} cellColor={this.state.productsGridCellColor} rowColor={this.state.productsGridRowColor} sorterShadowColor={this.state.productsGridSorterShadowColor} sorterActionColor={this.state.productsGridSorterActionColor} rowNum={this.state.rowNumDG1} searchTool={this.state.searchToolDG1} checkBoxes={this.state.checkBoxesDG1} styles={{ height: "400px" }} searchByColumns={[{ name: 'caption' }, { name: 'price', useRender: true }]} onDoubleClick={{ func: (obj) => { console.log(obj); this.setProductDetails(obj.data); this.openModal({modalName: this._productDetailsModalName}); }, params: { isDoubleClick: true } }} toolbar={this.state.toolbarDG1} tools={this.state.tools} contextMenu={this.state.contextMenu} fields={[{ key: "caption", columnName: "Name", width: 120, sorting: true, filter: true }, { key: "price", columnName: "Price", dataType: "number", sorting: true, render: (rowData) => { return `$ ${rowData.price.toFixed(2)}` }, style: { textAlign: "right"} }, { key: "quant", columnName: "Quantity in stock", filter: true }, { key: "inStock", columnName: "In stock", style: { display: "flex", justifyContent: "center" }, render: (rowData) => { return rowData.quant === 0 ? SOLD_OUT : IN_STOCK } }, { key: "lastOrder", columnName: "Last order", width: 150, dataType: "datetime" }]} data={this.state.data} />}
                 componentProps={<>
                     <ComboBox caption="Language :" captionKey="caption" valueKey="value" selectedItem="en" items={[{ caption: 'en', value: 'en' }, { caption: 'ru', value: 'ru' }]} onReturnData={{ func: this.setData, params: { propName: "productsDataGridLanguage" } }} />
                     <Switcher caption="Row numbers :" value={this.state.rowNumDG1} onReturnData={{ func: this.setData, params: { propName: "rowNumDG1" } }} />
@@ -144,6 +147,7 @@ class DataGridPage extends BaseMethods {
                     <ColorPicker caption="Cell color :" value={this.state.productsGridCellColor} onReturnData={{ func: this.setData, params: { propName: "productsGridCellColor" } }} />
                     <ColorPicker caption="Sorter shadow color :" value={this.state.productsGridSorterShadowColor} onReturnData={{ func: this.setData, params: { propName: "productsGridSorterShadowColor" } }} />
                     <ColorPicker caption="Sorter action color :" value={this.state.productsGridSorterActionColor} onReturnData={{ func: this.setData, params: { propName: "productsGridSorterActionColor" } }} />
+                    <CustomButton caption="Switch loading state" type="hollow" onClickAction={{ func: () => this.productsGridRef?.current?.switchLoading() }} />
                 </>}
             />
             <Playground

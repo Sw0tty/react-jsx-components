@@ -19,7 +19,17 @@
 	gap: 3px;
 }
 
-.datagrid-container {
+.jsxrc-datagrid-container {
+	position: relative;
+    width: 100%;
+    overflow: auto;
+    flex: 1 0;
+    background: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.jsxrc-datagrid-data-container {
 	width: 100%;
 	overflow: auto;
 	flex: 1 0 0%;
